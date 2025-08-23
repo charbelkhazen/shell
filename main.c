@@ -1,8 +1,6 @@
 #include "minishell.h"
 
-#include <stdatomic.h>
-
-//static volatile sig_atomic_t globsig = 0;
+char	globsig = 0;
 
 void    setsig(int sig)
 {
@@ -13,15 +11,6 @@ void    setsig(int sig)
 	rl_redisplay();
 }
 
-/*
-signal(SIGINT, setsig);
-if (globsig == SIGINT)
-{
-	globsig = 0;
-	printf("here!!!!!!!!!!");
-}
-*/
-
 int main(int argc, char *argv[], char **envp)
 {
 	char	*input;
@@ -29,8 +18,9 @@ int main(int argc, char *argv[], char **envp)
 	int	pid;
 	int	status;
 
-	signal(SIGINT, setsig);
-	rl_catch_signals = 0;
+	if (!globsig)
+		signal(SIGINT, setsig);
+	signal(SIGINT, SIG_IGN);
 	status = 0;
 	while (1)
 	{

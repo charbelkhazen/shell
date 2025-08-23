@@ -105,6 +105,9 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
     int	temppid;
     int	ttyfd; //!!! too many vars
 
+    globsig = -1;
+    signal(SIGINT, SIG_DFL);
+    globsig = 0;
     pipe(pipefd);
     temppid = dup(STDOUT_FILENO);
     ttyfd = open("/dev/tty", O_RDWR);
