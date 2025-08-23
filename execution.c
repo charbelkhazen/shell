@@ -107,7 +107,6 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
 
     globsig = -1;
     signal(SIGINT, SIG_DFL);
-    globsig = 0;
     pipe(pipefd);
     temppid = dup(STDOUT_FILENO);
     ttyfd = open("/dev/tty", O_RDWR);
@@ -121,6 +120,7 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
         input = readline("heredoc> ");
     }
     close(ttyfd);
+    globsig = 0;
     dup2(temppid, STDOUT_FILENO);
     free(input); //Do you actually need it?
     close(pipefd[1]);

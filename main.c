@@ -4,8 +4,8 @@ char	globsig = 0;
 
 void    setsig(int sig)
 {
-	(char) sig;
-	rl_on_new_line();
+	globsig = sig;
+	write(1, "\n", 1);
 	rl_on_new_line(); 
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -18,9 +18,10 @@ int main(int argc, char *argv[], char **envp)
 	int	pid;
 	int	status;
 
-	if (!globsig)
+	if (globsig == -1)
+		signal(SIGINT, SIG_IGN);
+	else
 		signal(SIGINT, setsig);
-	signal(SIGINT, SIG_IGN);
 	status = 0;
 	while (1)
 	{
