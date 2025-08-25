@@ -6,15 +6,15 @@ int 	runcmd(char **args, char **env)
 		return (change_directory(args, env));
 	else if (args[0] && ft_strcmp(args[0], "pwd") == 0)
 		return pwd(args);
-	else if (args[0] && ft_strncmp(args[0], "env", 3) == 0)
+	else if (args[0] && ft_strcmp(args[0], "env") == 0)
 		return environment(args, env);
-	else if (args[0] && ft_strncmp(args[0], "echo", 4) == 0)
+	else if (args[0] && ft_strcmp(args[0], "echo") == 0)
 		return echo(args);
-	else if (args[0] && ft_strncmp(args[0], "exit", 4) == 0)
+	else if (args[0] && ft_strcmp(args[0], "exit") == 0)
 		return exit_builtin(args);
-	else if (args[0] && ft_strncmp(args[0], "export", 6) == 0)
+	else if (args[0] && ft_strcmp(args[0], "export") == 0)
 		return export_builtin(args, env);
-	else if (args[0] && ft_strncmp(args[0], "unset", 5) == 0)
+	else if (args[0] && ft_strcmp(args[0], "unset") == 0)
 		return (unset_builtin(args, env));
 
 	return (-1);
@@ -24,11 +24,11 @@ int 	isbuiltin(char *cmd)
 {
 	if (ft_strcmp(cmd, "cd") == 0 ||\
 	 ft_strcmp(cmd, "pwd") == 0 ||\
-	 ft_strncmp(cmd, "env", 3) == 0 ||\
-	 ft_strncmp(cmd, "echo", 4) == 0 ||\
-	 ft_strncmp(cmd, "exit", 4) == 0 ||\
-	 ft_strncmp(cmd, "unset",5) == 0 ||\
-	 ft_strncmp(cmd, "export", 6) == 0)
+	 ft_strcmp(cmd, "env") == 0 ||\
+	 ft_strcmp(cmd, "echo") == 0 ||\
+	 ft_strcmp(cmd, "exit") == 0 ||\
+	 ft_strcmp(cmd, "unset") == 0 ||\
+	 ft_strcmp(cmd, "export") == 0)
 		return (1);
 	else
 		return (0);
