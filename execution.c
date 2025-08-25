@@ -120,7 +120,7 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
         input = readline("heredoc> ");
     }
     close(ttyfd);
-    globsig = 0;
+    globsig = 0; //NOTICE - CLOSURE OF GLOBSIG - ONCE HEREDOC DONE
     dup2(temppid, STDOUT_FILENO);
     free(input); //Do you actually need it?
     close(pipefd[1]);
@@ -162,6 +162,6 @@ void	trav_tree(t_tree *tree, char **envp, int  *status)
 		exec_input_redir((t_redirtree *)tree, envp, status);
 	else if (tree->type == 'h')
 		exec_heredoc((t_redirtree *)tree, envp, status);
-	printf("exiting outside\n"); // pipe - builtin
+	//printf("exiting outside\n"); // pipe - builtin
 	exit(WEXITSTATUS(*status));
 } 

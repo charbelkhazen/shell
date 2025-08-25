@@ -6,8 +6,8 @@ void    setsig(int sig)
 {
 	globsig = sig;
 	write(1, "\n", 1);
-	rl_on_new_line(); 
 	rl_replace_line("", 0);
+	rl_on_new_line(); 
 	rl_redisplay();
 }
 
@@ -18,13 +18,10 @@ int main(int argc, char *argv[], char **envp)
 	int	pid;
 	int	status;
 
-	if (globsig == -1)
-		signal(SIGINT, SIG_IGN);
-	else
-		signal(SIGINT, setsig);
 	status = 0;
 	while (1)
 	{
+		signal(SIGINT, setsig);
 		input = readline("minishell$ ");
 		if (!input)
 		{
@@ -35,10 +32,13 @@ int main(int argc, char *argv[], char **envp)
 		if (isexit(input))
 			applyexit(input);
 		result = parseprogram(&input, WEXITSTATUS(status));
+		signal(SIGINT, SIG_IGN);
 		pid = fork();
 		if (!pid)
 			trav_tree(result, envp, &status);
 		wait(&status);
+		if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
+			write(1, "\n", 2);
 		//clearhistory?
 	}
 }
