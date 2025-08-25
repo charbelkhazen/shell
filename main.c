@@ -18,6 +18,7 @@ int main(int argc, char *argv[], char **envp)
 	int	pid;
 	int	status;
 
+	signal(SIGQUIT, SIG_IGN);
 	status = 0;
 	while (1)
 	{
