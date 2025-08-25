@@ -15,6 +15,8 @@
 #include <errno.h>
 # include <signal.h>
 
+extern int globsig;
+
 typedef struct	s_tree
 {
 	int	type;

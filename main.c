@@ -1,8 +1,10 @@
 #include "minishell.h"
 
+int	globsig = 0;
+
 void    setsig(int sig)
 {
-	(void) sig;
+	globsig = sig;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line(); 
@@ -29,7 +31,7 @@ int main(int argc, char *argv[], char **envp)
 		add_history(input);
 		if (isexit(input))
 			applyexit(input);
-		result = parseprogram(&input, WEXITSTATUS(status));
+		result = parseprogram(&input, status);
 		signal(SIGINT, SIG_IGN);
 		pid = fork();
 		if (!pid)

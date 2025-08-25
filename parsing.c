@@ -4,6 +4,13 @@ t_tree	*parseprogram(char **buf, int status)
 {
 	t_tree	*tree;
 
+	if (globsig == SIGINT)
+	{
+		globsig = 0;
+		status = 128 + SIGINT;
+	}
+	else
+		status = WEXITSTATUS(status);
 	tree = parsepipeline(buf, status);
 	match(*buf, ""); //? JUST SKIP whitespace 
 	if (**buf)
