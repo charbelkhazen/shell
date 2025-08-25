@@ -33,7 +33,10 @@ int main(int argc, char *argv[], char **envp)
 		signal(SIGINT, SIG_IGN);
 		pid = fork();
 		if (!pid)
+		{
+			signal(SIGINT, SIG_DFL);
 			trav_tree(result, envp, &status);
+		}
 		wait(&status);
 		if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
 			write(1, "\n", 2);
