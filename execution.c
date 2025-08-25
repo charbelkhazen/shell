@@ -103,12 +103,15 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
     int pipefd[2];
     pid_t pid;
     int	temppid;
+    int	temppid2;
     int	ttyfd; //!!! too many vars
 
     pipe(pipefd);
     temppid = dup(STDOUT_FILENO);
+    temppid2 = dup(STDIN_FILENO);
     ttyfd = open("/dev/tty", O_RDWR);
     dup2(ttyfd, STDOUT_FILENO);
+    dup2(ttyfd, STDIN_FILENO);
     input = readline("heredoc> ");
     while (!(*input) || (ft_strcmp(input, delim) != 0)) //changed
     {
@@ -119,6 +122,7 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
     }
     close(ttyfd);
     dup2(temppid, STDOUT_FILENO);
+    dup2(temppid2, STDIN_FILENO);
     free(input); //Do you actually need it?
     close(pipefd[1]);
     dup2(pipefd[0], STDIN_FILENO);
