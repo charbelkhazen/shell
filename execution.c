@@ -105,7 +105,6 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
     int	temppid;
     int	ttyfd; //!!! too many vars
 
-    globsig = -1;
     signal(SIGINT, SIG_DFL);
     pipe(pipefd);
     temppid = dup(STDOUT_FILENO);
@@ -120,7 +119,6 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
         input = readline("heredoc> ");
     }
     close(ttyfd);
-    globsig = 0; //NOTICE - CLOSURE OF GLOBSIG - ONCE HEREDOC DONE
     dup2(temppid, STDOUT_FILENO);
     free(input); //Do you actually need it?
     close(pipefd[1]);

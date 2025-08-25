@@ -15,8 +15,6 @@
 #include <errno.h>
 # include <signal.h>
 
-extern char globsig;
-
 typedef struct	s_tree
 {
 	int	type;
@@ -105,5 +103,5 @@ char	*expand_slice(char *start, char *end, int tok, int status);
 char	*skipwhitespace(char *ptr);
 int	isexit(char *s);
 void	applyexit(char *input);
-void	setsig(int globsig);
+void	setsig(int sig);
 #endif
