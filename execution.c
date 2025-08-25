@@ -81,6 +81,7 @@ void	exec_pipe(t_pipetree *tree, char **envp, int *status)
 		trav_tree(tree->left, envp, status);
 		exit(127); //ASAS
 	}
+	waitpid(pid1, status, 0);
 	pid2 = fork();
 	if (pid2 == 0)
 	{
@@ -92,7 +93,6 @@ void	exec_pipe(t_pipetree *tree, char **envp, int *status)
 	}
 	close(pipefd[0]);
 	close(pipefd[1]);
-	waitpid(pid1, status, 0);
 	waitpid(pid2, status, 0);
 }
 
