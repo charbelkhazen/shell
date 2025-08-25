@@ -91,7 +91,6 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 			exit(1);
 		}
 		filename = getstr(startfn, endfn);
-		//printf("correspondin file:%s\n", filename);
 		tree = con_redirtree(tree, redir, filename);
 	}
 	return (tree);

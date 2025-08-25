@@ -30,8 +30,15 @@ int main(int argc, char *argv[], char **envp)
 			return (0);
 		}
 		add_history(input);
+		/*
 		if (isexit(input))
 			applyexit(input);
+		*/
+		if (startbuiltin(input))
+		{
+			applybuiltin(input, envp);
+			continue;
+		}
 		result = parseprogram(&input, status);
 		signal(SIGINT, SIG_IGN);
 		pid = fork();
