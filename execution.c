@@ -107,8 +107,10 @@ void	processinput(char *delim, int *pipefd)
 	input = readline("heredoc> ");
 	while (!(*input) || (ft_strcmp(input, delim) != 0))
 	{
-		
-		write(pipefd[1], input, ft_strlen(input));
+		if (isexpand)
+			writeexpinput(input, pipefd);
+		else
+			write(pipefd[1], input, ft_strlen(input));
 		write(pipefd[1], "\n", 1); 
 		free(input);
 		input = readline("heredoc> ");

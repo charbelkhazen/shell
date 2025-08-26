@@ -109,4 +109,5 @@ void	setsig(int sig);
 int	startbuiltin(char *s);
 int	chariswhitespace(char s);
 char	isquote(char *s);
+void    writeexpinput(char *buf, int *pipefd);
 #endif

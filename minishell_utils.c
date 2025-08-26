@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/26 14:28:21 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:26:54 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,11 @@ void	applybuiltin(char *input, char **envp)
 		return ; //ASAS
 }
 
-char	isquote(char *s)
+char	isquote(char *str)
 {
+	char	*s;
+
+	s = str;
 	if (*s == '"')
 	{
 		s ++;
@@ -121,7 +124,7 @@ char	isquote(char *s)
 		if (*s == '"')
 			return (1);
 	}
-	if (*s = '\'')
+	if (*s == '\'')
 	{
 		s ++;
 		while(*(s + 1) != 0)
@@ -130,5 +133,31 @@ char	isquote(char *s)
 			return (1);
 	}
 	return (0);
+}
+void    writeexpinput(char *buf, int *pipefd)
+{
+        int     tok;
+        char    *sword;
+        char    *eword;
+        char    *word;
+        char    *transword;
+
+        while (*buf)
+        {
+                if (chariswhitespace(*buf) && *buf)
+                        write(pipefd[1], buf ++, 1);
+                else
+                {
+                        sword = buf;
+                        while(!chariswhitespace(*buf) && *buf)
+                                buf++;
+                        eword = buf;
+                        word = getstr(sword, eword);
+                        transword = handleword(word, 0);
+                        write(pipefd[1], transword, ft_strlen(transword));
+                 	free(word);
+                        free(transword);
+                }
+        }
 }
 
