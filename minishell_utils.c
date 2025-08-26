@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/26 12:00:47 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/26 14:28:21 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,3 +110,25 @@ void	applybuiltin(char *input, char **envp)
 	else
 		return ; //ASAS
 }
+
+char	isquote(char *s)
+{
+	if (*s == '"')
+	{
+		s ++;
+		while(*s && *(s + 1))
+			s ++;
+		if (*s == '"')
+			return (1);
+	}
+	if (*s = '\'')
+	{
+		s ++;
+		while(*(s + 1) != 0)
+			s ++;
+		if (*s == '\'')
+			return (1);
+	}
+	return (0);
+}
+

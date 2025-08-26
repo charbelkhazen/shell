@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "minishell.h"
-int main()
+
+
+void	writeexpinput(char *buf)
 {
 	int	tok;
 	char	*sword;
@@ -9,15 +11,10 @@ int main()
 	char	*word;
 	char	*transword;
 
-	char input[50] = "     hello$USER     !";
-	char *buf = input;
 	while (*buf)
 	{
 		if (chariswhitespace(*buf) && *buf)
-		{
-			write(1, buf, 1);	
-			buf ++;
-		}
+			write(1, buf ++, 1);	
 		else
 		{
 			sword = buf;
@@ -26,9 +23,14 @@ int main()
 			eword = buf;
 			word = getstr(sword, eword);
 			transword = handleword(word, 0);
-			write(1, word, ft_strlen(word)); 
+			write(1, transword, ft_strlen(transword)); 
 			free(word);
 			free(transword);
 		}
 	}
+}
+
+int main()
+{
+	writeexpinput("   hello $USER-- how are you $?");
 }

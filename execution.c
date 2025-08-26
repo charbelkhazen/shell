@@ -98,10 +98,16 @@ void	exec_pipe(t_pipetree *tree, char **envp, int *status)
 void	processinput(char *delim, int *pipefd)
 {
 	char	*input;
+	char	isexpand;
 
+	if (isquote(delim))
+		isexpand = 0;
+	else
+		isexpand = 1;
 	input = readline("heredoc> ");
 	while (!(*input) || (ft_strcmp(input, delim) != 0))
 	{
+		
 		write(pipefd[1], input, ft_strlen(input));
 		write(pipefd[1], "\n", 1); 
 		free(input);
