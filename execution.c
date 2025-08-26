@@ -124,7 +124,6 @@ void	writepipe(char *input, char *delim, int *pipefd)
     close(pipefd[0]);
 }
 
-
 void    exec_heredoc(t_redirtree *tree, char **env, int *status)
 {
     char *delim;

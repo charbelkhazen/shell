@@ -48,8 +48,6 @@ t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status)
 		tok = consume(buf, &sarg, &earg);
 		if (!tok)
 			break;
-		if (tok == 'e')
-			printf("EXITCODE:%d\n", WEXITSTATUS(status));
 		word = handleword(getstr(sarg, earg), status);
 		if (*word)
 		{
