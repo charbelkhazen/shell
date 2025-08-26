@@ -10,5 +10,5 @@ uu:
 g:
 	cc applyexp.c builtins.c main.c parsing.c match_advance.c constructors.c execution.c finding_path.c ft_split.c minishell_utils.c handlecmd.c -lreadline libft.a -g
 del:
-	cc del.c handlecmd.c match_advance.c applyexp.c libft.a -g
+	cc del.c builtins.c handlecmd.c match_advance.c applyexp.c  minishell_utils.c libft.a -g
 

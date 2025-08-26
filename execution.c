@@ -95,6 +95,18 @@ void	exec_pipe(t_pipetree *tree, char **envp, int *status)
 	close(pipefd[1]);
 	waitpid(pid2, status, 0);
 }
+void	processinput(char *input, char *delim, int *pipefd)
+{
+	printf("inside: %d\n", pipefd[1]);
+	input = readline("heredoc> ");
+	while (!(*input) || (ft_strcmp(input, delim) != 0))
+	{
+		write(pipefd[1], input, ft_strlen(input));
+		write(pipefd[1], "\n", 1); 
+		free(input);
+		input = readline("heredoc> ");
+	}
+}
 
 void	writepipe(char *input, char *delim, int *pipefd)
 {
@@ -102,11 +114,14 @@ void	writepipe(char *input, char *delim, int *pipefd)
     int temppidin;
     int ttyfd;
 
+    printf("outside: %d\n", pipefd[1]);
     temppidout = dup(STDOUT_FILENO);
     temppidin = dup(STDIN_FILENO);    
     ttyfd = open("/dev/tty", O_RDWR);
     dup2(ttyfd, STDOUT_FILENO);
     dup2(ttyfd, STDIN_FILENO);
+    processinput(input, delim, pipefd);
+    /*
     input = readline("heredoc> ");
     while (!(*input) || (ft_strcmp(input, delim) != 0))
     {
@@ -115,6 +130,7 @@ void	writepipe(char *input, char *delim, int *pipefd)
         free(input);
         input = readline("heredoc> ");
     }   
+    */
     close(ttyfd);
     dup2(temppidin, STDIN_FILENO);
     dup2(temppidout, STDOUT_FILENO);

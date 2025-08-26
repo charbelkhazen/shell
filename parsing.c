@@ -15,7 +15,7 @@ t_tree	*parseprogram(char **buf, int status)
 	match(*buf, ""); //? JUST SKIP whitespace 
 	if (**buf)
 	{
-		printf("ERROR00"); // HANDLE CORRECTLY
+		printf("Invalid Command"); // HANDLE CORRECTLY
 		exit(127); //ASAS
 	}
 	return (tree);

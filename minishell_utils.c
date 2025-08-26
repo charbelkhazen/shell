@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/25 19:20:56 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/26 12:00:47 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int	ft_iswhitespace(char *s)
 		return (1);
 	else
 		return (0);
+}
+
+int	chariswhitespace(char s)
+{
+	return (s == 32 || (s >= 9 && s <= 13));
 }
 
 int	isexit(char *s)

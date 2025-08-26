@@ -7,19 +7,28 @@ int main()
 	char	*sword;
 	char	*eword;
 	char	*word;
+	char	*transword;
 
-	char input[20] = "hello $USER !";
+	char input[50] = "     hello$USER     !";
 	char *buf = input;
-	tok = 1;
-	while (!tok)
+	while (*buf)
 	{
-		tok = consume(&buf, &sword, &eword);
-		word = handleword(getstr(sword, eword), 0);
-		while (*word)
+		if (chariswhitespace(*buf) && *buf)
 		{
-			write(1, word, 1);
-			word ++;
+			write(1, buf, 1);	
+			buf ++;
+		}
+		else
+		{
+			sword = buf;
+			while(!chariswhitespace(*buf) && *buf)
+				buf++;
+			eword = buf;
+			word = getstr(sword, eword);
+			transword = handleword(word, 0);
+			write(1, word, ft_strlen(word)); 
+			free(word);
+			free(transword);
 		}
 	}
 }
-

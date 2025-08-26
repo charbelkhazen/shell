@@ -107,4 +107,5 @@ int	isexit(char *s);
 void	applybuiltin(char *input, char **envp);
 void	setsig(int sig);
 int	startbuiltin(char *s);
+int	chariswhitespace(char s);
 #endif
