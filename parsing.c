@@ -16,7 +16,7 @@ t_tree	*parseprogram(char **buf, int status)
 	if (**buf)
 	{
 		printf("ERROR00"); // HANDLE CORRECTLY
-		exit(1);
+		exit(127); //ASAS
 	}
 	return (tree);
 }
@@ -75,7 +75,7 @@ t_tree	*parsecmd(char **buf, int status)
 
 t_tree	*parseredir(char **buf, t_tree *tree, int status)
 {
-	int	redir;
+	int		redir;
 	char	*startfn;
 	char	*endfn;
 	char	*filename;
@@ -85,8 +85,8 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 		redir = consume(buf, NULL, NULL);
 		if (consume(buf, &startfn, &endfn) != 'w')
 		{
-			printf("ERROR"); //FIX
-			exit(1);
+			printf("Syntax error near unexpected token 'newline'\n"); //FIX
+			exit(2); //ASAS
 		}
 		filename = getstr(startfn, endfn);
 		tree = con_redirtree(tree, redir, filename);
