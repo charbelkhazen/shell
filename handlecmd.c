@@ -78,7 +78,7 @@ char *handleword(char *buf, int status)
         out = join_free(out, exp);
         tok = travword(&buf, &start, &end);
     }
-    return out;
+    return (out);
 }
 
 /*
