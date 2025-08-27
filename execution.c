@@ -99,13 +99,18 @@ void	processinput(char *delim, int *pipefd)
 {
 	char	*input;
 	char	isexpand;
+	char	*cmpdelim;
 
 	if (isquote(delim))
 		isexpand = 0;
 	else
 		isexpand = 1;
 	input = readline("heredoc> ");
-	while (!(*input) || (ft_strcmp(input, delim) != 0))
+	if (removequotes(delim))
+		cmpdelim = removequotes(delim);   //MALLOC? NEED TO FREE?????????
+	else
+		cmpdelim = delim;
+	while (!(*input) || (ft_strcmp(input, cmpdelim) != 0))
 	{
 		if (isexpand)
 			writeexpinput(input, pipefd);
@@ -115,6 +120,8 @@ void	processinput(char *delim, int *pipefd)
 		free(input);
 		input = readline("heredoc> ");
 	}
+	if (removequotes(delim))
+		free(cmpdelim);
 	free(input);
 }
 

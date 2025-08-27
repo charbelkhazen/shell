@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/26 17:26:54 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:16:53 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,3 +161,30 @@ void    writeexpinput(char *buf, int *pipefd)
         }
 }
 
+char	*removequotes(char *str)
+{
+	char	*s;
+
+	s = str;
+	if (*s == '"')
+	{
+		s ++;
+		if (*s == '"')
+			return (ft_strdup(""));
+		while (*s && (*s != '"'))
+			s ++; 
+		if (*s == '"')
+			return (getstr(str + 1, s));
+	}
+	else if (*s == '\'')
+	{
+		s ++;
+		if (*s == '\'')
+			return (ft_strdup(""));
+		while (*s && (*s != '\''))
+			s ++; 
+		if (*s == '\'')
+			return (getstr(str + 1, s));
+	}
+	return (0);
+}
