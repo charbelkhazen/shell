@@ -63,6 +63,7 @@ int	consume(char **curr, char **tok, char **endtok)
 		else
 			token = '<';
 	}
+	/*
         else if ((**curr) == '\'')
         {
                 token = 'w';
@@ -106,6 +107,7 @@ int	consume(char **curr, char **tok, char **endtok)
                 return (token);
 
         }
+	*/
 	else
 	{
 		token = 'w';

@@ -83,7 +83,13 @@ t_modifiable	*expandbuff(char *cmd, int status)
 		mod = modify(mod, status);
 		mod -> exp = ft_strchr((mod -> start) + (mod -> steps), '$');
 		if (mod -> exp)
+		{
 			mod -> endexp = tononalnum((mod -> exp) + 1);
+			//if ? not handled
+			if (*(mod -> endexp) == '?')
+				(mod -> endexp) ++;
+		}
+
 	}
 	return (mod);
 }
