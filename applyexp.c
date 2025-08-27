@@ -13,10 +13,6 @@ t_modifiable	*con_modifiable(char *cmd, char *exp)
 		(mod -> endexp) = (mod -> exp) + 2;
 	else
 		mod -> endexp = tononalnum(exp + 1);
-	/*
-	if (*(mod -> endexp) == '?')
-		(mod -> endexp) ++;
-	*/
 	return (mod);
 }
 
@@ -93,11 +89,6 @@ t_modifiable	*expandbuff(char *cmd, int status)
 				(mod -> endexp) = (mod -> exp) + 2;
 			else
 				mod -> endexp = tononalnum((mod -> exp) + 1);
-			/*
-			mod -> endexp = tononalnum((mod -> exp) + 1);
-			if (*(mod -> endexp) == '?')
-				(mod -> endexp) ++;
-			*/
 		}
 
 	}
