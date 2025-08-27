@@ -9,9 +9,14 @@ t_modifiable	*con_modifiable(char *cmd, char *exp)
 		return (NULL);
 	mod -> start = cmd;
 	mod -> exp = exp;
-	mod -> endexp = tononalnum(exp + 1);
+	if (*((mod -> exp) + 1) == '?')
+		(mod -> endexp) = (mod -> exp) + 2;
+	else
+		mod -> endexp = tononalnum(exp + 1);
+	/*
 	if (*(mod -> endexp) == '?')
 		(mod -> endexp) ++;
+	*/
 	return (mod);
 }
 
