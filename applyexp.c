@@ -11,6 +11,8 @@ t_modifiable	*con_modifiable(char *cmd, char *exp)
 	mod -> exp = exp;
 	if (*((mod -> exp) + 1) == '?')
 		(mod -> endexp) = (mod -> exp) + 2;
+	else if (ft_isdigit(*((mod -> exp) + 1)))
+		(mod -> endexp) = (mod -> exp) + 2;
 	else
 		mod -> endexp = tononalnum(exp + 1);
 	return (mod);
@@ -54,6 +56,8 @@ t_modifiable	*modify(t_modifiable *mod, int status)
 		rep = "$";
 	else if (*exp == '?')
 		rep = ft_itoa(status);
+	else if (ft_isdigit(*exp))
+		rep = "";
 	else
 		rep = getenv(exp);
 	if (!rep)
@@ -89,6 +93,8 @@ t_modifiable	*expandbuff(char *cmd, int status)
 		if (mod -> exp)
 		{
 			if (*((mod -> exp) + 1) == '?')
+				(mod -> endexp) = (mod -> exp) + 2;
+			else if (ft_isdigit(*((mod -> exp) + 1)))
 				(mod -> endexp) = (mod -> exp) + 2;
 			else
 				mod -> endexp = tononalnum((mod -> exp) + 1);
