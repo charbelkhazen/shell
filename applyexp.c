@@ -89,10 +89,15 @@ t_modifiable	*expandbuff(char *cmd, int status)
 		mod -> exp = ft_strchr((mod -> start) + (mod -> steps), '$');
 		if (mod -> exp)
 		{
+			if (*((mod -> exp) + 1) == '?')
+				(mod -> endexp) = (mod -> exp) + 2;
+			else
+				mod -> endexp = tononalnum((mod -> exp) + 1);
+			/*
 			mod -> endexp = tononalnum((mod -> exp) + 1);
-			//if ? not handled
 			if (*(mod -> endexp) == '?')
 				(mod -> endexp) ++;
+			*/
 		}
 
 	}
