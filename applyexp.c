@@ -23,10 +23,13 @@ void	mergeremain(char *merge, t_modifiable *mod, int errflag)
 	if (*(mod -> endexp))
 	{
 		temp = merge;
+		/*
 		if (errflag)
 			merge = ft_strjoin(merge, (mod -> endexp) + 1);
 		else
 			merge = ft_strjoin(merge, mod -> endexp);
+		*/
+		merge = ft_strjoin(merge, mod -> endexp);
 		free(temp);
 	}
 	temp = mod -> start;
@@ -40,7 +43,7 @@ t_modifiable	*modify(t_modifiable *mod, int status)
 	char	*exp;
 	char	*rep;
 	char	*merge;
-	int	errflag;
+	int	errflag;   // CAN BE REMOVED NOT USED - KEPT ASAS
 
 	errflag = 0;
 	pre = getstr(mod -> start, mod -> exp);
