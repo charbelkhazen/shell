@@ -69,7 +69,7 @@ t_tree  		*con_redirtree(t_tree *cmd, int type, char *fn);
 t_tree  		*con_pipetree(t_tree *left, t_tree *right);
 t_tree  		*con_cmdtree(void);
 char			*towhitespace(char *ptr);
-void    		mergeremain(char *merge, t_modifiable *mod, int errflag);
+void    		mergeremain(char *merge, t_modifiable *mod);
 t_modifiable    *con_modifiable(char *cmd, char *exp);
 t_modifiable    *modify(t_modifiable *mod, int status);
 t_modifiable    *expandbuff(char *cmd, int status);

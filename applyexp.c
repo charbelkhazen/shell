@@ -18,19 +18,13 @@ t_modifiable	*con_modifiable(char *cmd, char *exp)
 	return (mod);
 }
 
-void	mergeremain(char *merge, t_modifiable *mod, int errflag)
+void	mergeremain(char *merge, t_modifiable *mod)
 {
 	char	*temp;
 
 	if (*(mod -> endexp))
 	{
 		temp = merge;
-		/*
-		if (errflag)
-			merge = ft_strjoin(merge, (mod -> endexp) + 1);
-		else
-			merge = ft_strjoin(merge, mod -> endexp);
-		*/
 		merge = ft_strjoin(merge, mod -> endexp);
 		free(temp);
 	}
@@ -39,19 +33,8 @@ void	mergeremain(char *merge, t_modifiable *mod, int errflag)
 	free(temp);
 }
 
-t_modifiable	*modify(t_modifiable *mod, int status)
+char	*utilmodify(char *exp, char *rep, int status)
 {
-	char	*pre;
-	char	*exp;
-	char	*rep;
-	char	*merge;
-	int	errflag;   // CAN BE REMOVED NOT USED - KEPT ASAS
-
-	errflag = 0;
-	pre = getstr(mod -> start, mod -> exp);
-	if (!pre)
-		pre = "";
-	exp = getstr((mod -> exp) + 1, mod -> endexp);
 	if (!exp)
 		rep = "$";
 	else if (*exp == '?')
@@ -60,11 +43,23 @@ t_modifiable	*modify(t_modifiable *mod, int status)
 		rep = "";
 	else
 		rep = getenv(exp);
+	return (rep);
+}
+
+t_modifiable	*modify(t_modifiable *mod, int status)
+{
+	char	*pre;
+	char	*exp;
+	char	*rep;
+	char	*merge;
+
+	pre = getstr(mod -> start, mod -> exp);
+	if (!pre)
+		pre = "";
+	exp = getstr((mod -> exp) + 1, mod -> endexp);
+	rep = utilmodify(exp, rep, status);
 	if (!rep)
-	{
 		rep = "";
-		errflag = 1;
-	}
 	merge = ft_strjoin(pre, rep);
 	if (pre && *pre)
 		free(pre);
@@ -73,7 +68,7 @@ t_modifiable	*modify(t_modifiable *mod, int status)
 	if (exp)
 		free(exp);
 	mod -> steps = ft_strlen(merge);
-	mergeremain(merge, mod, errflag);
+	mergeremain(merge, mod);
 	return (mod);
 }
 
