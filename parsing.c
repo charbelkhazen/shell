@@ -49,7 +49,7 @@ t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status)
 		if (!tok)
 			break;
 		word = handleword(getstr(sarg, earg), status);
-		if (*word)
+		if (word && *word)
 		{
 			//printf("word is:|%s|\n", word);
 			cmdtree -> cmd[i] = word;
@@ -79,7 +79,9 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 	char	*startfn;
 	char	*endfn;
 	char	*filename;
-
+	t_tree **tail = &tree;
+	while ((*tail)->type == '<' || (*tail)->type == '>')
+		tail = &((t_redirtree*)*tail)->cmd;
 	while (match(*buf, "><"))
 	{
 		redir = consume(buf, NULL, NULL);
@@ -89,7 +91,9 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 			exit(2); //ASAS
 		}
 		filename = getstr(startfn, endfn);
-		tree = con_redirtree(tree, redir, filename);
+		//tree = con_redirtree(tree, redir, filename);
+		*tail = con_redirtree(*tail, redir, filename);
+		tail = &((t_redirtree *)*tail)-> cmd;
 	}
 	return (tree);
 }

@@ -63,51 +63,6 @@ int	consume(char **curr, char **tok, char **endtok)
 		else
 			token = '<';
 	}
-	/*
-        else if ((**curr) == '\'')
-        {
-                token = 'w';
-                (*curr) ++;
-                if (tok)
-                        *tok = *curr; //skip '
-                while ((**curr) != '\'') // add also other types of white spaces
-                {
-                        if (!(**curr))
-                        {
-                                printf("ERROR");
-                                exit(1);
-                        }
-                        (*curr) ++;
-                }
-                if (endtok) //set end as " ,getstr will not take it; then move
-                        *endtok = *curr;
-                (*curr) ++;
-                *curr = skipwhitespace(*curr);
-                return (token);
-        }
-        else if ((**curr) == '"')
-        {
-                token = 'w';
-                (*curr) ++;
-                if (tok)
-                        *tok = *curr; //skip '
-                while ((**curr) != '"') // add also other types of white spaces
-                {
-                        if (!(**curr))
-                        {
-                                printf("ERROR");
-                                exit(1);
-                        }
-                        (*curr) ++;
-                }
-                if (endtok) //set end as " ,getstr will not take it; then move
-                        *endtok = *curr;
-                (*curr) ++;
-                *curr = skipwhitespace(*curr);
-                return (token);
-
-        }
-	*/
 	else
 	{
 		token = 'w';
