@@ -80,7 +80,7 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 	char	*endfn;
 	char	*filename;
 	t_tree **tail = &tree;
-	while ((*tail)->type == '<' || (*tail)->type == '>')
+	while ((*tail)->type == '<' || (*tail)->type == '>'|| (*tail)->type == 'h'|| (*tail)->type == 'a')
 		tail = &((t_redirtree*)*tail)->cmd;
 	while (match(*buf, "><"))
 	{
