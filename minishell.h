@@ -87,7 +87,7 @@ int			exit_builtin(char **args);
 int			echo(char **args);
 int				only_n_flags(char *input);
 int			environment(char **args, char **env);
-int			pwd(char **args);
+int			pwd(char **args, char **envp);
 int			change_directory(char **args, char **env);
 void			freetree(t_tree *tree);
 void			printtree(t_tree *tree);

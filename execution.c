@@ -5,7 +5,7 @@ int 	runcmd(char **args, char **env)
 	if (args[0] && ft_strcmp(args[0], "cd") == 0)
 		return (change_directory(args, env));
 	else if (args[0] && ft_strcmp(args[0], "pwd") == 0)
-		return pwd(args);
+		return pwd(args, env);
 	else if (args[0] && ft_strcmp(args[0], "env") == 0)
 		return environment(args, env);
 	else if (args[0] && ft_strcmp(args[0], "echo") == 0)

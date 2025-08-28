@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:11:41 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/20 19:48:06 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:07:19 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,48 @@ static char *get_home(char **env)
     return NULL;
 }
 
+void	update_pwd(char **my_env)
+{
+	char path[1024];
+	int i = 0;
+
+	if (getcwd(path, sizeof(path)) == NULL)
+		return ;
+	while (my_env[i])
+	{
+		if (ft_strncmp(my_env[i], "PWD=", 4) == 0)
+		{
+			my_env[i] = ft_strjoin("PWD=", path);
+			return ;
+		}
+		i++;
+	}
+}
+
+void	old_pwd(char **my_env)
+{
+	char path[1024];
+	int i = 0;
+
+	if (getcwd(path, sizeof(path)) == NULL)
+		return ;
+	while (my_env[i])
+	{
+		if (ft_strncmp(my_env[i], "OLDPWD=", 7) == 0)
+		{
+			my_env[i] = ft_strjoin("OLDPWD=", path);
+			return ;
+		}
+		i++;
+	}
+}
+
 int change_directory(char **args, char **env)
 {
     char path[1024];
     char *target = NULL;
 
+	old_pwd(env);
     if (!args[1] || strcmp(args[1], "~") == 0)
     {
         target = get_home(env);
@@ -77,30 +114,35 @@ int change_directory(char **args, char **env)
         target = path;
     }
     else
-    {
         target = args[1];
-    }
     if (chdir(target) == -1)
     {
         perror("cd");
         return (1);
     }
-    if (getcwd(path, sizeof(path)))
-        printf("Current dir: %s\n", path);
+	update_pwd(env);
     return (0);
 }
 
-int	pwd(char **args)
+int	pwd(char **args, char **envp)
 {
 	char path[1024];
 	int i = 0;
 	if (getcwd(path, sizeof(path)) == NULL)
 	{
 		perror("getcwd failed");
-		exit(127);
+		return (127);
 	}
 	else
-    		printf("Current dir: %s\n", path);
+	{
+		while (envp[i])
+		{
+			if(strcmp(envp[i], "PWD"))
+				envp[i] = ft_strdup(path);
+			i++;
+		}
+    	printf("Current dir: %s\n", path);
+	}
 	return (0);
 }
 
@@ -188,6 +230,16 @@ int	exit_builtin(char **args)
 
 }
 
+void	handle_exportcmd(char **envp)
+{
+	int i = 0;
+	while(envp[i])
+	{
+		printf("declare -x %s\n", envp[i]);
+		i++;
+	}
+}
+
 int export_builtin(char **args, char **envp)
 {
 	char *var_value;
@@ -198,7 +250,10 @@ int export_builtin(char **args, char **envp)
 	int found;
 
 	if (!args[1] || !ft_strchr(args[1], '=')) //HANDLE THE CASE !ARGS[1]
+	{
+		handle_exportcmd(envp);
 		return (1);
+	}
 
 	var_value = ft_strchr(args[1], '=');
 	var_name = ft_substr(args[1], 0, ft_strlen(args[1]) - ft_strlen(var_value));
