@@ -46,8 +46,6 @@ void	exec_command_node(t_cmdtree *cmd, char **env, int *status)
 	{
 		exitruncmd = runcmd(cmd->cmd, env);
 		exit(exitruncmd);
-		//CHANGE STATUS IF FAIL: 0 to return of runcmd
-		//return ;
 	}
 	if ((cmd->cmd)[0][0] == '/' || (cmd->cmd)[0][0] == '.')
 		full_path = cmd->cmd[0];
@@ -95,16 +93,25 @@ void	exec_pipe(t_pipetree *tree, char **envp, int *status)
 	close(pipefd[1]);
 	waitpid(pid2, status, 0);
 }
+
+char	utilprocessinput(char *delim)
+{
+	char	isexpand;
+
+	if (isquote(delim))
+		isexpand = 0;
+	else
+		isexpand = 1;
+	return (isexpand);
+}
+
 void	processinput(char *delim, int *pipefd)
 {
 	char	*input;
 	char	isexpand;
 	char	*cmpdelim;
 
-	if (isquote(delim))
-		isexpand = 0;
-	else
-		isexpand = 1;
+	isexpand = utilprocessinput(delim);
 	input = readline("heredoc> ");
 	if (removequotes(delim))
 		cmpdelim = removequotes(delim);   //MALLOC? NEED TO FREE?????????

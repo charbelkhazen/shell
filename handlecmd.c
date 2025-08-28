@@ -1,5 +1,31 @@
 #include "minishell.h"
 
+
+int	utiltravword1(int token, char **cur, char **start, char **end)
+{
+	token = '"';
+	(*cur) ++;
+	*start = *cur;
+	while ((**cur) != '"' && (**cur))
+		(*cur)++;
+	*end = *cur;
+	(*cur) ++;
+	return (token);
+}
+
+int	utiltravword2(int token, char **cur, char **start, char **end)
+{
+	token = '\'';
+	(*cur) ++;
+	*start = *cur;
+	while ((**cur) != '\'' && (**cur))
+		(*cur)++;
+	*end = *cur;
+	(*cur) ++;
+	return (token);
+}
+
+
 int	travword(char **cur, char **start, char **end) //start and end can never be null here
 {
 	int	token;
@@ -7,27 +33,9 @@ int	travword(char **cur, char **start, char **end) //start and end can never be 
 	if (**cur == 0)
 		token = 0;
 	else if ((**cur) == '"')
-	{
-		token = '"';
-		(*cur) ++;
-		*start = *cur;
-		while ((**cur) != '"' && (**cur))
-			(*cur)++;
-		*end = *cur;
-		(*cur) ++;
-		return (token);
-	}
+		return (utiltravword1(token, cur, start, end));
 	else if ((**cur) == '\'')
-	{
-		token = '\'';
-		(*cur) ++;
-		*start = *cur;
-		while ((**cur) != '\'' && (**cur))
-			(*cur)++;
-		*end = *cur;
-		(*cur) ++;
-		return (token);
-	}
+		return (utiltravword2(token, cur, start, end));
 	else
 	{
 		*start = *cur;
