@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/27 16:16:53 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/29 17:22:36 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,19 @@ int	startbuiltin(char *s)
 		return (0);
 }
 
+void    free_args(char **args)
+{
+	int i = 0;
+
+	if (!args)
+		return;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
+}
 void	applybuiltin(char *input, char **envp)
 {
 	char	**args;
@@ -107,8 +120,7 @@ void	applybuiltin(char *input, char **envp)
 		export_builtin(args, envp);
 	else if (isunset(input))
 		unset_builtin(args, envp);
-	else
-		return ; //ASAS
+	free_args(args);
 }
 
 char	isquote(char *str)
