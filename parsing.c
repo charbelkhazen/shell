@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chkhazen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/29 10:21:28 by chkhazen          #+#    #+#             */
+/*   Updated: 2025/08/29 12:50:51 by chkhazen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_tree	*parseprogram(char **buf, int status)
@@ -34,6 +46,17 @@ t_tree *parsepipeline(char **buf, int status)
 	return (tree);
 }
 
+char	*utilcmdandredir(char *sarg, char *earg, int status)
+{
+	char	*word;
+	char	*updword;
+
+	word = getstr(sarg, earg);
+	updword = handleword(word, status);
+	free(word);
+	return (updword);
+}
+
 t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status)
 {
 	int	i;
@@ -48,10 +71,11 @@ t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status)
 		tok = consume(buf, &sarg, &earg);
 		if (!tok)
 			break;
-		word = handleword(getstr(sarg, earg), status);
-		if (word && *word)
+		word = utilcmdandredir(sarg, earg, status);
+		if (!(*word))
+			free(word);
+		else if (word && *word)
 		{
-			//printf("word is:|%s|\n", word);
 			cmdtree -> cmd[i] = word;
 			i++;
 		}
@@ -159,10 +183,13 @@ void	freetree(t_tree *tree)
 	}
 }
 
-// int main()
-// {
-// 	//char *buf = "echo $HOME bbye";
-// 	char *buf = "echo\"fewrfe$HOME\" bbye | echo < file sdsd < file1 ok ok ok | $ASASSA bye$ $HOME";
-// 	t_tree *result = parseprogram(&buf);
-// 	freetree(result);
-// }
+/*
+int globsig =0;
+int main()
+{
+	//char *buf = "echo\"fewrfe$HOME\" bbye | echo < file sdsd < file1 ok ok ok | $ASASSA bye$ $HOME";
+	char *buf = "$hihihi | ls | 'echo $?' | $hhhh $home $HOME $$$";
+	t_tree *result = parseprogram(&buf, 0);
+	freetree(result);
+}
+*/

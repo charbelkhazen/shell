@@ -97,5 +97,6 @@ int main(int argc, char *argv[], char **envp)
 		if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
 			write(1, "\n", 2);
 		//clearhistory?
+		freetree(result);
 	}
 }

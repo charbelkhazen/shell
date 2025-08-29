@@ -83,25 +83,25 @@ char *handleword(char *buf, int status)
     while (tok)
     {
         exp = expand_slice(start, end, tok, status);   
+	//printf("exp: |%s|, out: |%s|\n", exp, out);
         out = join_free(out, exp);
         tok = travword(&buf, &start, &end);
     }
     return (out);
 }
-
 /*
 int main()
 {
 	int	tok;
 	char *start; 
 	char *end;
-	char *buf = "wewe$HOME";
 	char *updated;
-	char *word;
 
-	word =  handleword(buf, 12);
-	printf("%s\n", word);
-	if (word)
-		free(word);
+	char *word = ft_strdup("$hihihi");
+	updated =  handleword(word, 12);
+	free(word);
+	printf("%s\n", updated);
+	if (updated)
+		free(updated);
 }
 */
