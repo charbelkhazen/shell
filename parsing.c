@@ -6,7 +6,7 @@
 /*   By: chkhazen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:21:28 by chkhazen          #+#    #+#             */
-/*   Updated: 2025/08/29 12:50:51 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:32:02 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 		if (consume(buf, &startfn, &endfn) != 'w')
 		{
 			printf("Syntax error near unexpected token 'newline'\n"); //FIX
-			exit(2); //ASAS
+			exit(2); //activated in echo $< -> not ASAS
 		}
 		filename = getstr(startfn, endfn);
 		//tree = con_redirtree(tree, redir, filename);
