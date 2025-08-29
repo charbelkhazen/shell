@@ -92,6 +92,8 @@ int main(int argc, char *argv[], char **envp)
 		pid = fork();
 		if (!pid)
 		{
+			if (!result)
+				exit(127);
 			signal(SIGINT, SIG_DFL);
 			trav_tree(result, envp, &status);
 		}
@@ -99,7 +101,8 @@ int main(int argc, char *argv[], char **envp)
 		if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
 			write(1, "\n", 2);
 		//clearhistory?
-		freetree(result);
+		if (result)
+			freetree(result);
 		free(tempinput);
 	}
 }

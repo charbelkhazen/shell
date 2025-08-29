@@ -6,7 +6,7 @@
 /*   By: chkhazen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:21:28 by chkhazen          #+#    #+#             */
-/*   Updated: 2025/08/29 14:32:02 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:15:00 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ t_tree	*parseprogram(char **buf, int status)
 	else
 		status = WEXITSTATUS(status);
 	tree = parsepipeline(buf, status);
+	if (!tree)
+		return (0);
 	match(*buf, ""); //? JUST SKIP whitespace 
 	if (**buf)
 	{
 		printf("Invalid Command"); // HANDLE CORRECTLY
-		exit(127); //ASAS
+		return (NULL);
+		//exit(127); //ASAS
 	}
 	return (tree);
 }
@@ -38,6 +41,8 @@ t_tree *parsepipeline(char **buf, int status)
 	t_tree	*tree;
 
 	tree = parsecmd(buf, status);
+	if (!tree)
+		return (0); //added 
 	if (match(*buf, "|"))
 	{
 		consume(buf, NULL, NULL);
@@ -80,6 +85,8 @@ t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status)
 			i++;
 		}
 		tree = parseredir(buf, tree, status);
+		if (!tree)
+			return (0);
 	}
 	cmdtree -> cmd[i] = NULL;
 	return (tree);
@@ -93,6 +100,8 @@ t_tree	*parsecmd(char **buf, int status)
 	tree = con_cmdtree();
 	cmdtree = (t_cmdtree *)tree;
 	tree = parseredir(buf, tree, status);
+	if (!tree)
+		return (0); //added
 	tree = cmdandredir(tree, cmdtree, buf, status);
 	return (tree);
 }
@@ -112,7 +121,8 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 		if (consume(buf, &startfn, &endfn) != 'w')
 		{
 			printf("Syntax error near unexpected token 'newline'\n"); //FIX
-			exit(2); //activated in echo $< -> not ASAS
+			return (NULL);
+			//exit(2); //activated in echo $< -> not ASAS
 		}
 		filename = getstr(startfn, endfn);
 		//tree = con_redirtree(tree, redir, filename);
