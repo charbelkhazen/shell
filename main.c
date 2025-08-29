@@ -65,6 +65,7 @@ int main(int argc, char *argv[], char **envp)
 	t_tree	*result;
 	int	pid;
 	int	status;
+	char	*tempinput;
 
 	signal(SIGQUIT, SIG_IGN);
 	status = 0;
@@ -73,6 +74,7 @@ int main(int argc, char *argv[], char **envp)
 	{
 		signal(SIGINT, setsig);
 		input = readline("minishell$ ");
+		tempinput = input;
 		if (!input)
 		{
 			write(1, "exit\n", 5);
@@ -98,5 +100,6 @@ int main(int argc, char *argv[], char **envp)
 			write(1, "\n", 2);
 		//clearhistory?
 		freetree(result);
+		free(tempinput);
 	}
 }
