@@ -84,7 +84,7 @@ int main(int argc, char *argv[], char **envp)
 		add_history(input);
 		if (startbuiltin(input))
 		{
-			applybuiltin(input, envp);
+			status = applybuiltin(input, envp); //??
 			continue;
 		}
 		result = parseprogram(&input, status);

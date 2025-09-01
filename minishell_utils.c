@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/29 17:22:36 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/08/29 18:25:10 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,20 +107,22 @@ void    free_args(char **args)
 	}
 	free(args);
 }
-void	applybuiltin(char *input, char **envp)
+int	applybuiltin(char *input, char **envp)
 {
 	char	**args;
+	int	status;
 
 	args = ft_split(input, ' '); //TO BE FREEEDDDDD
 	if (isexit(input)) 
-		exit_builtin(args);
+		status= (exit_builtin(args));
 	else if (iscd(input))
-		change_directory(args, envp);
+		status= (change_directory(args, envp));
 	else if (isexport(input))
-		export_builtin(args, envp);
+		status= (export_builtin(args, envp));
 	else if (isunset(input))
-		unset_builtin(args, envp);
+		status= (unset_builtin(args, envp));
 	free_args(args);
+	return (status);
 }
 
 char	isquote(char *str)

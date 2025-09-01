@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:11:41 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/28 17:07:19 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/01 09:40:37 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ int	exit_builtin(char **args)
 	}
 	if (args[2])
 	{
-		printf("minishell: exit: too many arguments");
+		printf("minishell: exit: too many arguments\n");
 		return (1);
 	}
 	status = ft_atoll(args[1]);

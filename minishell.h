@@ -104,7 +104,7 @@ char *join_free(char *a, char *b);
 char	*expand_slice(char *start, char *end, int tok, int status);
 char	*skipwhitespace(char *ptr);
 int	isexit(char *s);
-void	applybuiltin(char *input, char **envp);
+int	applybuiltin(char *input, char **envp);
 void	setsig(int sig);
 int	startbuiltin(char *s);
 int	chariswhitespace(char s);
