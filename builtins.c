@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:11:41 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/01 09:40:37 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/01 10:27:03 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,10 +289,8 @@ int	unset_builtin(char **args, char **env)
 	int i;
 	int j;
 
-	/*
 	if (!args[1])
-		return;
-		*/ //very probably incorrect
+		return (0);
 	i = 0;
 	while (env[i])
 	{
