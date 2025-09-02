@@ -67,6 +67,7 @@ int main(int argc, char *argv[], char **envp)
 	int	status;
 	char	*tempinput;
 
+	rl_change_environment = 0;
 	signal(SIGQUIT, SIG_IGN);
 	status = 0;
 	update_shlvl_on_start(envp);
