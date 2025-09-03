@@ -3,7 +3,11 @@
 int 	runcmd(char **args, char **env)
 {
 	if (args[0] && ft_strcmp(args[0], "cd") == 0)
+	{
+		printf("hiiiii");
+		fflush(stdout);
 		return (change_directory(args, env));
+	}
 	else if (args[0] && ft_strcmp(args[0], "pwd") == 0)
 		return pwd(args, env);
 	else if (args[0] && ft_strcmp(args[0], "env") == 0)
@@ -45,6 +49,8 @@ void	exec_command_node(t_cmdtree *cmd, char **env, int *status)
 	if (isbuiltin((cmd->cmd)[0]))
 	{
 		exitruncmd = runcmd(cmd->cmd, env);
+		printf("cd return value -----> %d\n", exitruncmd);
+		fflush(stdout);
 		exit(exitruncmd);
 	}
 	if ((cmd->cmd)[0][0] == '/' || (cmd->cmd)[0][0] == '.')

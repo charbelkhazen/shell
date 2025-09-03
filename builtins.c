@@ -6,34 +6,37 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:11:41 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/01 10:27:03 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/03 16:15:32 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_numeric(const char *str)
+int	is_numeric(const char *str)
 {
-    int i = 0;
+	int	i;
 
-    if (str[0] == '+' || str[0] == '-')
-        i++;
-
-    while (str[i])
-    {
-        if (!isdigit(str[i]))
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	if (str[0] == '+' || str[0] == '-')
+		i++;
+	while (str[i])
+	{
+		if (!isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-long long ft_atoll(const char *str)
+long long	ft_atoll(const char *str)
 {
-    int i = 0;
-    int sign = 1;
-    long long result = 0;
+	int	i;
+	int	sign;
+	long long	result;
 
+	i = 0;
+	sign = 1;
+	result = 0;
     while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
         i++;
     if (str[i] == '-' || str[i] == '+')
@@ -44,90 +47,91 @@ long long ft_atoll(const char *str)
     return (result * sign);
 }
 
-static char *get_home(char **env)
+void	update_pwd(char **my_env, char *str, int size)
 {
-    for (int i = 0; env[i]; i++)
-        if (strncmp(env[i], "HOME=", 5) == 0)
-            return env[i] + 5;
-    return NULL;
-}
+	char	path[1024];
+	int		i;
 
-void	update_pwd(char **my_env)
-{
-	char path[1024];
-	int i = 0;
-
+	i = 0;
 	if (getcwd(path, sizeof(path)) == NULL)
 		return ;
 	while (my_env[i])
 	{
-		if (ft_strncmp(my_env[i], "PWD=", 4) == 0)
+		if (ft_strncmp(my_env[i], str, size) == 0)
 		{
-			my_env[i] = ft_strjoin("PWD=", path);
+			my_env[i] = ft_strjoin(str, path);
 			return ;
 		}
 		i++;
 	}
 }
 
-void	old_pwd(char **my_env)
+char	*check_home(char **args)
 {
-	char path[1024];
-	int i = 0;
+	char	*target;
 
-	if (getcwd(path, sizeof(path)) == NULL)
-		return ;
-	while (my_env[i])
+	if (!args[1] || ft_strcmp(args[1], "~") == 0)
 	{
-		if (ft_strncmp(my_env[i], "OLDPWD=", 7) == 0)
+		target = getenv("HOME");
+		if (!target)
 		{
-			my_env[i] = ft_strjoin("OLDPWD=", path);
-			return ;
+			printf("minishell: cd: HOME not set\n");
+			return (NULL);
 		}
-		i++;
+		return (target);
 	}
+	return (NULL);
 }
 
-int change_directory(char **args, char **env)
+char	*check_absolute_home(char **args, char *path, size_t size)
 {
-    char path[1024];
-    char *target = NULL;
+	char	*home;
 
-	old_pwd(env);
-    if (!args[1] || strcmp(args[1], "~") == 0)
-    {
-        target = get_home(env);
-        if (!target)
-        {
-            fprintf(stderr, "cd: HOME not set\n");
-            return (1);
-        }
-    }
-    else if (args[1][0] == '~' && args[1][1] == '/')
-    {
-        char *home = get_home(env);
-        if (!home)
-        {
-            fprintf(stderr, "cd: HOME not set\n");
-            return (1);
-        }
-        target = path;
-    }
-    else
-        target = args[1];
-    if (chdir(target) == -1)
-    {
-        perror("cd");
-        return (1);
-    }
-	update_pwd(env);
-    return (0);
+	if (args[1][0] == '~' && args[1][1] == '/')
+	{
+		home = getenv("HOME");
+		if (!home)
+		{
+			printf("minishell: cd: HOME not set\n");
+			return (NULL);
+		}
+		ft_strlcpy(path, home, size);
+		ft_strlcat(path, args[1] + 1, size);
+		return (path);
+	}
+	return (NULL);
+}
+
+int	change_directory(char **args, char **env)
+{
+	char	path[1024];
+	char	*target;
+
+	update_pwd(env, "OLDPWD=", 7);
+	target = check_home(args);
+	if (target == NULL && (!args[1] || ft_strcmp(args[1], "~") == 0))
+		return (1);
+	if (!target)
+	{
+		target = check_absolute_home(args, path, sizeof(path));
+		if (target == NULL && args[1] && args[1][0] == '~' && args[1][1] == '/')
+			return (1);
+	}
+	if (!target)
+		target = args[1];
+	if (chdir(target) == -1)
+	{
+		perror("cd");
+		return (1);
+	}
+	update_pwd(env, "PWD=", 4);
+	return (0);
 }
 
 int	pwd(char **args, char **envp)
 {
-	char path[1024];
-	int i = 0;
+	char	path[1024];
+	int		i;
 	if (getcwd(path, sizeof(path)) == NULL)
 	{
 		perror("getcwd failed");
@@ -137,11 +141,11 @@ int	pwd(char **args, char **envp)
 	{
 		while (envp[i])
 		{
-			if(strcmp(envp[i], "PWD"))
+			if(ft_strcmp(envp[i], "PWD"))
 				envp[i] = ft_strdup(path);
 			i++;
 		}
-    	printf("Current dir: %s\n", path);
+    	printf("%s\n", path);
 	}
 	return (0);
 }
@@ -164,8 +168,9 @@ int	environment(char **args, char **env)
 
 int	only_n_flags(char *input)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (input[i] != '-' || input[i + 1] != 'n')
 		return (0);
 	i++;
@@ -178,9 +183,11 @@ int	only_n_flags(char *input)
 
 int	echo(char **args)
 {
-	int	i = 1;
-	int	no_newline = 0;
-	
+	int		i;
+	int		no_newline;
+
+	i = 1;
+	no_newline = 0;
 	while (args[i] && only_n_flags(args[i]))
 	{
 		no_newline = 1;
@@ -216,7 +223,7 @@ int	exit_builtin(char **args)
 		exit(g_exit_status);
 	if (!is_numeric(args[1]))
 	{
-        	printf("minishell: exit: %s: numeric argument required\n", args[1]);
+        printf("minishell: exit: %s: numeric argument required\n", args[1]);
 		return (2);
 	}
 	if (args[2])
@@ -240,7 +247,7 @@ void	handle_exportcmd(char **envp)
 	}
 }
 
-int export_builtin(char **args, char **envp)
+int	export_builtin(char **args, char **envp)
 {
 	char *var_value;
 	char *var_name;
