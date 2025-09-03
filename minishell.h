@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
+/*   Updated: 2025/09/03 19:37:56 by jissa            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -111,4 +123,7 @@ int	chariswhitespace(char s);
 char	isquote(char *s);
 void    writeexpinput(char *buf, int *pipefd);
 char	*removequotes(char *str);
+int	is_numeric(const char *str);
+long long	ft_atoll(const char *str);
+
 #endif
