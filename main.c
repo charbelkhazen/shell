@@ -11,6 +11,12 @@ void    setsig(int sig)
 	rl_redisplay();
 }
 
+void    setsigintchild(int pid)
+{
+	globsig = SIGINT;
+	kill(pid, SIGINT);
+}
+
 void	update_shlvl_on_start(char **my_env)
 {
 	int		i = 0;
@@ -92,6 +98,7 @@ int main(int argc, char *argv[], char **envp)
 		result = parseprogram(&input, status);
 		signal(SIGINT, SIG_IGN);
 		pid = fork();
+		setsigintchild(pid);
 		if (!pid)
 		{
 			if (!result)
@@ -102,7 +109,6 @@ int main(int argc, char *argv[], char **envp)
 		wait(&status);
 		if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
 			write(1, "\n", 2);
-		//clearhistory?
 		if (result)
 			freetree(result);
 		free(tempinput);
