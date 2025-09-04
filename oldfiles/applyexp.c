@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   applyexp.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/04 09:56:03 by jissa             #+#    #+#             */
+/*   Updated: 2025/09/04 09:58:13 by jissa            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_modifiable	*con_modifiable(char *cmd, char *exp)
@@ -64,7 +76,7 @@ t_modifiable	*modify(t_modifiable *mod, int status)
 	if (pre && *pre)
 		free(pre);
 	if (exp && *exp == '?')
-		free(rep); // freeing atoi
+		free(rep);
 	if (exp)
 		free(exp);
 	mod -> steps = ft_strlen(merge);
@@ -73,8 +85,8 @@ t_modifiable	*modify(t_modifiable *mod, int status)
 }
 
 t_modifiable	*expandbuff(char *cmd, int status)
-{	
-	char	*exp;
+{
+	char			*exp;
 	t_modifiable	*mod;
 
 	exp = ft_strchr(cmd, '$');
@@ -82,7 +94,7 @@ t_modifiable	*expandbuff(char *cmd, int status)
 		return (0);
 	mod = con_modifiable(cmd, exp);
 	while (mod -> exp)
-	{	
+	{
 		mod = modify(mod, status);
 		mod -> exp = ft_strchr((mod -> start) + (mod -> steps), '$');
 		if (mod -> exp)
@@ -110,7 +122,7 @@ char	*applyexp(char *cmd, int type, int status)
 {
 	t_modifiable	*mod;
 
-	if (type == '\'') //handle $? ?? 
+	if (type == '\'')
 		return (cmd);
 	mod = expandbuff(cmd, status);
 	if (!mod)

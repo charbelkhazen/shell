@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   finding_path.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/04 10:48:42 by jissa             #+#    #+#             */
+/*   Updated: 2025/09/04 10:49:23 by jissa            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	free_split(char **path_splitted, int index)
@@ -49,6 +61,6 @@ char	*find_full_path(char *command, char *path)
 	free_split(path_splitted, 0);
 	full_path = ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), command);
 	if (access(full_path, X_OK) == 0)
-		return full_path;//malloc should be freed
+		return (full_path);
 	return (NULL);
 }

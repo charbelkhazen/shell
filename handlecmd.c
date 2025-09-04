@@ -1,5 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handlecmd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/04 10:24:36 by jissa             #+#    #+#             */
+/*   Updated: 2025/09/04 10:24:39 by jissa            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 int	utiltravword1(int token, char **cur, char **start, char **end)
 {
@@ -24,7 +35,6 @@ int	utiltravword2(int token, char **cur, char **start, char **end)
 	(*cur) ++;
 	return (token);
 }
-
 
 int	travword(char **cur, char **start, char **end) //start and end can never be null here
 {
@@ -82,8 +92,7 @@ char *handleword(char *buf, int status)
     tok = travword(&buf, &start, &end);
     while (tok)
     {
-        exp = expand_slice(start, end, tok, status);   
-	//printf("exp: |%s|, out: |%s|\n", exp, out);
+        exp = expand_slice(start, end, tok, status);
         out = join_free(out, exp);
         tok = travword(&buf, &start, &end);
     }
