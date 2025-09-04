@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:22:03 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:49:51 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/04 19:48:11 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	exit_builtin(char **args, char **env)
 	write(1, "exit\n", 5);
 	if (!args[1])
 	{
+		rl_clear_history();
 		freeshlvl(env);
 		free_args(args);
 		exit(g_exit_status);
@@ -35,6 +36,7 @@ int	exit_builtin(char **args, char **env)
 		printf("minishell: exit: too many arguments\n");
 		return (1);
 	}
+	rl_clear_history();
 	status = ft_atoll(args[1]);
 	freeshlvl(env);
 	free_args(args);
