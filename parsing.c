@@ -6,7 +6,7 @@
 /*   By: chkhazen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:21:28 by chkhazen          #+#    #+#             */
-/*   Updated: 2025/09/04 11:01:51 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:04:49 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ t_tree *parsepipeline(char **buf, int status)
 		return (0); //added 
 	if (match(*buf, "|"))
 	{
+		if (!*(((t_cmdtree *)tree) -> cmd))
+		{
+			printf("Syntax error near unexpected token '|'\n"); //FIX
+			return (0);
+		}
 		consume(buf, NULL, NULL);
 		tree = con_pipetree(tree, parsepipeline(buf, status));
 	}

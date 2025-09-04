@@ -95,7 +95,7 @@ int main(int argc, char *argv[], char **envp)
 		if (!pid)
 		{
 			if (!result)
-				exit(127);
+				exit(2);
 			signal(SIGINT, SIG_DFL);
 			trav_tree(result, envp, &status);
 		}
