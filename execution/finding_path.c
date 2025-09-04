@@ -1,19 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   finding_path.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/04 10:48:42 by jissa             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/09/04 11:33:48 by chkhazen         ###   ########.fr       */
-=======
-/*   Updated: 2025/09/04 11:27:33 by jissa            ###   ########.fr       */
->>>>>>> 10f957e (handlecmd norminette folder (ASAS removed (not all of them)))
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
 
 void	free_split(char **path_splitted, int index)
