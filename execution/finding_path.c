@@ -6,11 +6,11 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:48:42 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:49:23 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/04 11:33:48 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_split(char **path_splitted, int index)
 {
