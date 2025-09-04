@@ -6,7 +6,11 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:48:42 by jissa             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/09/04 11:33:48 by chkhazen         ###   ########.fr       */
+=======
+/*   Updated: 2025/09/04 11:27:33 by jissa            ###   ########.fr       */
+>>>>>>> 10f957e (handlecmd norminette folder (ASAS removed (not all of them)))
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +39,55 @@ char	*get_path(char **env)
 	return (NULL);
 }
 
-char	*find_full_path(char *command, char *path)
+char	*join_and_check(char *dir, char *cmd)
 {
-	int		i;
-	char	**path_splitted;
-	char	*full_path;
 	char	*temp;
+	char	*full_path;
 
-	i = 0;
-	path_splitted = ft_split(path, ':');
-	while (path_splitted[i])
-	{
-		temp = ft_strjoin(path_splitted[i], "/");
-		full_path = ft_strjoin(temp, command);
-		free(temp);
-		if (access(full_path, X_OK) == 0)
-		{
-			free_split(path_splitted, 0);
-			return (full_path);
-		}
-		free(full_path);
-		i++;
-	}
-	i = 0;
-	free_split(path_splitted, 0);
-	full_path = ft_strjoin(ft_strjoin(getcwd(NULL, 0), "/"), command);
+	temp = ft_strjoin(dir, "/");
+	full_path = ft_strjoin(temp, cmd);
+	free(temp);
 	if (access(full_path, X_OK) == 0)
 		return (full_path);
+	free(full_path);
+	return (NULL);
+}
+
+char	*search_in_path(char **path_splitted, char *cmd)
+{
+	int		i;
+	char	*full_path;
+
+	i = 0;
+	while (path_splitted[i])
+	{
+		full_path = join_and_check(path_splitted[i], cmd);
+		if (full_path)
+			return (full_path);
+		i++;
+	}
+	return (NULL);
+}
+
+char	*find_full_path(char *command, char *path)
+{
+	char	**path_splitted;
+	char	*full_path;
+	char	*cwd;
+	char	*temp;
+
+	path_splitted = ft_split(path, ':');
+	full_path = search_in_path(path_splitted, command);
+	free_split(path_splitted, 0);
+	if (full_path)
+		return (full_path);
+	cwd = getcwd(NULL, 0);
+	temp = ft_strjoin(cwd, "/");
+	free(cwd);
+	full_path = ft_strjoin(temp, command);
+	free(temp);
+	if (access(full_path, X_OK) == 0)
+		return (full_path);
+	free(full_path);
 	return (NULL);
 }

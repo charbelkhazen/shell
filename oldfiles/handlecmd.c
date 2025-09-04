@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:24:36 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:24:39 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/04 11:33:06 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,28 @@
 int	utiltravword1(int token, char **cur, char **start, char **end)
 {
 	token = '"';
-	(*cur) ++;
+	(*cur)++;
 	*start = *cur;
 	while ((**cur) != '"' && (**cur))
 		(*cur)++;
 	*end = *cur;
-	(*cur) ++;
+	(*cur)++;
 	return (token);
 }
 
 int	utiltravword2(int token, char **cur, char **start, char **end)
 {
 	token = '\'';
-	(*cur) ++;
+	(*cur)++;
 	*start = *cur;
 	while ((**cur) != '\'' && (**cur))
 		(*cur)++;
 	*end = *cur;
-	(*cur) ++;
+	(*cur)++;
 	return (token);
 }
 
-int	travword(char **cur, char **start, char **end) //start and end can never be null here
+int	travword(char **cur, char **start, char **end)
 {
 	int	token;
 
@@ -51,53 +51,55 @@ int	travword(char **cur, char **start, char **end) //start and end can never be 
 		*start = *cur;
 		token = 'w';
 		while (**cur && (!ft_strchr("' \"", **cur)))
-			(*cur) ++;
+			(*cur)++;
 		*end = *cur;
 	}
 	return (token);
 }
 
-char	*expand_slice(char *start, char *end, int tok, int status) {
-    char	*tmp;
-    char	*res;
-
-    tmp = getstr(start, end); 
-    if (!tmp)
-    	return (ft_strdup(""));
-    res = applyexp(tmp, tok, status);
-    return (res);
-}
-
-char *join_free(char *a, char *b)
+char	*expand_slice(char *start, char *end, int tok, int status)
 {
-    char *r;
+	char	*tmp;
+	char	*res;
 
-    r = ft_strjoin(a, b);
-    free(a);
-    free(b);
-    return r;
+	tmp = getstr(start, end);
+	if (!tmp)
+		return (ft_strdup(""));
+	res = applyexp(tmp, tok, status);
+	return (res);
 }
 
-char *handleword(char *buf, int status)
+char	*join_free(char *a, char *b)
 {
-    int	tok;
-    char	*start;
-    char	*end;
-    char	*out;
-    char	*exp;
+	char	*r;
 
-    if (!buf || !*buf)
-    	return (0);
-    out = ft_strdup("");
-    tok = travword(&buf, &start, &end);
-    while (tok)
-    {
-        exp = expand_slice(start, end, tok, status);
-        out = join_free(out, exp);
-        tok = travword(&buf, &start, &end);
-    }
-    return (out);
+	r = ft_strjoin(a, b);
+	free(a);
+	free(b);
+	return (r);
 }
+
+char	*handleword(char *buf, int status)
+{
+	int		tok;
+	char	*start;
+	char	*end;
+	char	*out;
+	char	*exp;
+
+	if (!buf || !*buf)
+		return (0);
+	out = ft_strdup("");
+	tok = travword(&buf, &start, &end);
+	while (tok)
+	{
+		exp = expand_slice(start, end, tok, status);
+		out = join_free(out, exp);
+		tok = travword(&buf, &start, &end);
+	}
+	return (out);
+}
+
 /*
 int main()
 {
