@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/08/29 18:25:10 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/04 18:05:55 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,3 +202,17 @@ char	*removequotes(char *str)
 	}
 	return (0);
 }
+
+void    freeshlvl(char **my_env)
+{
+        int             i = 0;
+
+        while (my_env[i])
+        {
+                if (ft_strncmp(my_env[i], "SHLVL=", 6) == 0)
+                        free(my_env[i]);
+                i++;
+        }
+}
+
+

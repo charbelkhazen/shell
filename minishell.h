@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 09:54:26 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/04 18:07:09 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ void    writeexpinput(char *buf, int *pipefd);
 char	*removequotes(char *str);
 int	is_numeric(const char *str);
 long long	ft_atoll(const char *str);
+void    freeshlvl(char **my_env);
 
 #endif

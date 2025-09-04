@@ -54,8 +54,10 @@ int main(int argc, char *argv[], char **envp)
 		tempinput = input;
 		if (!input)
 		{
+			//freeshlvl(envp);
 			write(1, "exit\n", 5);
-			exit(0);
+			return (0);
+			//exit(0);
 		}
 		add_history(input);
 		if (startbuiltin(input))
