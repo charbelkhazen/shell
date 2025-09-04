@@ -34,7 +34,7 @@ void	update_shlvl_on_start(char **my_env)
 	my_env[i] = ft_strdup("SHLVL=1");
 	my_env[i + 1] = NULL;
 }
-
+//TEST git
 int main(int argc, char *argv[], char **envp)
 {
 	char	*input;
