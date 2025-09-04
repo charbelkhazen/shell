@@ -6,13 +6,13 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:22:03 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/03 19:35:04 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/04 18:49:51 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	exit_builtin(char **args)
+int	exit_builtin(char **args, char **env)
 {
 	long long	status;
 	int			g_exit_status;
@@ -20,7 +20,11 @@ int	exit_builtin(char **args)
 	g_exit_status = 0;
 	write(1, "exit\n", 5);
 	if (!args[1])
-		exit (g_exit_status);
+	{
+		freeshlvl(env);
+		free_args(args);
+		exit(g_exit_status);
+	}
 	if (!is_numeric(args[1]))
 	{
 		printf("minishell: exit: %s: numeric argument required\n", args[1]);
@@ -32,6 +36,8 @@ int	exit_builtin(char **args)
 		return (1);
 	}
 	status = ft_atoll(args[1]);
+	freeshlvl(env);
+	free_args(args);
 	exit ((unsigned char)status);
 	return ((unsigned char)status);
 }

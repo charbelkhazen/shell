@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:07:09 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/04 18:44:57 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void			exec_pipe(t_pipetree *tree, char **envp, int *status);
 void			exec_command_node(t_cmdtree *cmd, char **env, int *status);
 int     unset_builtin(char **args, char **env);
 int			export_builtin(char **args, char **envp);
-int			exit_builtin(char **args);
+int			exit_builtin(char **args, char **envp);
 int			echo(char **args);
 int				only_n_flags(char *input);
 int			environment(char **args, char **env);
@@ -126,5 +126,5 @@ char	*removequotes(char *str);
 int	is_numeric(const char *str);
 long long	ft_atoll(const char *str);
 void    freeshlvl(char **my_env);
-
+void    free_args(char **args);
 #endif

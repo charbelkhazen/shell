@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:05:55 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/04 18:44:35 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	applybuiltin(char *input, char **envp)
 
 	args = ft_split(input, ' '); //TO BE FREEEDDDDD
 	if (isexit(input)) 
-		status= (exit_builtin(args));
+		status= (exit_builtin(args, envp));
 	else if (iscd(input))
 		status= (change_directory(args, envp));
 	else if (isexport(input))
@@ -215,4 +215,9 @@ void    freeshlvl(char **my_env)
         }
 }
 
+void	freeexit(char **myenv)
+{
+	freeshlvl(myenv);
 
+
+}
