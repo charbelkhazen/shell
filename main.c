@@ -111,13 +111,6 @@ int main(int argc, char *argv[], char **envp)
 		result = parseprogram(&input, status);
 		executeprgm(&pid, result, envp, &status);
 		cleanexitexec(status, result, tempinput);
-		/*
-		if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
-			write(1, "\n", 2);
-		if (result)
-			freetree(result);
-		free(tempinput);
-		*/
 	}
 	rl_clear_history();
 }

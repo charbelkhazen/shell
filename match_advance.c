@@ -27,6 +27,12 @@ int	match(char *ptr, char *tok)
 	return (*ptr && ft_strchr(tok, *ptr));
 }
 
+void	consumepipe(int *token, char **curr)
+{
+	*token = '|';
+	(*curr) ++;
+}
+
 int	consume(char **curr, char **tok, char **endtok)
 {
 	int	token;
@@ -38,8 +44,9 @@ int	consume(char **curr, char **tok, char **endtok)
 		token = 0;
 	else if ((**curr) == '|')
 	{
-		token = '|';
-		(*curr) ++;
+		consumepipe(&token, curr);
+		//token = '|';
+		//(*curr) ++;
 	}
 	else if ((**curr) == '>')
 	{
