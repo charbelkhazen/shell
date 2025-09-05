@@ -154,6 +154,23 @@ void	printtree(t_tree *tree)
 	}
 }
 
+
+void 	freepipe(t_tree *tree, t_pipetree *pipetree)
+{
+	pipetree = (t_pipetree *)tree;	
+	freetree(pipetree -> right);
+	freetree(pipetree -> left);
+	free(pipetree);
+}
+
+void	freeredir(t_tree *tree, t_redirtree *redirtree)
+{
+	redirtree = (t_redirtree *)tree;	
+	freetree(redirtree -> cmd);
+	free(redirtree -> file_name);
+	free(redirtree);
+}
+
 void	freetree(t_tree *tree)
 {
 	t_pipetree	*pipetree;
@@ -174,17 +191,23 @@ void	freetree(t_tree *tree)
 	}
 	else if (tree -> type == '|')
 	{
+		freepipe(tree, pipetree);
+		/*
 		pipetree = (t_pipetree *)tree;	
 		freetree(pipetree -> right);
 		freetree(pipetree -> left);
 		free(pipetree);
+		*/
 	}
 	else if ((tree -> type == '>') || (tree -> type == '<') || (tree -> type == 'a') || (tree -> type == 'h'))
 	{
+		freeredir(tree, redirtree);
+		/*
 		redirtree = (t_redirtree *)tree;	
 		freetree(redirtree -> cmd);
 		free(redirtree -> file_name);
 		free(redirtree);
+		*/
 	}
 }
 
