@@ -82,6 +82,15 @@ void	executeprgm(int *pid, t_tree *result, char **envp, int *status)
 	wait(status);
 }
 
+void	cleanexitexec(int status, t_tree *result, char *tempinput)
+{
+	if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
+		write(1, "\n", 2);
+	if (result)
+		freetree(result);
+	free(tempinput);
+}
+
 int main(int argc, char *argv[], char **envp)
 {
 	char	*input;
@@ -101,21 +110,14 @@ int main(int argc, char *argv[], char **envp)
 		}
 		result = parseprogram(&input, status);
 		executeprgm(&pid, result, envp, &status);
+		cleanexitexec(status, result, tempinput);
 		/*
-		signal(SIGINT, SIG_IGN);
-		pid = fork();
-		if (!pid)
-		{
-			setupinchild(result);
-			trav_tree(result, envp, &status);
-		}
-		wait(&status);
-		*/
 		if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
 			write(1, "\n", 2);
 		if (result)
 			freetree(result);
 		free(tempinput);
+		*/
 	}
 	rl_clear_history();
 }
