@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:44:57 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:14:51 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ char	*removequotes(char *str);
 int	is_numeric(const char *str);
 long long	ft_atoll(const char *str);
 void    freeshlvl(char **my_env);
+void    free_env(char **my_env, char *var, int size);
 void    free_args(char **args);
 #endif

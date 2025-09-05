@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:44:35 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:14:41 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,18 @@ void    freeshlvl(char **my_env)
         while (my_env[i])
         {
                 if (ft_strncmp(my_env[i], "SHLVL=", 6) == 0)
+                        free(my_env[i]);
+                i++;
+        }
+}
+
+void    free_env(char **my_env, char *var, int size)
+{
+        int             i = 0;
+
+        while (my_env[i])
+        {
+                if (ft_strncmp(my_env[i], var, size) == 0)
                         free(my_env[i]);
                 i++;
         }
