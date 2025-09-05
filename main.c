@@ -57,6 +57,13 @@ void	launchprgm(char **input, char **tempinput, char **envp)
 	add_history(*input);
 }
 
+void	handlestartbuiltin(char *input, char **envp, int *status)
+{
+	*status = applybuiltin(input, envp);
+	*status = (*status & 0xFF) << 8;
+}
+	
+
 int main(int argc, char *argv[], char **envp)
 {
 	char	*input;
@@ -69,22 +76,11 @@ int main(int argc, char *argv[], char **envp)
 	while (1)
 	{
 		launchprgm(&input, &tempinput, envp);
-		/*
-		signal(SIGINT, setsig);
-		input = readline("minishell$ ");
-		tempinput = input;
-		if (!input)
-		{
-			freeshlvl(envp);
-			write(1, "exit\n", 5);
-			exit(0);
-		}
-		add_history(input);
-		*/
 		if (startbuiltin(input))
 		{
-			status = applybuiltin(input, envp);
-			status = (status & 0xFF) << 8;
+			//status = applybuiltin(input, envp);
+			//status = (status & 0xFF) << 8;
+			handlestartbuiltin(input, envp, &status);
 			continue;
 		}
 		result = parseprogram(&input, status);
