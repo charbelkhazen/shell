@@ -70,6 +70,18 @@ void	setupinchild(t_tree *result)
 	signal(SIGINT, SIG_DFL);
 }
 
+void	executeprgm(int *pid, t_tree *result, char **envp, int *status)
+{
+	signal(SIGINT, SIG_IGN);
+	*pid = fork();
+	if (!(*pid))
+	{
+		setupinchild(result);
+		trav_tree(result, envp, status);
+	}
+	wait(status);
+}
+
 int main(int argc, char *argv[], char **envp)
 {
 	char	*input;
@@ -88,19 +100,17 @@ int main(int argc, char *argv[], char **envp)
 			continue;
 		}
 		result = parseprogram(&input, status);
+		executeprgm(&pid, result, envp, &status);
+		/*
 		signal(SIGINT, SIG_IGN);
 		pid = fork();
 		if (!pid)
 		{
-			/*
-			if (!result)
-				exit(2);
-			signal(SIGINT, SIG_DFL);
-			*/
 			setupinchild(result);
 			trav_tree(result, envp, &status);
 		}
 		wait(&status);
+		*/
 		if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))
 			write(1, "\n", 2);
 		if (result)
