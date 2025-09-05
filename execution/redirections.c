@@ -6,13 +6,13 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:42:21 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:43:26 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/05 19:10:12 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exec_input_redir(t_redirtree *tree, char **env, int *status)
+void	exec_input_redir(t_redirtree *tree, char **env, int *status, char *freevar)
 {
 	int	fd;
 
@@ -29,5 +29,5 @@ void	exec_input_redir(t_redirtree *tree, char **env, int *status)
 	}
 	dup2(fd, tree->fd);
 	close(fd);
-	trav_tree(tree->cmd, env, status);
+	trav_tree(tree->cmd, env, status, freevar);
 }

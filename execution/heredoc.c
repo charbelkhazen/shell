@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:41:34 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:46:33 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/05 19:10:50 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	writepipe(char *delim, int *pipefd)
 	close(pipefd[0]);
 }
 
-void	exec_heredoc(t_redirtree *tree, char **env, int *status)
+void	exec_heredoc(t_redirtree *tree, char **env, int *status, char *freevar)
 {
 	char	*delim;
 	char	*input;
@@ -80,6 +80,6 @@ void	exec_heredoc(t_redirtree *tree, char **env, int *status)
 	delim = tree->file_name;
 	pipe(pipefd);
 	writepipe(delim, pipefd);
-	trav_tree(tree->cmd, env, status);
+	trav_tree(tree->cmd, env, status, freevar);
 	exit(127);
 }

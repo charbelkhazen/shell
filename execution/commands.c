@@ -6,14 +6,15 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:46:53 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:32:40 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	runcmd(char **args, char **env)
+int	runcmd(char **args, char **env, char *freevar)
 {
+	//printf("%s\n", freevar);
 	if (args[0] && ft_strcmp(args[0], "cd") == 0)
 		return (change_directory(args, env));
 	else if (args[0] && ft_strcmp(args[0], "pwd") == 0)
@@ -25,7 +26,7 @@ int	runcmd(char **args, char **env)
 	else if (args[0] && ft_strcmp(args[0], "exit") == 0)
 		return (exit_builtin(args, env));
 	else if (args[0] && ft_strcmp(args[0], "export") == 0)
-		return (export_builtin(args, env));
+		return (export_builtin(args, env, freevar));
 	else if (args[0] && ft_strcmp(args[0], "unset") == 0)
 		return (unset_builtin(args, env));
 	return (-1);
@@ -45,7 +46,7 @@ ft_strcmp(cmd, "export") == 0)
 		return (0);
 }
 
-void	exec_command_node(t_cmdtree *cmd, char **env, int *status)
+void	exec_command_node(t_cmdtree *cmd, char **env, int *status, char *freevar)
 {
 	char	*full_path;
 	char	*path_env;
@@ -55,7 +56,7 @@ void	exec_command_node(t_cmdtree *cmd, char **env, int *status)
 		exit(0);
 	if (isbuiltin((cmd->cmd)[0]))
 	{
-		exitruncmd = runcmd(cmd->cmd, env);
+		exitruncmd = runcmd(cmd->cmd, env, freevar);
 		exit(exitruncmd);
 	}
 	if ((cmd->cmd)[0][0] == '/' || (cmd->cmd)[0][0] == '.')

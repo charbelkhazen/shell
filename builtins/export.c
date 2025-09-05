@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:35:16 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/05 16:12:25 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/05 19:35:36 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	add_new_env_var(char **envp, char *new_env_var)
 	envp[i + 1] = NULL;
 }
 
-int	export_builtin(char **args, char **envp)
+int	export_builtin(char **args, char **envp, char *freevar)
 {
 	char	*var_name;
 	char	*new_env_var;
@@ -83,6 +83,7 @@ int	export_builtin(char **args, char **envp)
 	int		found;
 	int		has_equal;
 
+	//printf("%s\n", freevar);
 	if (!args[1])
 	{
 		handle_exportcmd(envp);
@@ -94,7 +95,7 @@ int	export_builtin(char **args, char **envp)
 	found = update_existing_env(envp, var_name, new_env_var, has_equal);
 	if (!found)
 		add_new_env_var(envp, new_env_var);
-	printf("%s\n", var_name);
+	//printf("%s\n", var_name);
 	free(var_name);
 	free(new_env_var);
 	return (0);

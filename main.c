@@ -57,9 +57,9 @@ void	launchprgm(char **input, char **tempinput, char **envp)
 	add_history(*input);
 }
 
-void	handlestartbuiltin(char *input, char **envp, int *status)
+void	handlestartbuiltin(char *input, char **envp, int *status, char *freevar)
 {
-	*status = applybuiltin(input, envp);
+	*status = applybuiltin(input, envp, freevar);
 	*status = (*status & 0xFF) << 8;
 }
 	
@@ -70,14 +70,14 @@ void	setupinchild(t_tree *result)
 	signal(SIGINT, SIG_DFL);
 }
 
-void	executeprgm(int *pid, t_tree *result, char **envp, int *status)
+void	executeprgm(int *pid, t_tree *result, char **envp, int *status, char *freevar)
 {
 	signal(SIGINT, SIG_IGN);
 	*pid = fork();
 	if (!(*pid))
 	{
 		setupinchild(result);
-		trav_tree(result, envp, status);
+		trav_tree(result, envp, status, freevar);
 	}
 	wait(status);
 }
@@ -99,17 +99,18 @@ int main(int argc, char *argv[], char **envp)
 	int	status;
 	char	*tempinput;
 
+	char	*freevar = "hello";
 	basicsetup(&status, envp);
 	while (1)
 	{
 		launchprgm(&input, &tempinput, envp);
 		if (startbuiltin(input))
 		{
-			handlestartbuiltin(input, envp, &status);
+			handlestartbuiltin(input, envp, &status, freevar);
 			continue;
 		}
 		result = parseprogram(&input, status);
-		executeprgm(&pid, result, envp, &status);
+		executeprgm(&pid, result, envp, &status, freevar);
 		cleanexitexec(status, result, tempinput);
 	}
 	rl_clear_history();

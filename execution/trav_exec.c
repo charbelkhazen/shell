@@ -6,23 +6,23 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:45:38 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:45:47 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/05 19:12:28 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	trav_tree(t_tree *tree, char **envp, int *status)
+void	trav_tree(t_tree *tree, char **envp, int *status, char *freevar)
 {
 	if (!tree)
 		return ;
 	if (tree->type == 'w')
-		exec_command_node((t_cmdtree *)tree, envp, status);
+		exec_command_node((t_cmdtree *)tree, envp, status, freevar);
 	else if (tree->type == '|')
-		exec_pipe((t_pipetree *)tree, envp, status);
+		exec_pipe((t_pipetree *)tree, envp, status, freevar);
 	else if (tree->type == '<' || tree->type == '>' || tree->type == 'a')
-		exec_input_redir((t_redirtree *)tree, envp, status);
+		exec_input_redir((t_redirtree *)tree, envp, status, freevar);
 	else if (tree->type == 'h')
-		exec_heredoc((t_redirtree *)tree, envp, status);
+		exec_heredoc((t_redirtree *)tree, envp, status, freevar);
 	exit(WEXITSTATUS(*status));
 }
