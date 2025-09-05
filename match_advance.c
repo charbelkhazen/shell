@@ -33,6 +33,18 @@ void	consumepipe(int *token, char **curr)
 	(*curr) ++;
 }
 
+void	consumeoutredirs(int *token, char **curr) 
+{
+	(*curr) ++;
+	if ((**curr) == '>')
+	{
+		*token = 'a';
+		(*curr) ++;
+	}
+	else
+		*token = '>';
+}
+
 int	consume(char **curr, char **tok, char **endtok)
 {
 	int	token;
@@ -43,13 +55,11 @@ int	consume(char **curr, char **tok, char **endtok)
 	if (**curr == 0)
 		token = 0;
 	else if ((**curr) == '|')
-	{
 		consumepipe(&token, curr);
-		//token = '|';
-		//(*curr) ++;
-	}
 	else if ((**curr) == '>')
 	{
+		consumeoutredirs(&token, curr);
+		/*
 		(*curr) ++;
 		if ((**curr) == '>')
 		{
@@ -58,6 +68,7 @@ int	consume(char **curr, char **tok, char **endtok)
 		}
 		else
 			token = '>';
+		*/
 	}
 	else if ((**curr) == '<')
 	{
