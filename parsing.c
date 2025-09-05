@@ -116,7 +116,8 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 		redir = consume(buf, NULL, NULL);
 		if (consume(buf, &startfn, &endfn) != 'w')
 		{
-			printf("Syntax error near unexpected token 'newline'\n"); //FIX
+			printf("Syntax error near unexpected token '%c'\n", redir); //CAN FIX 'h' to be '>>' and 'a' to be append
+			freetree(tree);
 			return (NULL);
 			//exit(2); //activated in echo $< -> not ASAS
 		}
@@ -211,14 +212,13 @@ void	freetree(t_tree *tree)
 		*/
 	}
 }
-
 /*
 int globsig =0;
 int main()
 {
 	//char *buf = "echo\"fewrfe$HOME\" bbye | echo < file sdsd < file1 ok ok ok | $ASASSA bye$ $HOME";
 	//char *buf = "$hihihi | ls | 'echo $?' | $hhhh $home $HOME $$$";
-	char *buf = "   | ls";
+	char *buf = " << | ls";
 	t_tree *result = parseprogram(&buf, 0);
 	if (result)
 		freetree(result);
