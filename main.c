@@ -63,6 +63,12 @@ void	handlestartbuiltin(char *input, char **envp, int *status)
 	*status = (*status & 0xFF) << 8;
 }
 	
+void	setupinchild(t_tree *result)
+{
+	if (!result)
+		exit(2);
+	signal(SIGINT, SIG_DFL);
+}
 
 int main(int argc, char *argv[], char **envp)
 {
@@ -78,8 +84,6 @@ int main(int argc, char *argv[], char **envp)
 		launchprgm(&input, &tempinput, envp);
 		if (startbuiltin(input))
 		{
-			//status = applybuiltin(input, envp);
-			//status = (status & 0xFF) << 8;
 			handlestartbuiltin(input, envp, &status);
 			continue;
 		}
@@ -88,9 +92,12 @@ int main(int argc, char *argv[], char **envp)
 		pid = fork();
 		if (!pid)
 		{
+			/*
 			if (!result)
 				exit(2);
 			signal(SIGINT, SIG_DFL);
+			*/
+			setupinchild(result);
 			trav_tree(result, envp, &status);
 		}
 		wait(&status);
