@@ -57,6 +57,29 @@ void	consumeinredirs(int *token, char **curr)
 		*token = '<';
 }
 
+void	consumeword(int *token, char **curr)
+{
+	*token = 'w';
+	while (**curr && !ft_strchr("|&< >", **curr)) //ADD WHITESPACE!!
+	{
+		if (**curr == '\'')
+		{
+			(*curr) ++;
+			while (**curr != '\'' && **curr)
+				(*curr) ++;
+		}
+		if (**curr == '"')
+		{
+			(*curr) ++;
+			while (**curr != '"' && **curr)
+				(*curr) ++;
+		}
+		if (!**curr)
+			break;
+		(*curr) ++;
+	}
+}
+
 int	consume(char **curr, char **tok, char **endtok)
 {
 	int	token;
@@ -71,21 +94,11 @@ int	consume(char **curr, char **tok, char **endtok)
 	else if ((**curr) == '>')
 		consumeoutredirs(&token, curr);
 	else if ((**curr) == '<')
-	{
 		consumeinredirs(&token, curr);
-		/*
-		(*curr) ++;
-		if ((**curr) == '<')
-		{
-			token = 'h';
-			(*curr) ++;
-		}
-		else
-			token = '<';
-			*/
-	}
 	else
 	{
+		consumeword(&token, curr);
+		/*
 		token = 'w';
 		while (**curr && !ft_strchr("|&< >", **curr)) //ADD WHITESPACE!!
 		{
@@ -105,6 +118,7 @@ int	consume(char **curr, char **tok, char **endtok)
 				break;
 			(*curr) ++;
 		}
+		*/
 	}
 	if (endtok)
 		*endtok = *curr;
