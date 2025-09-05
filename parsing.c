@@ -38,6 +38,7 @@ t_tree *parsepipeline(char **buf, int status)
 		if (!*(((t_cmdtree *)tree) -> cmd))
 		{
 			printf("Syntax error near unexpected token '|'\n"); //FIX
+			freetree(tree);
 			return (0);
 		}
 		consume(buf, NULL, NULL);
@@ -216,8 +217,10 @@ int globsig =0;
 int main()
 {
 	//char *buf = "echo\"fewrfe$HOME\" bbye | echo < file sdsd < file1 ok ok ok | $ASASSA bye$ $HOME";
-	char *buf = "$hihihi | ls | 'echo $?' | $hhhh $home $HOME $$$";
+	//char *buf = "$hihihi | ls | 'echo $?' | $hhhh $home $HOME $$$";
+	char *buf = "   | ls";
 	t_tree *result = parseprogram(&buf, 0);
-	freetree(result);
+	if (result)
+		freetree(result);
 }
 */

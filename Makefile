@@ -12,6 +12,7 @@ g:
 del:
 	cc del.c builtins.c handlecmd.c match_advance.c applyexp.c  minishell_utils.c libft.a -g
 pars:
-	cc parsing.c handlecmd.c applyexp.c match_advance.c libft.a constructors.c
+	cc parsing.c match_advance.c constructors/constructors.c  expansion/applyexp_1.c expansion/applyexp_2.c  handlecmd/handleword.c handlecmd/handleword2.c libft.a
+	
 hand:
 	cc handlecmd.c applyexp.c match_advance.c libft.a
