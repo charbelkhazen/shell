@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:02:32 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:12:53 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/05 13:52:51 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_tree	*con_cmdtree(void)
 
 	tree = malloc(sizeof(t_cmdtree));
 	tree -> type = 'w';
+	*(tree -> cmd) = 0;
 	return ((t_tree *)tree);
 }
 
