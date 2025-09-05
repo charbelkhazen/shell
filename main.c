@@ -35,6 +35,14 @@ void	update_shlvl_on_start(char **my_env)
 	my_env[i + 1] = NULL;
 }
 
+void	basicsetup(int *status, char **envp)
+{
+	rl_change_environment = 0;
+	signal(SIGQUIT, SIG_IGN);
+	*status = 0;
+	update_shlvl_on_start(envp);
+}
+
 int main(int argc, char *argv[], char **envp)
 {
 	char	*input;
@@ -43,10 +51,13 @@ int main(int argc, char *argv[], char **envp)
 	int	status;
 	char	*tempinput;
 
+	/*
 	rl_change_environment = 0;
 	signal(SIGQUIT, SIG_IGN);
 	status = 0;
 	update_shlvl_on_start(envp);
+	*/
+	basicsetup(&status, envp);
 	while (1)
 	{
 		signal(SIGINT, setsig);
