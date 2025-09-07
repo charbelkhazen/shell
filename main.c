@@ -99,17 +99,18 @@ int main(int argc, char *argv[], char **envp)
 	int	status;
 	char	*tempinput;
 
-	basicsetup(&status, envp);
+	char **env = dupenv(envp);
+	basicsetup(&status, env);
 	while (1)
 	{
-		launchprgm(&input, &tempinput, envp);
+		launchprgm(&input, &tempinput, env);
 		if (startbuiltin(input))
 		{
-			handlestartbuiltin(input, envp, &status);
+			handlestartbuiltin(input, env, &status);
 			continue;
 		}
 		result = parseprogram(&input, status);
-		executeprgm(&pid, result, envp, &status);
+		executeprgm(&pid, result, env, &status);
 		cleanexitexec(status, result, tempinput);
 	}
 	rl_clear_history();

@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:44:35 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/07 17:37:28 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,9 +215,24 @@ void    freeshlvl(char **my_env)
         }
 }
 
-void	freeexit(char **myenv)
+char	**dupenv(char **envp)
 {
-	freeshlvl(myenv);
+	int	i;
+	char	**dup;
 
-
+	i = 0;
+	while (envp[i])
+		i ++;
+	dup = malloc(sizeof(char *) * i);
+	i = 0;
+	while(envp[i])
+	{
+		dup[i] = envp[i];
+		i ++;
+	}
+	return (dup);
 }
+
+		
+
+

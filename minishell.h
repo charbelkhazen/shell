@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:44:57 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/07 17:38:45 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,5 @@ int	is_numeric(const char *str);
 long long	ft_atoll(const char *str);
 void    freeshlvl(char **my_env);
 void    free_args(char **args);
+char	**dupenv(char **envp);
 #endif
