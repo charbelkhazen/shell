@@ -53,16 +53,6 @@ int	validatearg(char *arg)
 	return (1);
 }
 
-void	modifyenv(char *arg, char **env)
-{
-	return ;	
-}
-
-void	addenv(char *arg, char **env)
-{
-	return ;	
-}
-
 char	**findinnenv(char *arg, char **env)
 {
 	char	*var;
@@ -90,6 +80,21 @@ char	**findinnenv(char *arg, char **env)
 	return (0);
 }
 
+void	replaceinenv(char *arg, char **foundenv)
+{
+	char	*temp;
+
+	if (!foundenv || !arg)
+		return ;
+	temp = *foundenv;
+	*foundenv = arg;
+	free(temp);
+}
+
+void	addinenv(arg, env)
+{
+
+
 void	applyexport(char *arg, char **env)
 {
 	char	**foundenv;
@@ -98,9 +103,9 @@ void	applyexport(char *arg, char **env)
 	if (ft_strchr(arg, '='))
 	{
 		if (foundenv)
-			//replaceinenv(arg, foundenv);
+			replaceinenv(arg, foundenv);
 		else
-			//addinenv(arg, env);
+			addinenv(arg, env);
 	}
 	else
 	{
@@ -128,7 +133,7 @@ int	myexport(char **args, char **env) //Use handleword() to handle expansions an
 		if (!validatearg(*args))
 			status = 1;
 		else
-			applyexp(*args, env);
+			applyexport(*args, env);
 		args ++;
 	}
 }
