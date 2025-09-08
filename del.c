@@ -28,13 +28,14 @@ char    **dupenv(char **envp) //TODEL
         i = 0;
         while (envp[i])
                 i ++;
-        dup = malloc(sizeof(char *) * i);
+        dup = malloc(sizeof(char *) * (i + 1));
         i = 0;
         while(envp[i])
         {
-                dup[i] = envp[i];
+                dup[i] = ft_strdup(envp[i]);
                 i ++;
         }
+	dup[i] = 0;
         return (dup);
 }
 
@@ -87,14 +88,47 @@ void	replaceinenv(char *arg, char **foundenv)
 	if (!foundenv || !arg)
 		return ;
 	temp = *foundenv;
-	*foundenv = arg;
+	*foundenv = ft_strdup(arg);
 	free(temp);
 }
 
-void	addinenv(arg, env)
+void	freeenv(char **env)
 {
+	int	i;
 
+	i = 0;
+	while (env[i])
+	{
+		free(env[i]);
+		i++;
+	}
+	free(env);
+}
 
+void	addinenv(char *arg, char ***env)
+{
+	int	i;
+	char	**temp;
+
+	i = 0;
+	while (*(*env + i))
+		i++;
+	temp = *env;
+	*env = malloc(sizeof(char *) * (i + 2));
+	i = 0;
+	while (*temp)
+	{
+		*(*env + i) = ft_strdup(*temp);
+		temp++;
+		i++;
+	}
+	*(*env + i) = ft_strdup(arg);
+	i++;
+	*(*env + i) = 0;
+	freeenv(temp);
+}
+
+/*
 void	applyexport(char *arg, char **env)
 {
 	char	**foundenv;
@@ -137,12 +171,18 @@ int	myexport(char **args, char **env) //Use handleword() to handle expansions an
 		args ++;
 	}
 }
+*/
 
 int main(int ac, char *av[], char *envp[])
 {
 	char **env = dupenv(envp);
-	printf("validation: %d\n", validatearg(*(av + 1)));
-	if (findinnenv(*(av + 1), env))
-		printf("found:%s\n", *(findinnenv(*(av + 1), env)));
-	free(env);
+	freeenv(env);
+	addinenv("QWQW=67", &env);
+	printf("%s\n", *env);
+	while (*env)
+	{
+		printf("%s\n", *env);
+		env++;
+	}
+	//freeenv(env);
 }
