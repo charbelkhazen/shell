@@ -140,28 +140,28 @@ void	addinenv(char *arg, char ***env)
 	printf("env start: %s\n", **env);
 }
 
-void	applyexport(char *arg, char **env)
+void	applyexport(char *arg, char ***env)
 {
 	char	**foundenv;
 
-	foundenv = findinnenv(arg, env);
+	foundenv = findinnenv(arg, *env);
 	if (ft_strchr(arg, '='))
 	{
 		if (foundenv)
 			replaceinenv(arg, foundenv);
 		else
-			addinenv(arg, &env);
+			addinenv(arg, env);
 	}
 	else
 	{
 		if (foundenv)
 			return;
 		else
-			addinenv(arg, &env);
+			addinenv(arg, env);
 	}
 }
 
-int	myexport(char **args, char **env) //Use handleword() to handle expansions and quotations
+int	myexport(char **args, char ***env) //Use handleword() to handle expansions and quotations
 {
 	int	status;
 	char	*var;
@@ -169,7 +169,7 @@ int	myexport(char **args, char **env) //Use handleword() to handle expansions an
 	status = 0;
 	if (!args[1])
 	{
-		handle_exportcmd(env);
+		handle_exportcmd(*env);
 		return (0);
 	}
 	args++;
@@ -187,7 +187,7 @@ int	myexport(char **args, char **env) //Use handleword() to handle expansions an
 int main(int ac, char *av[], char *envp[])
 {
 	char **env = dupenv(envp);
-	myexport(av, env);
+	myexport(av, &env);
 	int i=0;
 	while (env[i])
 	{
