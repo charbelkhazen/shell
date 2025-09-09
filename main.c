@@ -50,7 +50,7 @@ void	launchprgm(char **input, char **tempinput, char **envp)
 	*tempinput = *input;
 	if (!(*input))
 	{
-		freeshlvl(envp);
+		freeenv(envp);
 		write(1, "exit\n", 5);
 		exit(0);
 	}
