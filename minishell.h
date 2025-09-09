@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/08 12:32:46 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:06:48 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ t_modifiable    *expandbuff(char *cmd, int status);
 char    		*applyexp(char *cmd, int type, int status);
 char			*find_full_path(char *command, char *path);
 char			*get_path(char **env);
-void			trav_tree(t_tree *tree, char **envp, int *status);
-void			exec_input_redir(t_redirtree *tree, char **env, int *status);
-void			exec_heredoc(t_redirtree *tree, char **env, int *status);
-void			exec_pipe(t_pipetree *tree, char **envp, int *status);
-void			exec_command_node(t_cmdtree *cmd, char **env, int *status);
+void			trav_tree(t_tree *tree, char ***envp, int *status);
+void			exec_input_redir(t_redirtree *tree, char ***env, int *status);
+void			exec_heredoc(t_redirtree *tree, char ***env, int *status);
+void			exec_pipe(t_pipetree *tree, char ***envp, int *status);
+void			exec_command_node(t_cmdtree *cmd, char ***env, int *status);
 int     unset_builtin(char **args, char **env);
-int			export_builtin(char **args, char **envp);
+int			export_builtin(char **args, char ***envp);
 int			exit_builtin(char **args, char **envp);
 int			echo(char **args);
 int				only_n_flags(char *input);
@@ -116,7 +116,7 @@ char *join_free(char *a, char *b);
 char	*expand_slice(char *start, char *end, int tok, int status);
 char	*skipwhitespace(char *ptr);
 int	isexit(char *s);
-int	applybuiltin(char *input, char **envp);
+int	applybuiltin(char *input, char ***envp);
 void	setsig(int sig);
 int	startbuiltin(char *s);
 int	chariswhitespace(char s);

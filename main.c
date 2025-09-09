@@ -57,7 +57,7 @@ void	launchprgm(char **input, char **tempinput, char **envp)
 	add_history(*input);
 }
 
-void	handlestartbuiltin(char *input, char **envp, int *status)
+void	handlestartbuiltin(char *input, char ***envp, int *status)
 {
 	*status = applybuiltin(input, envp);
 	*status = (*status & 0xFF) << 8;
@@ -70,7 +70,7 @@ void	setupinchild(t_tree *result)
 	signal(SIGINT, SIG_DFL);
 }
 
-void	executeprgm(int *pid, t_tree *result, char **envp, int *status)
+void	executeprgm(int *pid, t_tree *result, char ***envp, int *status)
 {
 	signal(SIGINT, SIG_IGN);
 	*pid = fork();
@@ -106,11 +106,11 @@ int main(int argc, char *argv[], char **envp)
 		launchprgm(&input, &tempinput, env);
 		if (startbuiltin(input))
 		{
-			handlestartbuiltin(input, env, &status);
+			handlestartbuiltin(input, &env, &status);
 			continue;
 		}
 		result = parseprogram(&input, status);
-		executeprgm(&pid, result, env, &status);
+		executeprgm(&pid, result, &env, &status);
 		cleanexitexec(status, result, tempinput);
 	}
 	rl_clear_history();

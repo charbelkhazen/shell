@@ -6,28 +6,28 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 18:46:53 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:47:19 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	runcmd(char **args, char **env)
+int	runcmd(char **args, char ***env)
 {
 	if (args[0] && ft_strcmp(args[0], "cd") == 0)
-		return (change_directory(args, env));
+		return (change_directory(args, *env));
 	else if (args[0] && ft_strcmp(args[0], "pwd") == 0)
-		return (pwd(args, env));
+		return (pwd(args, *env));
 	else if (args[0] && ft_strcmp(args[0], "env") == 0)
-		return (environment(args, env));
+		return (environment(args, *env));
 	else if (args[0] && ft_strcmp(args[0], "echo") == 0)
 		return (echo(args));
 	else if (args[0] && ft_strcmp(args[0], "exit") == 0)
-		return (exit_builtin(args, env));
+		return (exit_builtin(args, *env));
 	else if (args[0] && ft_strcmp(args[0], "export") == 0)
 		return (export_builtin(args, env));
 	else if (args[0] && ft_strcmp(args[0], "unset") == 0)
-		return (unset_builtin(args, env));
+		return (unset_builtin(args, *env));
 	return (-1);
 }
 
@@ -45,7 +45,7 @@ ft_strcmp(cmd, "export") == 0)
 		return (0);
 }
 
-void	exec_command_node(t_cmdtree *cmd, char **env, int *status)
+void	exec_command_node(t_cmdtree *cmd, char ***env, int *status)
 {
 	char	*full_path;
 	char	*path_env;
@@ -62,7 +62,7 @@ void	exec_command_node(t_cmdtree *cmd, char **env, int *status)
 		full_path = cmd->cmd[0];
 	else
 	{
-		path_env = get_path(env);
+		path_env = get_path(*env);
 		full_path = find_full_path(cmd->cmd[0], path_env);
 	}
 	if (!full_path)
@@ -70,6 +70,6 @@ void	exec_command_node(t_cmdtree *cmd, char **env, int *status)
 		perror("Command not found");
 		exit(127);
 	}
-	execve(full_path, cmd->cmd, env);
+	execve(full_path, cmd->cmd, *env);
 	perror("execve failed");
 }

@@ -6,13 +6,13 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:45:38 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:45:47 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/09 12:01:15 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	trav_tree(t_tree *tree, char **envp, int *status)
+void	trav_tree(t_tree *tree, char ***envp, int *status)
 {
 	if (!tree)
 		return ;

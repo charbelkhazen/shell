@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/08 12:33:36 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:06:21 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,20 +107,20 @@ void    free_args(char **args)
 	}
 	free(args);
 }
-int	applybuiltin(char *input, char **envp)
+int	applybuiltin(char *input, char ***envp)
 {
 	char	**args;
 	int	status;
 
 	args = ft_split(input, ' '); //TO BE FREEEDDDDD
 	if (isexit(input)) 
-		status= (exit_builtin(args, envp));
+		status= (exit_builtin(args, *envp));
 	else if (iscd(input))
-		status= (change_directory(args, envp));
+		status= (change_directory(args, *envp));
 	else if (isexport(input))
 		status= (export_builtin(args, envp));
 	else if (isunset(input))
-		status= (unset_builtin(args, envp));
+		status= (unset_builtin(args, *envp));
 	free_args(args);
 	return (status);
 }

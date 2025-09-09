@@ -6,13 +6,13 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:43:40 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:44:05 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/09 11:58:58 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exec_pipe(t_pipetree *tree, char **envp, int *status)
+void	exec_pipe(t_pipetree *tree, char ***envp, int *status)
 {
 	int		pipefd[2];
 	pid_t	pid1;

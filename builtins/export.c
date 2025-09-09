@@ -1,86 +1,160 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/03 19:35:16 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/03 19:45:48 by jissa            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
 
-void	handle_exportcmd(char **envp)
+void    handle_exportcmd(char **envp)
 {
-	int	i;
+        int     i;
 
-	i = 0;
-	while (envp[i])
+        i = 0;
+        while (envp[i])
+        {
+                printf("declare -x %s\n", envp[i]);
+                i++;
+        }
+}
+
+int	validatearg(char *arg)
+{
+	if (!arg)
+		return (0);
+	if ((*arg != '_') && (!ft_isalpha(*arg)))
+		return (0);
+	while (*arg && (*arg != '='))
 	{
-		printf("declare -x %s\n", envp[i]);
-		i++;
+		if ((*arg != '_') && (!ft_isalnum(*arg)))
+			return (0);
+		arg ++;
 	}
+	return (1);
 }
 
-char	*create_new_env_var(char *arg, char **var_name)
+char	**findinnenv(char *arg, char **env)
 {
-	char	*var_value;
-	char	*new_env_var;
+	char	*var;
+	int	varsize;
+	char	*equalptr;
 
-	var_value = ft_strchr(arg, '=');
-	*var_name = ft_substr(arg, 0, ft_strlen(arg) - ft_strlen(var_value));
-	new_env_var = ft_strjoin(*var_name, var_value);
-	return (new_env_var);
-}
-
-int	update_existing_env(char **envp, char *var_name, char *new_env_var)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
+	if (!arg || !env)
+		return (0);
+	equalptr = ft_strchr(arg, '=');
+	if (equalptr)
+		var = getstr(arg, equalptr);
+	else
+		var = ft_strdup(arg);
+	varsize = ft_strlen(var);
+	while (*env)
 	{
-		if (ft_strncmp(var_name, envp[i], ft_strlen(var_name)) == 0
-			&& envp[i][ft_strlen(var_name)] == '=')
+		if (!ft_strncmp(*env, var, varsize) && (*(*env + varsize) == '=' || *(*env + varsize) == 0)) 
 		{
-			free(envp[i]);
-			envp[i] = ft_strdup(new_env_var);
-			return (1);
+			free(var);
+			return (env);
 		}
-		i++;
+		env++;
 	}
+	free(var);
 	return (0);
 }
 
-void	add_new_env_var(char **envp, char *new_env_var)
+void	replaceinenv(char *arg, char **foundenv)
+{
+	char	*temp;
+
+	if (!foundenv || !arg)
+		return ;
+	temp = *foundenv;
+	*foundenv = ft_strdup(arg);
+	free(temp);
+}
+
+void	freeenv(char **env)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i])
-		i++;
-	envp[i] = ft_strdup(new_env_var);
-	envp[i + 1] = NULL;
-}
-
-int	export_builtin(char **args, char **envp)
-{
-	char	*var_name;
-	char	*new_env_var;
-	int		found;
-
-	if (!args[1] || !ft_strchr(args[1], '='))
+	while (env[i])
 	{
-		handle_exportcmd(envp);
-		return (1);
+		free(env[i]);
+		i++;
 	}
-	new_env_var = create_new_env_var(args[1], &var_name);
-	found = update_existing_env(envp, var_name, new_env_var);
-	if (!found)
-		add_new_env_var(envp, new_env_var);
-	free(var_name);
-	free(new_env_var);
-	return (0);
+	free(env);
 }
+
+void	addinenv(char *arg, char ***env)
+{
+	int	i;
+	char	**temp;
+
+	i = 0;
+	while (*(*env + i))
+		i++;
+	temp = *env;
+	*env = malloc(sizeof(char *) * (i + 2));
+	i = 0;
+	while (*(temp + i))
+	{
+		*(*env + i) = ft_strdup(*(temp + i));
+		i++;
+	}
+	*(*env + i) = ft_strdup(arg);
+	i++;
+	*(*env + i) = 0;
+	freeenv(temp);
+	printf("env start: %s\n", **env);
+}
+
+void	applyexport(char *arg, char ***env)
+{
+	char	**foundenv;
+
+	foundenv = findinnenv(arg, *env);
+	if (ft_strchr(arg, '='))
+	{
+		if (foundenv)
+			replaceinenv(arg, foundenv);
+		else
+			addinenv(arg, env);
+	}
+	else
+	{
+		if (foundenv)
+			return;
+		else
+			addinenv(arg, env);
+	}
+}
+
+int	export_builtin(char **args, char ***env) //Use handleword() to handle expansions and quotations
+{
+	int	status;
+	char	*var;
+
+	status = 0;
+	if (!args[1])
+	{
+		handle_exportcmd(*env);
+		return (0);
+	}
+	args++;
+	while (*args)
+	{
+		if (!validatearg(*args))
+			status = 1;
+		else
+			applyexport(*args, env);
+		args ++;
+	}
+	return (status);
+}
+/*
+int main(int ac, char *av[], char *envp[])
+{
+	char **env = dupenv(envp);
+	myexport(av, &env);
+	int i=0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+	freeenv(env);
+}
+*/
