@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:22:03 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 19:48:11 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:51:08 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exit_builtin(char **args, char **env)
 	if (!args[1])
 	{
 		rl_clear_history();
-		freeshlvl(env);
+		freeenv(env);
 		free_args(args);
 		exit(g_exit_status);
 	}
@@ -38,7 +38,7 @@ int	exit_builtin(char **args, char **env)
 	}
 	rl_clear_history();
 	status = ft_atoll(args[1]);
-	freeshlvl(env);
+	freeenv(env);
 	free_args(args);
 	exit ((unsigned char)status);
 	return ((unsigned char)status);
