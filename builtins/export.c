@@ -98,7 +98,6 @@ void	addinenv(char *arg, char ***env)
 	i++;
 	*(*env + i) = 0;
 	freeenv(temp);
-	printf("env start: %s\n", **env);
 }
 
 void	applyexport(char *arg, char ***env)
@@ -137,7 +136,10 @@ int	export_builtin(char **args, char ***env) //Use handleword() to handle expans
 	while (*args)
 	{
 		if (!validatearg(*args))
+		{
+			printf("Minishell: export: '%s': not a valid identifier\n", *args);
 			status = 1;
+		}
 		else
 			applyexport(*args, env);
 		args ++;
