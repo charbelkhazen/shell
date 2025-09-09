@@ -27,7 +27,7 @@ int	validatearg(char *arg)
 	return (1);
 }
 
-char	**findinnenv(char *arg, char **env)
+char	**findinenv(char *arg, char **env)
 {
 	char	*var;
 	int	varsize;
@@ -104,7 +104,7 @@ void	applyexport(char *arg, char ***env)
 {
 	char	**foundenv;
 
-	foundenv = findinnenv(arg, *env);
+	foundenv = findinenv(arg, *env);
 	if (ft_strchr(arg, '='))
 	{
 		if (foundenv)

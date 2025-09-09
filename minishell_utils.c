@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:21:17 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 12:06:21 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:29:26 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	applybuiltin(char *input, char ***envp)
 	else if (isexport(input))
 		status= (export_builtin(args, envp));
 	else if (isunset(input))
-		status= (unset_builtin(args, *envp));
+		status= (unset_builtin(args, envp));
 	free_args(args);
 	return (status);
 }

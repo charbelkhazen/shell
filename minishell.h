@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 13:52:54 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:28:15 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void			exec_input_redir(t_redirtree *tree, char ***env, int *status);
 void			exec_heredoc(t_redirtree *tree, char ***env, int *status);
 void			exec_pipe(t_pipetree *tree, char ***envp, int *status);
 void			exec_command_node(t_cmdtree *cmd, char ***env, int *status);
-int     unset_builtin(char **args, char **env);
+int     unset_builtin(char **args, char ***env);
 int			export_builtin(char **args, char ***envp);
 int			exit_builtin(char **args, char **envp);
 int			echo(char **args);
@@ -130,4 +130,5 @@ void    free_args(char **args);
 char	**dupenv(char **envp);
 void    handle_exportcmd(char **envp);
 void	freeenv(char **env);
+char	**findinenv(char *args, char **env);
 #endif

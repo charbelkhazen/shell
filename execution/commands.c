@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 12:47:19 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:29:08 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	runcmd(char **args, char ***env)
 	else if (args[0] && ft_strcmp(args[0], "export") == 0)
 		return (export_builtin(args, env));
 	else if (args[0] && ft_strcmp(args[0], "unset") == 0)
-		return (unset_builtin(args, *env));
+		return (unset_builtin(args, env));
 	return (-1);
 }
 
