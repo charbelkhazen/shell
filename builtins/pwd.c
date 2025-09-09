@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:23:15 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/03 19:35:26 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/09 15:03:19 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	pwd(char **args, char **envp)
 	char	path[1024];
 	int		i;
 
+	i = 0;
 	if (getcwd(path, sizeof(path)) == NULL)
 	{
 		perror("getcwd failed");

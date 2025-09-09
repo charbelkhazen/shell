@@ -107,6 +107,7 @@ int main(int argc, char *argv[], char **envp)
 		if (startbuiltin(input))
 		{
 			handlestartbuiltin(input, &env, &status);
+			free(input);
 			continue;
 		}
 		result = parseprogram(&input, status);

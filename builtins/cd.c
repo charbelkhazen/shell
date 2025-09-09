@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:20:12 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/03 19:34:42 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/09 15:49:21 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	update_pwd(char **my_env, char *str, int size)
 {
 	char	path[1024];
 	int		i;
+	char	*temp;
 
 	i = 0;
 	if (getcwd(path, sizeof(path)) == NULL)
@@ -24,7 +25,9 @@ void	update_pwd(char **my_env, char *str, int size)
 	{
 		if (ft_strncmp(my_env[i], str, size) == 0)
 		{
+			temp = my_env[i];
 			my_env[i] = ft_strjoin(str, path);
+			free(temp);
 			return ;
 		}
 		i++;
