@@ -8,7 +8,7 @@ $(LIBFT_A):
 uu:
 	cc expansion/applyexp_1.c expansion/applyexp_2.c builtins/builtin_utils.c builtins/cd.c builtins/environment.c builtins/pwd.c builtins/export.c builtins/unset.c builtins/exit.c builtins/echo.c main.c parsing.c match_advance.c constructors/constructors.c execution/commands.c execution/heredoc.c execution/pipes.c execution/redirections.c execution/trav_exec.c execution/finding_path.c ft_split.c minishell_utils.c handlecmd/handleword.c handlecmd/handleword2.c -lreadline libft.a
 g:
-	cc applyexp.c builtins.c main.c parsing.c match_advance.c constructors.c execution.c finding_path.c ft_split.c minishell_utils.c handlecmd.c -lreadline libft.a -g
+	cc expansion/applyexp_1.c expansion/applyexp_2.c builtins/builtin_utils.c builtins/cd.c builtins/environment.c builtins/pwd.c builtins/export.c builtins/unset.c builtins/exit.c builtins/echo.c main.c parsing.c match_advance.c constructors/constructors.c execution/commands.c execution/heredoc.c execution/pipes.c execution/redirections.c execution/trav_exec.c execution/finding_path.c ft_split.c minishell_utils.c handlecmd/handleword.c handlecmd/handleword2.c -lreadline libft.a -g
 del:
 	cc del.c builtins.c handlecmd.c match_advance.c applyexp.c  minishell_utils.c libft.a -g
 pars:

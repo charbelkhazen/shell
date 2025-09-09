@@ -40,17 +40,17 @@ void	basicsetup(int *status, char **envp)
 	rl_change_environment = 0;
 	signal(SIGQUIT, SIG_IGN);
 	*status = 0;
-	update_shlvl_on_start(envp);
+	//update_shlvl_on_start(envp);
 }
 
-void	launchprgm(char **input, char **tempinput, char **envp)
+void	launchprgm(char **input, char **tempinput, char ***envp)
 {	
 	signal(SIGINT, setsig);
 	*input = readline("minishell$ ");
 	*tempinput = *input;
 	if (!(*input))
 	{
-		freeenv(envp);
+		freeenv(*envp);
 		write(1, "exit\n", 5);
 		exit(0);
 	}
@@ -103,7 +103,7 @@ int main(int argc, char *argv[], char **envp)
 	basicsetup(&status, env);
 	while (1)
 	{
-		launchprgm(&input, &tempinput, env);
+		launchprgm(&input, &tempinput, &env);
 		if (startbuiltin(input))
 		{
 			handlestartbuiltin(input, &env, &status);

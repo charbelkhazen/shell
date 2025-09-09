@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 12:06:48 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 13:52:54 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,5 @@ void    freeshlvl(char **my_env);
 void    free_args(char **args);
 char	**dupenv(char **envp);
 void    handle_exportcmd(char **envp);
-
+void	freeenv(char **env);
 #endif
