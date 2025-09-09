@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 16:28:15 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/09 19:46:57 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <errno.h>
 # include <signal.h>
 
-extern int globsig;
+extern int	globsig;
 
 typedef struct	s_tree
 {
@@ -37,7 +37,7 @@ typedef struct	s_tree
 typedef struct	s_cmdtree
 {
 	int	type;
-	char	*cmd[100]; // Set as intmax
+	char	*cmd[100]; 
 }	t_cmdtree;
 
 typedef struct	s_redirtree
@@ -93,42 +93,51 @@ void			exec_input_redir(t_redirtree *tree, char ***env, int *status);
 void			exec_heredoc(t_redirtree *tree, char ***env, int *status);
 void			exec_pipe(t_pipetree *tree, char ***envp, int *status);
 void			exec_command_node(t_cmdtree *cmd, char ***env, int *status);
-int     unset_builtin(char **args, char ***env);
-int			export_builtin(char **args, char ***envp);
-int			exit_builtin(char **args, char **envp);
-int			echo(char **args);
+int     		unset_builtin(char **args, char ***env);
+int				export_builtin(char **args, char ***envp);
+int				exit_builtin(char **args, char **envp);
+int				echo(char **args);
 int				only_n_flags(char *input);
-int			environment(char **args, char **env);
-int			pwd(char **args, char **envp);
-int			change_directory(char **args, char **env);
+int				environment(char **args, char **env);
+int				pwd(char **args, char **envp);
+int				change_directory(char **args, char **env);
 void			freetree(t_tree *tree);
 void			printtree(t_tree *tree);
 t_tree			*parseredir(char **buf, t_tree *tree, int status);
 t_tree			*parsecmd(char **buf, int status);
-t_tree  *cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status);
-t_tree *parsepipeline(char **buf, int status);
-t_tree  *parseprogram(char **buf, int status);
-int	ft_strcmp(char *s1, char *s2);
-char	*tononalnum(char *ptr);
-int     travword(char **cur, char **start, char **end);
-char *handleword(char *buf, int status);
-char *join_free(char *a, char *b);
-char	*expand_slice(char *start, char *end, int tok, int status);
-char	*skipwhitespace(char *ptr);
-int	isexit(char *s);
-int	applybuiltin(char *input, char ***envp);
-void	setsig(int sig);
-int	startbuiltin(char *s);
-int	chariswhitespace(char s);
-char	isquote(char *s);
-void    writeexpinput(char *buf, int *pipefd);
-char	*removequotes(char *str);
-int	is_numeric(const char *str);
-long long	ft_atoll(const char *str);
-void    freeshlvl(char **my_env);
-void    free_args(char **args);
-char	**dupenv(char **envp);
-void    handle_exportcmd(char **envp);
-void	freeenv(char **env);
-char	**findinenv(char *args, char **env);
+t_tree			*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status);
+t_tree			*parsepipeline(char **buf, int status);
+t_tree			*parseprogram(char **buf, int status);
+int				ft_strcmp(char *s1, char *s2);
+char			*tononalnum(char *ptr);
+int				travword(char **cur, char **start, char **end);
+char			*handleword(char *buf, int status);
+char			*join_free(char *a, char *b);
+char			*expand_slice(char *start, char *end, int tok, int status);
+char			*skipwhitespace(char *ptr);
+int				isexit(char *s);
+int				applybuiltin(char *input, char ***envp);
+void			setsig(int sig);
+int				startbuiltin(char *s);
+int				chariswhitespace(char s);
+char			isquote(char *s);
+void			writeexpinput(char *buf, int *pipefd);
+char			*removequotes(char *str);
+int				is_numeric(const char *str);
+long long		ft_atoll(const char *str);
+void			freeshlvl(char **my_env);
+void			free_args(char **args);
+char			**dupenv(char **envp);
+void			handle_exportcmd(char **envp);
+void			freeenv(char **env);
+char			**findinenv(char *args, char **env);
+void			consumepipe(int *token, char **curr);
+int				ft_iswhitespace(char *s);
+int				iscd(char *s);
+int				isexport(char *s);
+int				isunset(char *s);
+int				startbuiltin(char *s);
+void			free_args(char **args);
+int				applybuiltin(char *input, char ***envp);
+
 #endif
