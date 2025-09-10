@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:24:37 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 17:47:41 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 19:01:07 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	removeenvvar(char *arg, char ***env, char **foundenv)
 	int		index;
 	int		j;
 
+	(void) arg;
 	index = (int)(foundenv - *env);
 	utilremoveenvvar(&i, env, &orig);
 	*env = malloc(sizeof(char *) * i);
@@ -60,8 +61,6 @@ void	applyunset(char *arg, char ***env)
 
 int	unset_builtin(char **args, char ***env)
 {
-	char	*var;
-
 	if (!args[1])
 		return (0);
 	args++;

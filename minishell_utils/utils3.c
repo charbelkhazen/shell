@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 18:14:43 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 19:29:36 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	isquote(char *str)
 
 void	writeexpinput(char *buf, int *pipefd)
 {
-	int		tok;
 	char	*sword;
 	char	*eword;
 	char	*word;

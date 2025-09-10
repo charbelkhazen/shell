@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:36:48 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 17:37:28 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 19:04:18 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	update_shlvl_on_start(char **my_env)
 {
 	int		i;
 	int		value;
-	char	*new_value;
 	char	*tmp;
 	char	*othertemp;
 

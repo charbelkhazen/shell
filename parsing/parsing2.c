@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:03:40 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 18:08:17 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 19:25:36 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 	char	*filename;
 	t_tree	**tail;
 
+	(void) status;
 	tail = &tree;
 	while ((*tail)->type == '<' || (*tail)->type == '>' \
 || (*tail)->type == 'h' || (*tail)->type == 'a')
@@ -40,16 +41,20 @@ t_tree	*parseredir(char **buf, t_tree *tree, int status)
 	return (tree);
 }
 
-void	freepipe(t_tree *tree, t_pipetree *pipetree)
+void	freepipe(t_tree *tree)
 {
+	t_pipetree	*pipetree;
+
 	pipetree = (t_pipetree *)tree;
 	freetree(pipetree -> right);
 	freetree(pipetree -> left);
 	free(pipetree);
 }
 
-void	freeredir(t_tree *tree, t_redirtree *redirtree)
+void	freeredir(t_tree *tree)
 {
+	t_redirtree *redirtree;
+
 	redirtree = (t_redirtree *)tree;
 	freetree(redirtree -> cmd);
 	free(redirtree -> file_name);
@@ -58,8 +63,6 @@ void	freeredir(t_tree *tree, t_redirtree *redirtree)
 
 void	freetree(t_tree *tree)
 {
-	t_pipetree	*pipetree;
-	t_redirtree	*redirtree;
 	t_cmdtree	*cmdtree;
 	char		**argv;
 
@@ -75,8 +78,8 @@ void	freetree(t_tree *tree)
 		free(cmdtree);
 	}
 	else if (tree -> type == '|')
-		freepipe(tree, pipetree);
+		freepipe(tree);
 	else if ((tree -> type == '>') || (tree -> type == '<') || \
 (tree -> type == 'a') || (tree -> type == 'h'))
-		freeredir(tree, redirtree);
+		freeredir(tree);
 }

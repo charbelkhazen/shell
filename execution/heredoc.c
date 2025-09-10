@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:41:34 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 11:59:14 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 19:28:51 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ void	writepipe(char *delim, int *pipefd)
 void	exec_heredoc(t_redirtree *tree, char ***env, int *status)
 {
 	char	*delim;
-	char	*input;
 	int		pipefd[2];
-	pid_t	pid;
 
 	delim = tree->file_name;
 	pipe(pipefd);

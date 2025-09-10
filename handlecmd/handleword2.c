@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:33 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 11:35:01 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 19:32:02 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	travword(char **cur, char **start, char **end)
 {
 	int	token;
 
+	token = 0;
 	if (**cur == 0)
 		token = 0;
 	else if ((**cur) == '"')

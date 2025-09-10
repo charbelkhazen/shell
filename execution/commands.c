@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 16:29:08 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 19:27:10 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	exec_command_node(t_cmdtree *cmd, char ***env, int *status)
 	char	*path_env;
 	int		exitruncmd;
 
+	(void)status;
 	if (!*(cmd -> cmd))
 		exit(0);
 	if (isbuiltin((cmd->cmd)[0]))

@@ -6,7 +6,7 @@
 /*   By: chkhazen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:25:58 by chkhazen          #+#    #+#             */
-/*   Updated: 2025/09/10 17:27:19 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:58:53 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	applyexport(char *arg, char ***env)
 int	export_builtin(char **args, char ***env)
 {
 	int		status;
-	char	*var;
 
 	status = 0;
 	if (!args[1])

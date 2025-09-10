@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:58:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:01:16 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 18:54:16 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_modifiable	*modify(t_modifiable *mod, int status)
 	char	*rep;
 	char	*merge;
 
+	rep = 0;
 	pre = getstr(mod -> start, mod -> exp);
 	if (!pre)
 		pre = "";
