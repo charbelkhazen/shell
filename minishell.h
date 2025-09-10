@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chkhazen <chkhazen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 17:25:34 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 17:39:36 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,7 @@ void			free_args(char **args);
 void			replaceinenv(char *arg, char **foundenv);
 int					validatearg(char *arg);
 void			handle_exportcmd(char **envp);
+void			basicsetup(int *status, char **envp);
+void			launchprgm(char **input, char **tempinput, char ***envp);
 
 #endif
