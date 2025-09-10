@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 16:34:00 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:37:25 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,44 +27,44 @@
 # include <errno.h>
 # include <signal.h>
 
-extern int	globsig;
+extern int	g_globsig;
 
-typedef struct	s_tree
+typedef struct s_tree
 {
 	int	type;
 }	t_tree;
 
-typedef struct	s_cmdtree
+typedef struct s_cmdtree
 {
-	int	type;
-	char	*cmd[100]; 
+	int		type;
+	char	*cmd[100];
 }	t_cmdtree;
 
-typedef struct	s_redirtree
+typedef struct s_redirtree
 {
-	int	type;
+	int		type;
 	t_tree	*cmd;
 	char	*file_name;
-	int	fd;
-	int	option;
+	int		fd;
+	int		option;
 }	t_redirtree;
 
-typedef struct	s_pipetree
+typedef struct s_pipetree
 {
-	int	type;
+	int		type;
 	t_tree	*right;
 	t_tree	*left;
 }	t_pipetree;
 
 typedef struct s_modifiable
 {
-        char    *start;
-        char    *exp;
-        char    *endexp;
-        char    *env;
-        int     steps;
-        char    *endmod;
-}       t_modifiable;
+        char	*start;
+        char	*exp;
+        char	*endexp;
+        char	*env;
+        int		steps;
+        char	*endmod;
+}	t_modifiable;
 
 typedef struct s_mod
 {
@@ -72,10 +72,10 @@ typedef struct s_mod
         char    *obj;
         char    *eobj;
         int     steps;
-}       t_mod;
+}	t_mod;
 
-int    			 match(char *ptr, char *tok);
-int    		 	consume(char **curr, char **tok, char **endtok);
+int				match(char *ptr, char *tok);
+int				consume(char **curr, char **tok, char **endtok);
 char			*getstr(char *start, char *end);
 t_tree  		*con_redirtree(t_tree *cmd, int type, char *fn);
 t_tree  		*con_pipetree(t_tree *left, t_tree *right);
