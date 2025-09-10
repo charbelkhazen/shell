@@ -70,11 +70,13 @@ void	setupinchild(t_tree *result)
 	signal(SIGINT, SIG_DFL);
 }
 
-void	executeprgm(int *pid, t_tree *result, char ***envp, int *status)
+void	executeprgm(t_tree *result, char ***envp, int *status)
 {
+	int	pid;
+
 	signal(SIGINT, SIG_IGN);
-	*pid = fork();
-	if (!(*pid))
+	pid = fork();
+	if (!pid)
 	{
 		setupinchild(result);
 		trav_tree(result, envp, status);
@@ -95,11 +97,11 @@ int main(int argc, char *argv[], char **envp)
 {
 	char	*input;
 	t_tree	*result;
-	int	pid;
 	int	status;
 	char	*tempinput;
+	char	**env;
 
-	char **env = dupenv(envp);
+	env = dupenv(envp);
 	basicsetup(&status, env);
 	while (1)
 	{
@@ -111,7 +113,7 @@ int main(int argc, char *argv[], char **envp)
 			continue;
 		}
 		result = parseprogram(&input, status);
-		executeprgm(&pid, result, &env, &status);
+		executeprgm(result, &env, &status);
 		cleanexitexec(status, result, tempinput);
 	}
 	rl_clear_history();
