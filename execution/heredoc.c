@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:41:34 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 19:28:51 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 20:59:32 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	utilprocessinput(char *delim)
 	return (isexpand);
 }
 
-void	processinput(char *delim, int *pipefd)
+void	processinput(char *delim, int *pipefd, char ***env)
 {
 	char	*input;
 	char	isexpand;
@@ -50,7 +50,7 @@ void	processinput(char *delim, int *pipefd)
 	free(input);
 }
 
-void	writepipe(char *delim, int *pipefd)
+void	writepipe(char *delim, int *pipefd, char ***env)
 {
 	int	temppidout;
 	int	temppidin;
@@ -61,7 +61,7 @@ void	writepipe(char *delim, int *pipefd)
 	ttyfd = open("/dev/tty", O_RDWR);
 	dup2(ttyfd, STDOUT_FILENO);
 	dup2(ttyfd, STDIN_FILENO);
-	processinput(delim, pipefd);
+	processinput(delim, pipefd, env);
 	close(ttyfd);
 	dup2(temppidin, STDIN_FILENO);
 	dup2(temppidout, STDOUT_FILENO);
@@ -77,7 +77,7 @@ void	exec_heredoc(t_redirtree *tree, char ***env, int *status)
 
 	delim = tree->file_name;
 	pipe(pipefd);
-	writepipe(delim, pipefd);
+	writepipe(delim, pipefd, env);
 	trav_tree(tree->cmd, env, status);
 	exit(127);
 }

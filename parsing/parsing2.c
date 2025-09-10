@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:03:40 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 19:25:36 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 20:17:35 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	freepipe(t_tree *tree)
 
 void	freeredir(t_tree *tree)
 {
-	t_redirtree *redirtree;
+	t_redirtree	*redirtree;
 
 	redirtree = (t_redirtree *)tree;
 	freetree(redirtree -> cmd);

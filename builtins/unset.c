@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:24:37 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 19:01:07 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 20:30:46 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ void	removeenvvar(char *arg, char ***env, char **foundenv)
 	while (i < index)
 	{
 		*(*env + i) = ft_strdup(*(orig + i));
-		i ++;
+		i++;
 	}
 	j = i;
-	if (*(orig + i))
-		i ++;
+	i = i + (*(orig + i) != 0);
 	while (*(orig + i))
 	{
 		*(*env + j) = ft_strdup(*(orig + i));

@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 19:29:36 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 20:59:57 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 {
 	char	**args;
 	int		status;
-	int		i;
+	int			i;
 	char	*temp;
 
 	args = ft_split(input, ' ');
@@ -24,7 +24,7 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 	while (args[i])
 	{
 		temp = args[i];
-		args[i] = handleword(args[i], WEXITSTATUS(oldstatus));
+		args[i] = handleword(args[i], WEXITSTATUS(oldstatus), envp);
 		free(temp);
 		i++;
 	}
@@ -64,8 +64,9 @@ char	isquote(char *str)
 	return (0);
 }
 
-void	writeexpinput(char *buf, int *pipefd)
+void	writeexpinput(char *buf, int *pipefd, char ***env)
 {
+	int		tok;
 	char	*sword;
 	char	*eword;
 	char	*word;
@@ -82,7 +83,7 @@ void	writeexpinput(char *buf, int *pipefd)
 				buf++;
 			eword = buf;
 			word = getstr(sword, eword);
-			transword = handleword(word, 0);
+			transword = handleword(word, 0, env);
 			write(pipefd[1], transword, ft_strlen(transword));
 			free(word);
 			free(transword);

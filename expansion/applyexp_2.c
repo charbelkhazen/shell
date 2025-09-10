@@ -6,13 +6,13 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:59:34 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 10:01:22 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 20:48:50 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_modifiable	*expandbuff(char *cmd, int status)
+t_modifiable	*expandbuff(char *cmd, int status, char ***envp)
 {
 	char			*exp;
 	t_modifiable	*mod;
@@ -23,7 +23,7 @@ t_modifiable	*expandbuff(char *cmd, int status)
 	mod = con_modifiable(cmd, exp);
 	while (mod -> exp)
 	{
-		mod = modify(mod, status);
+		mod = modify(mod, status, envp);
 		mod -> exp = ft_strchr((mod -> start) + (mod -> steps), '$');
 		if (mod -> exp)
 		{
@@ -45,13 +45,13 @@ void	freemod(t_modifiable *mod)
 	free(mod);
 }
 
-char	*applyexp(char *cmd, int type, int status)
+char	*applyexp(char *cmd, int type, int status, char ***envp)
 {
 	t_modifiable	*mod;
 
 	if (type == '\'')
 		return (cmd);
-	mod = expandbuff(cmd, status);
+	mod = expandbuff(cmd, status, envp);
 	if (!mod)
 		return (cmd);
 	cmd = ft_strdup(mod -> start);

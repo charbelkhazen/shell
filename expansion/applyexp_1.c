@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:58:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 18:54:16 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 20:49:21 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	mergeremain(char *merge, t_modifiable *mod)
 	free(temp);
 }
 
-char	*utilmodify(char *exp, char *rep, int status)
+char	*utilmodify(char *exp, char *rep, int status, char ***envp)
 {
 	if (!exp)
 		rep = "$";
@@ -58,7 +58,7 @@ char	*utilmodify(char *exp, char *rep, int status)
 	return (rep);
 }
 
-t_modifiable	*modify(t_modifiable *mod, int status)
+t_modifiable	*modify(t_modifiable *mod, int status, char ***envp)
 {
 	char	*pre;
 	char	*exp;
@@ -70,7 +70,7 @@ t_modifiable	*modify(t_modifiable *mod, int status)
 	if (!pre)
 		pre = "";
 	exp = getstr((mod -> exp) + 1, mod -> endexp);
-	rep = utilmodify(exp, rep, status);
+	rep = utilmodify(exp, rep, status, envp);
 	if (!rep)
 		rep = "";
 	merge = ft_strjoin(pre, rep);

@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 18:21:10 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 21:03:33 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ t_tree			*con_cmdtree(void);
 char			*towhitespace(char *ptr);
 void			mergeremain(char *merge, t_modifiable *mod);
 t_modifiable	*con_modifiable(char *cmd, char *exp);
-t_modifiable	*modify(t_modifiable *mod, int status);
-t_modifiable	*expandbuff(char *cmd, int status);
-char			*applyexp(char *cmd, int type, int status);
+t_modifiable	*modify(t_modifiable *mod, int status, char ***envp);
+t_modifiable	*expandbuff(char *cmd, int status, char ***envp);
+char			*applyexp(char *cmd, int type, int status, char ***envp);
 char			*find_full_path(char *command, char *path);
 char			*get_path(char **env);
 void			trav_tree(t_tree *tree, char ***envp, int *status);
@@ -103,17 +103,17 @@ int				pwd(char **args, char **envp);
 int				change_directory(char **args, char **env);
 void			freetree(t_tree *tree);
 t_tree			*parseredir(char **buf, t_tree *tree, int status);
-t_tree			*parsecmd(char **buf, int status);
+t_tree			*parsecmd(char **buf, int status, char ***env);
 t_tree			*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, \
-char **buf, int status);
-t_tree			*parsepipeline(char **buf, int status);
-t_tree			*parseprogram(char **buf, int status);
+char **buf, int status, char ***env);
+t_tree			*parsepipeline(char **buf, int status, char ***env);
+t_tree			*parseprogram(char **buf, int status, char ***env);
 int				ft_strcmp(char *s1, char *s2);
 char			*tononalnum(char *ptr);
 int				travword(char **cur, char **start, char **end);
-char			*handleword(char *buf, int status);
+char			*handleword(char *buf, int status, char ***envp);
 char			*join_free(char *a, char *b);
-char			*expand_slice(char *start, char *end, int tok, int status);
+char			*expand_slice(char *start, char *end, int tok, int status, char ***envp);
 char			*skipwhitespace(char *ptr);
 int				isexit(char *s);
 int				applybuiltin(char *input, char ***envp, int oldstatus);
@@ -121,7 +121,7 @@ void			setsig(int sig);
 int				startbuiltin(char *s);
 int				chariswhitespace(char s);
 char			isquote(char *s);
-void			writeexpinput(char *buf, int *pipefd);
+void			writeexpinput(char *buf, int *pipefd, char ***env);
 char			*removequotes(char *str);
 int				is_numeric(const char *str);
 long long		ft_atoll(const char *str);

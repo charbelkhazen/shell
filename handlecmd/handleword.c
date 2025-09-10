@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:33:50 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/04 11:34:17 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 20:55:35 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*join_free(char *a, char *b)
 	return (r);
 }
 
-char	*handleword(char *buf, int status)
+char	*handleword(char *buf, int status, char ***envp)
 {
 	int		tok;
 	char	*start;
@@ -36,7 +36,7 @@ char	*handleword(char *buf, int status)
 	tok = travword(&buf, &start, &end);
 	while (tok)
 	{
-		exp = expand_slice(start, end, tok, status);
+		exp = expand_slice(start, end, tok, status, envp);
 		out = join_free(out, exp);
 		tok = travword(&buf, &start, &end);
 	}

@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:35:06 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 19:03:26 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 21:00:26 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char *argv[], char **envp)
 			free(input);
 			continue ;
 		}
-		result = parseprogram(&input, status);
+		result = parseprogram(&input, status, &env);
 		executeprgm(result, &env, &status);
 		cleanexitexec(status, result, tempinput);
 	}

@@ -6,13 +6,13 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:59:46 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 16:41:10 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 21:04:42 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_tree	*parseprogram(char **buf, int status)
+t_tree	*parseprogram(char **buf, int status, char ***env)
 {
 	t_tree	*tree;
 
@@ -25,7 +25,7 @@ t_tree	*parseprogram(char **buf, int status)
 		status = 130;
 	else
 		status = WEXITSTATUS(status);
-	tree = parsepipeline(buf, status);
+	tree = parsepipeline(buf, status, env);
 	if (!tree)
 		return (0);
 	match(*buf, "");
@@ -37,11 +37,11 @@ t_tree	*parseprogram(char **buf, int status)
 	return (tree);
 }
 
-t_tree	*parsepipeline(char **buf, int status)
+t_tree	*parsepipeline(char **buf, int status, char ***env)
 {
 	t_tree	*tree;
 
-	tree = parsecmd(buf, status);
+	tree = parsecmd(buf, status, env);
 	if (!tree)
 		return (0);
 	if (match(*buf, "|"))
@@ -53,23 +53,23 @@ t_tree	*parsepipeline(char **buf, int status)
 			return (0);
 		}
 		consume(buf, NULL, NULL);
-		tree = con_pipetree(tree, parsepipeline(buf, status));
+		tree = con_pipetree(tree, parsepipeline(buf, status, env));
 	}
 	return (tree);
 }
 
-char	*utilcmdandredir(char *sarg, char *earg, int status)
+char	*utilcmdandredir(char *sarg, char *earg, int status, char ***env)
 {
 	char	*word;
 	char	*updword;
 
 	word = getstr(sarg, earg);
-	updword = handleword(word, status);
+	updword = handleword(word, status, env);
 	free(word);
 	return (updword);
 }
 
-t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status)
+t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status, char ***env)
 {
 	int		i;
 	int		tok;
@@ -83,7 +83,7 @@ t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status)
 		tok = consume(buf, &sarg, &earg);
 		if (!tok)
 			break ;
-		word = utilcmdandredir(sarg, earg, status);
+		word = utilcmdandredir(sarg, earg, status, env);
 		if (!(*word))
 			free(word);
 		else if (word && *word)
@@ -96,7 +96,7 @@ t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status)
 	return (tree);
 }
 
-t_tree	*parsecmd(char **buf, int status)
+t_tree	*parsecmd(char **buf, int status, char ***env)
 {
 	t_tree		*tree;
 	t_cmdtree	*cmdtree;
@@ -106,6 +106,6 @@ t_tree	*parsecmd(char **buf, int status)
 	tree = parseredir(buf, tree, status);
 	if (!tree)
 		return (0);
-	tree = cmdandredir(tree, cmdtree, buf, status);
+	tree = cmdandredir(tree, cmdtree, buf, status, env);
 	return (tree);
 }

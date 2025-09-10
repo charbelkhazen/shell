@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 19:27:10 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/10 20:16:13 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,24 @@ ft_strcmp(cmd, "export") == 0)
 		return (0);
 }
 
+void	ifisbuiltin(t_cmdtree *cmd, char ***env)
+{
+	int	exitruncmd;
+
+	exitruncmd = runcmd(cmd->cmd, env);
+	exit(exitruncmd);
+}
+
 void	exec_command_node(t_cmdtree *cmd, char ***env, int *status)
 {
 	char	*full_path;
 	char	*path_env;
-	int		exitruncmd;
 
 	(void)status;
 	if (!*(cmd -> cmd))
 		exit(0);
 	if (isbuiltin((cmd->cmd)[0]))
-	{
-		exitruncmd = runcmd(cmd->cmd, env);
-		exit(exitruncmd);
-	}
+		ifisbuiltin(cmd, env);
 	if ((cmd->cmd)[0][0] == '/' || (cmd->cmd)[0][0] == '.')
 		full_path = cmd->cmd[0];
 	else
