@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 16:37:25 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:40:12 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,34 +58,34 @@ typedef struct s_pipetree
 
 typedef struct s_modifiable
 {
-        char	*start;
-        char	*exp;
-        char	*endexp;
-        char	*env;
-        int		steps;
-        char	*endmod;
+	char	*start;
+	char	*exp;
+	char	*endexp;
+	char	*env;
+	int		steps;
+	char	*endmod;
 }	t_modifiable;
 
 typedef struct s_mod
 {
-        char    *start;
-        char    *obj;
-        char    *eobj;
-        int     steps;
+	char	*start;
+	char	*obj;
+	char	*eobj;
+	int		steps;
 }	t_mod;
 
 int				match(char *ptr, char *tok);
 int				consume(char **curr, char **tok, char **endtok);
 char			*getstr(char *start, char *end);
-t_tree  		*con_redirtree(t_tree *cmd, int type, char *fn);
-t_tree  		*con_pipetree(t_tree *left, t_tree *right);
-t_tree  		*con_cmdtree(void);
+t_tree			*con_redirtree(t_tree *cmd, int type, char *fn);
+t_tree			*con_pipetree(t_tree *left, t_tree *right);
+t_tree			*con_cmdtree(void);
 char			*towhitespace(char *ptr);
-void    		mergeremain(char *merge, t_modifiable *mod);
-t_modifiable    *con_modifiable(char *cmd, char *exp);
-t_modifiable    *modify(t_modifiable *mod, int status);
-t_modifiable    *expandbuff(char *cmd, int status);
-char    		*applyexp(char *cmd, int type, int status);
+void			mergeremain(char *merge, t_modifiable *mod);
+t_modifiable	*con_modifiable(char *cmd, char *exp);
+t_modifiable	*modify(t_modifiable *mod, int status);
+t_modifiable	*expandbuff(char *cmd, int status);
+char			*applyexp(char *cmd, int type, int status);
 char			*find_full_path(char *command, char *path);
 char			*get_path(char **env);
 void			trav_tree(t_tree *tree, char ***envp, int *status);
@@ -93,7 +93,7 @@ void			exec_input_redir(t_redirtree *tree, char ***env, int *status);
 void			exec_heredoc(t_redirtree *tree, char ***env, int *status);
 void			exec_pipe(t_pipetree *tree, char ***envp, int *status);
 void			exec_command_node(t_cmdtree *cmd, char ***env, int *status);
-int     		unset_builtin(char **args, char ***env);
+int				unset_builtin(char **args, char ***env);
 int				export_builtin(char **args, char ***envp);
 int				exit_builtin(char **args, char **envp);
 int				echo(char **args);
@@ -105,7 +105,8 @@ void			freetree(t_tree *tree);
 void			printtree(t_tree *tree);
 t_tree			*parseredir(char **buf, t_tree *tree, int status);
 t_tree			*parsecmd(char **buf, int status);
-t_tree			*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status);
+t_tree			*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, \
+char **buf, int status);
 t_tree			*parsepipeline(char **buf, int status);
 t_tree			*parseprogram(char **buf, int status);
 int				ft_strcmp(char *s1, char *s2);

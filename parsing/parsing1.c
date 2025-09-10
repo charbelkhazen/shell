@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:59:46 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 18:03:26 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:41:10 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_tree	*parseprogram(char **buf, int status)
 {
 	t_tree	*tree;
 
-	if (globsig == SIGINT)
+	if (g_globsig == SIGINT)
 	{
-		globsig = 0;
+		g_globsig = 0;
 		status = 128 + SIGINT;
 	}
 	else if (!(WIFEXITED(status)) && (WTERMSIG(status) == SIGINT))

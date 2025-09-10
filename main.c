@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-int	globsig = 0;
+int	g_globsig = 0;
 
 void    setsig(int sig)
 {
-	globsig = sig;
+	g_globsig = sig;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line(); 
