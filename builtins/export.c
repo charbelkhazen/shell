@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chkhazen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/10 16:44:55 by chkhazen          #+#    #+#             */
+/*   Updated: 2025/09/10 16:48:09 by chkhazen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void    handle_exportcmd(char **envp)
+void	handle_exportcmd(char **envp)
 {
 	int	i;
 
@@ -30,7 +42,7 @@ int	validatearg(char *arg)
 char	**findinenv(char *arg, char **env)
 {
 	char	*var;
-	int	varsize;
+	int		varsize;
 	char	*equalptr;
 
 	if (!arg || !env)
@@ -43,7 +55,8 @@ char	**findinenv(char *arg, char **env)
 	varsize = ft_strlen(var);
 	while (*env)
 	{
-		if (!ft_strncmp(*env, var, varsize) && (*(*env + varsize) == '=' || *(*env + varsize) == 0)) 
+		if (!ft_strncmp(*env, var, varsize) && \
+(*(*env + varsize) == '=' || *(*env + varsize) == 0))
 		{
 			free(var);
 			return (env);
@@ -80,7 +93,7 @@ void	freeenv(char **env)
 
 void	addinenv(char *arg, char ***env)
 {
-	int	i;
+	int		i;
 	char	**temp;
 
 	i = 0;
@@ -115,15 +128,15 @@ void	applyexport(char *arg, char ***env)
 	else
 	{
 		if (foundenv)
-			return;
+			return ;
 		else
 			addinenv(arg, env);
 	}
 }
 
-int	export_builtin(char **args, char ***env) //Use handleword() to handle expansions and quotations
+int	export_builtin(char **args, char ***env)
 {
-	int	status;
+	int		status;
 	char	*var;
 
 	status = 0;
