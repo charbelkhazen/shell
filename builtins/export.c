@@ -2,14 +2,14 @@
 
 void    handle_exportcmd(char **envp)
 {
-        int     i;
+	int	i;
 
-        i = 0;
-        while (envp[i])
-        {
-                printf("declare -x %s\n", envp[i]);
-                i++;
-        }
+	i = 0;
+	while (envp[i])
+	{
+		printf("declare -x %s\n", envp[i]);
+		i++;
+	}
 }
 
 int	validatearg(char *arg)

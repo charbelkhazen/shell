@@ -13,11 +13,13 @@ void    setsig(int sig)
 
 void	update_shlvl_on_start(char **my_env)
 {
-	int		i = 0;
+	int		i;
 	int		value;
 	char	*new_value;
 	char	*tmp;
+	char	*othertemp;
 
+	i = 0;
 	while (my_env[i])
 	{
 		if (ft_strncmp(my_env[i], "SHLVL=", 6) == 0)
@@ -25,14 +27,14 @@ void	update_shlvl_on_start(char **my_env)
 			value = ft_atoi(my_env[i] + 6);
 			value++;
 			tmp = ft_itoa(value);
+			othertemp = my_env[i];
 			my_env[i] = ft_strjoin("SHLVL=", tmp);
+			free(othertemp);
 			free(tmp);
 			return ;
 		}
 		i++;
 	}
-	my_env[i] = ft_strdup("SHLVL=1");
-	my_env[i + 1] = NULL;
 }
 
 void	basicsetup(int *status, char **envp)
@@ -40,7 +42,7 @@ void	basicsetup(int *status, char **envp)
 	rl_change_environment = 0;
 	signal(SIGQUIT, SIG_IGN);
 	*status = 0;
-	//update_shlvl_on_start(envp);
+	update_shlvl_on_start(envp);
 }
 
 void	launchprgm(char **input, char **tempinput, char ***envp)
