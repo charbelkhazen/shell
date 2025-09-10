@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 17:39:36 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 18:21:10 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int				environment(char **args, char **env);
 int				pwd(char **args, char **envp);
 int				change_directory(char **args, char **env);
 void			freetree(t_tree *tree);
-void			printtree(t_tree *tree);
 t_tree			*parseredir(char **buf, t_tree *tree, int status);
 t_tree			*parsecmd(char **buf, int status);
 t_tree			*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, \
@@ -140,7 +139,7 @@ int				isunset(char *s);
 int				startbuiltin(char *s);
 void			free_args(char **args);
 void			replaceinenv(char *arg, char **foundenv);
-int					validatearg(char *arg);
+int				validatearg(char *arg);
 void			handle_exportcmd(char **envp);
 void			basicsetup(int *status, char **envp);
 void			launchprgm(char **input, char **tempinput, char ***envp);

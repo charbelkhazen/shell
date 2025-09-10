@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/04 10:20:02 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 15:48:52 by jissa            ###   ########.fr       */
+/*   Created: 2025/05/22 10:17:29 by jissa             #+#    #+#             */
+/*   Updated: 2025/05/26 12:51:06 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
 int	get_words_count(const char *s, char c)
 {
