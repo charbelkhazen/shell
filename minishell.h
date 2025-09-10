@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chkhazen <chkhazen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 16:40:12 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 17:25:34 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,8 @@ int				isexport(char *s);
 int				isunset(char *s);
 int				startbuiltin(char *s);
 void			free_args(char **args);
+void			replaceinenv(char *arg, char **foundenv);
+int					validatearg(char *arg);
+void			handle_exportcmd(char **envp);
 
 #endif
