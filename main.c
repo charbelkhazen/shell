@@ -59,7 +59,7 @@ void	launchprgm(char **input, char **tempinput, char ***envp)
 
 void	handlestartbuiltin(char *input, char ***envp, int *status)
 {
-	*status = applybuiltin(input, envp);
+	*status = applybuiltin(input, envp, *status);
 	*status = (*status & 0xFF) << 8;
 }
 	

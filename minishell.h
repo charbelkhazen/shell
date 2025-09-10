@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 19:46:57 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 10:32:17 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char			*join_free(char *a, char *b);
 char			*expand_slice(char *start, char *end, int tok, int status);
 char			*skipwhitespace(char *ptr);
 int				isexit(char *s);
-int				applybuiltin(char *input, char ***envp);
+int				applybuiltin(char *input, char ***envp, int oldstatus);
 void			setsig(int sig);
 int				startbuiltin(char *s);
 int				chariswhitespace(char s);
@@ -138,6 +138,5 @@ int				isexport(char *s);
 int				isunset(char *s);
 int				startbuiltin(char *s);
 void			free_args(char **args);
-int				applybuiltin(char *input, char ***envp);
 
 #endif

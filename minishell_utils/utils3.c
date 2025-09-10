@@ -6,18 +6,28 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 18:48:05 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/10 11:17:24 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	applybuiltin(char *input, char ***envp)
+int	applybuiltin(char *input, char ***envp, int oldstatus)
 {
 	char	**args;
 	int		status;
+	int	i;
+	char	*temp;
 
 	args = ft_split(input, ' ');
+	i = 0;
+	while (args[i])
+	{
+		temp = args[i];
+		args[i] = handleword(args[i], WEXITSTATUS(oldstatus));
+		free(temp);
+		i++;
+	}
 	if (isexit(input))
 		status = (exit_builtin(args, *envp));
 	else if (iscd(input))
