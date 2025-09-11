@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 09:58:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 20:49:21 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/11 11:15:14 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*utilmodify(char *exp, char *rep, int status, char ***envp)
 	else if (ft_isdigit(*exp))
 		rep = "";
 	else
-		rep = getenv(exp);
+		rep = ft_getenv(exp, *envp);
 	return (rep);
 }
 

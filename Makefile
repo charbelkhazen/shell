@@ -8,7 +8,7 @@ all : $(NAME)
 	cc -c $< -o $@
 
 $(NAME): $(LIBFT_A) $(OBJS)
-	cc $(OBJS) $(LIBFT_A)  -lreadline -o $(NAME)
+	cc $(OBJS) $(LIBFT_A)  -lreadline -g -o $(NAME)
 
 $(LIBFT_A):
 	$(MAKE) -C libft

@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:20:12 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 15:49:21 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/11 12:18:06 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	update_pwd(char **my_env, char *str, int size)
 	}
 }
 
-char	*check_home(char **args)
+char	*check_home(char **args, char **env)
 {
 	char	*target;
 
 	if (!args[1] || ft_strcmp(args[1], "~") == 0)
 	{
-		target = getenv("HOME");
+		target = ft_getenv("HOME", env);
 		if (!target)
 		{
 			printf("minishell: cd: HOME not set\n");
@@ -51,13 +51,13 @@ char	*check_home(char **args)
 	return (NULL);
 }
 
-char	*check_absolute_home(char **args, char *path, size_t size)
+char	*check_absolute_home(char **args, char *path, size_t size, char **env)
 {
 	char	*home;
 
 	if (args[1][0] == '~' && args[1][1] == '/')
 	{
-		home = getenv("HOME");
+		home = ft_getenv("HOME", env);
 		if (!home)
 		{
 			printf("minishell: cd: HOME not set\n");
@@ -76,12 +76,12 @@ int	change_directory(char **args, char **env)
 	char	*target;
 
 	update_pwd(env, "OLDPWD=", 7);
-	target = check_home(args);
+	target = check_home(args, env);
 	if (target == NULL && (!args[1] || ft_strcmp(args[1], "~") == 0))
 		return (1);
 	if (!target)
 	{
-		target = check_absolute_home(args, path, sizeof(path));
+		target = check_absolute_home(args, path, sizeof(path), env);
 		if (target == NULL && args[1] && args[1][0] == '~' && args[1][1] == '/')
 			return (1);
 	}

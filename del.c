@@ -4,6 +4,7 @@ char    *ft_getenv(char *var, char **env)
 {
         int     i;
         int     sizevar;
+	char	*val;
 
         if (!var || !(*var) || !env)
                 return (0);
@@ -12,7 +13,13 @@ char    *ft_getenv(char *var, char **env)
         while (env[i])
         {
                 if (!ft_strncmp(var, env[i], sizevar) && ((*(env[i] + sizevar) == '=') || (*(env[i] + sizevar) == 0)))
-                        return (ft_strchr(env[i], '=') + 1);
+		{
+			val = (ft_strchr(env[i], '=') + 1);
+			if (val)
+				return (val); 
+			printf("sdsd");
+			return (0);
+		}
                 i ++;
         }
         return (0);
@@ -20,7 +27,7 @@ char    *ft_getenv(char *var, char **env)
 
 int main(int ac, char *av[], char *env[])
 {
-	char *s = ft_getenv("USER", env);
+	char *s = ft_getenv("hi", env);
 	if (s)
 		printf("%s\n", s);
 	else
