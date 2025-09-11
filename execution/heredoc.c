@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:41:34 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 20:59:32 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/11 10:22:13 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	processinput(char *delim, int *pipefd, char ***env)
 	while (!(*input) || (ft_strcmp(input, cmpdelim) != 0))
 	{
 		if (isexpand)
-			writeexpinput(input, pipefd);
+			writeexpinput(input, pipefd, env);
 		else
 			write(pipefd[1], input, ft_strlen(input));
 		write(pipefd[1], "\n", 1);
