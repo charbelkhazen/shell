@@ -6,17 +6,35 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:37:33 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/11 12:07:28 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/11 19:33:47 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+
+char	**defaultfill(char **envp)
+{
+	char	**dup;
+	char	cwd[256];
+	char	*temp;
+
+	dup = malloc(sizeof(char *) * 4);
+	getcwd(cwd, sizeof(cwd)); 
+	dup[0] = ft_strjoin("PWD=", cwd);
+	dup[1] = ft_strdup("SHLVL=0");
+	dup[2] = ft_strdup("_=/usr/bin/env");
+	dup[3] = 0;
+	return (dup);
+}
 
 char	**dupenv(char **envp)
 {
 	int		i;
 	char	**dup;
 
+	if (!(envp) || !(*envp) || !(**envp))
+		return (defaultfill(envp));
 	i = 0;
 	while (envp[i])
 		i++;
