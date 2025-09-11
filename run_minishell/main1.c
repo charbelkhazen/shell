@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:35:06 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 21:00:26 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/11 16:58:10 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	main(int argc, char *argv[], char **envp)
 	char	*tempinput;
 	char	**env;
 
-	(void) argc;
+	if (argc != 1)
+		return (0);
 	(void) argv;
 	env = dupenv(envp);
 	basicsetup(&status, env);
