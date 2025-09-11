@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 20:59:57 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/11 18:46:18 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 		i++;
 	}
 	if (isexit(input))
-		status = (exit_builtin(args, *envp));
+		status = (exit_builtin(args, *envp, 1));
 	else if (iscd(input))
 		status = (change_directory(args, *envp));
 	else if (isexport(input))
