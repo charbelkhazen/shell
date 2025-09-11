@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/11 10:41:52 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:15:51 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char			*tononalnum(char *ptr);
 int				travword(char **cur, char **start, char **end);
 char			*handleword(char *buf, int status, char ***envp);
 char			*join_free(char *a, char *b);
-char			*expand_slice(char *start, char *end, int tok, int status, char ***envp);
+char			*expand_slice(char *tmp, int tok, int status, char ***envp);
 char			*skipwhitespace(char *ptr);
 int				isexit(char *s);
 int				applybuiltin(char *input, char ***envp, int oldstatus);

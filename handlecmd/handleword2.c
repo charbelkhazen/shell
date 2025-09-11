@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:34:33 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 20:46:32 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/11 13:12:53 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,10 @@ int	travword(char **cur, char **start, char **end)
 	return (token);
 }
 
-char	*expand_slice(char *start, char *end, int tok, int status, char ***envp)
+char	*expand_slice(char *tmp, int tok, int status, char ***envp)
 {
-	char	*tmp;
 	char	*res;
 
-	tmp = getstr(start, end);
 	if (!tmp)
 		return (ft_strdup(""));
 	res = applyexp(tmp, tok, status, envp);
