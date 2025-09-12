@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:13:58 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 18:14:01 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/12 11:32:10 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char	*find_full_path(char *command, char *path)
 	if (full_path)
 		return (full_path);
 	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (0);
 	temp = ft_strjoin(cwd, "/");
 	free(cwd);
 	full_path = ft_strjoin(temp, command);

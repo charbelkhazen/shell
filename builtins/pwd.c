@@ -6,33 +6,38 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:23:15 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 18:57:01 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/12 11:12:37 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	printpathfromenv(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], "PWD=", 4))
+		{
+			printf("%s\n", ft_strchr(envp[i], '=') + 1);
+			return (0);
+		}
+		i++;
+	}
+	printf("Could not find path\n");
+	return (1);
+}
+
 int	pwd(char **args, char **envp)
 {
 	char	path[1024];
-	int		i;
 
 	(void)args;
-	i = 0;
-	if (getcwd(path, sizeof(path)) == NULL)
-	{
-		perror("getcwd failed");
-		return (127);
-	}
+	if (!getcwd(path, sizeof(path)))
+		return (printpathfromenv(envp));
 	else
-	{
-		while (envp[i])
-		{
-			if (ft_strcmp(envp[i], "PWD"))
-				envp[i] = ft_strdup(path);
-			i++;
-		}
 		printf("%s\n", path);
-	}
 	return (0);
 }
