@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chkhazen <chkhazen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:59:46 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 21:04:42 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/12 15:12:05 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,54 +58,49 @@ t_tree	*parsepipeline(char **buf, int status, char ***env)
 	return (tree);
 }
 
-char	*utilcmdandredir(char *sarg, char *earg, int status, char ***env)
+int	getword(char **buf, char **word, char ***env, int status)
 {
-	char	*word;
-	char	*updword;
-
-	word = getstr(sarg, earg);
-	updword = handleword(word, status, env);
-	free(word);
-	return (updword);
-}
-
-t_tree	*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, char **buf, int status, char ***env)
-{
-	int		i;
-	int		tok;
+	char	*tempword;
 	char	*sarg;
 	char	*earg;
-	char	*word;
 
-	i = 0;
-	while (!match(*buf, "|"))
-	{
-		tok = consume(buf, &sarg, &earg);
-		if (!tok)
-			break ;
-		word = utilcmdandredir(sarg, earg, status, env);
-		if (!(*word))
-			free(word);
-		else if (word && *word)
-			cmdtree -> cmd[i++] = word;
-		tree = parseredir(buf, tree, status);
-		if (!tree)
-			return (0);
-	}
-	cmdtree -> cmd[i] = NULL;
-	return (tree);
+	if(!consume(buf, &sarg, &earg))
+		return (0);
+        tempword = getstr(sarg, earg);
+        *word = handleword(tempword, status, env);
+	if (tempword)
+		free(tempword);
+	if (*word && !(**word))
+        {
+		free(*word);
+                *word = 0;
+        }
+	return (1);
 }
 
-t_tree	*parsecmd(char **buf, int status, char ***env)
+t_tree  *parsecmd(char **buf, int status, char ***env)
 {
-	t_tree		*tree;
-	t_cmdtree	*cmdtree;
+        t_tree          *tree;
+        t_cmdtree       *cmdtree;
+        int             i;
+        char    *word;
 
-	tree = con_cmdtree();
-	cmdtree = (t_cmdtree *)tree;
-	tree = parseredir(buf, tree, status);
-	if (!tree)
-		return (0);
-	tree = cmdandredir(tree, cmdtree, buf, status, env);
-	return (tree);
+        tree = con_cmdtree();
+        cmdtree = (t_cmdtree *)tree;
+        tree = parseredir(buf, tree, status);
+        if (!tree)
+                return (0);
+        i = 0;
+        while (!match(*buf, "|"))
+        {
+        	if (!getword(buf, &word, env, status))
+        		break;
+        	else if (word)
+                        cmdtree->cmd[i++] = word;
+                tree = parseredir(buf, tree, status);
+                if (!tree)
+                        return (0);
+        }
+        cmdtree->cmd[i] = NULL;
+        return (tree);
 }
