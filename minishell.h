@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/12 11:59:04 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:30:20 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ int				change_directory(char **args, char **env);
 void			freetree(t_tree *tree);
 t_tree			*parseredir(char **buf, t_tree *tree, int status);
 t_tree			*parsecmd(char **buf, int status, char ***env);
-t_tree			*cmdandredir(t_tree *tree, t_cmdtree *cmdtree, \
-char **buf, int status, char ***env);
 t_tree			*parsepipeline(char **buf, int status, char ***env);
 t_tree			*parseprogram(char **buf, int status, char ***env);
 int				ft_strcmp(char *s1, char *s2);

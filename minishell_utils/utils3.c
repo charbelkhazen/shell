@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/11 18:46:18 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:40:47 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 {
 	char	**args;
 	int		status;
-	int			i;
+	int		i;
 	char	*temp;
 
 	args = ft_split(input, ' ');
@@ -66,7 +66,6 @@ char	isquote(char *str)
 
 void	writeexpinput(char *buf, int *pipefd, char ***env)
 {
-	int		tok;
 	char	*sword;
 	char	*eword;
 	char	*word;

@@ -5,7 +5,7 @@ LIBFT_A = libft/libft.a
 
 all : $(NAME)
 %.o: %.c
-	cc -c $< -o $@
+	cc -Wall -Werror -Wextra -c $< -o $@
 
 $(NAME): $(LIBFT_A) $(OBJS)
 	cc $(OBJS) $(LIBFT_A)  -lreadline -g -o $(NAME)
