@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:36:48 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/10 19:04:18 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:00:19 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	setsig(int sig)
 	rl_redisplay();
 }
 
-void	update_shlvl_on_start(char **my_env)
+void	update_shlvl_on_start(char ***my_env)
 {
 	int		i;
 	int		value;
@@ -31,24 +31,25 @@ void	update_shlvl_on_start(char **my_env)
 	char	*othertemp;
 
 	i = 0;
-	while (my_env[i])
+	while (*(*my_env + i))
 	{
-		if (ft_strncmp(my_env[i], "SHLVL=", 6) == 0)
+		if (ft_strncmp(*(*my_env + i), "SHLVL=", 6) == 0)
 		{
-			value = ft_atoi(my_env[i] + 6);
+			value = ft_atoi(*(*my_env + i) + 6);
 			value++;
 			tmp = ft_itoa(value);
-			othertemp = my_env[i];
-			my_env[i] = ft_strjoin("SHLVL=", tmp);
+			othertemp = *(*my_env + i);
+			*(*my_env + i) = ft_strjoin("SHLVL=", tmp);
 			free(othertemp);
 			free(tmp);
 			return ;
 		}
 		i++;
 	}
+	addinenv("SHLVL=1", my_env);
 }
 
-void	basicsetup(int *status, char **envp)
+void	basicsetup(int *status, char ***envp)
 {
 	rl_change_environment = 0;
 	signal(SIGQUIT, SIG_IGN);
