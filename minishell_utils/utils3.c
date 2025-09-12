@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/12 15:40:47 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/12 16:20:42 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 	int		i;
 	char	*temp;
 
+	status = 0;
 	args = ft_split(input, ' ');
 	i = 0;
 	while (args[i])
