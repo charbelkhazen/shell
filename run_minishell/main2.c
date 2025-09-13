@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:36:48 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/12 12:00:19 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/13 18:23:41 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	basicsetup(int *status, char ***envp)
 	update_shlvl_on_start(envp);
 }
 
-void	launchprgm(char **input, char **tempinput, char ***envp)
+void	launchprgm(char **input, char **tempinput, char ***envp, int status)
 {
 	signal(SIGINT, setsig);
 	*input = readline("minishell$ ");
@@ -66,7 +66,7 @@ void	launchprgm(char **input, char **tempinput, char ***envp)
 	{
 		freeenv(*envp);
 		write(1, "exit\n", 5);
-		exit(0);
+		exit(WEXITSTATUS(status));
 	}
 	add_history(*input);
 }

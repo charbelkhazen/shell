@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:35:06 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/12 11:48:37 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/13 18:20:01 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char *argv[], char **envp)
 	basicsetup(&status, &env);
 	while (1)
 	{
-		launchprgm(&input, &tempinput, &env);
+		launchprgm(&input, &tempinput, &env, status);
 		if (startbuiltin(input))
 		{
 			handlestartbuiltin(input, &env, &status);
