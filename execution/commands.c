@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/11 18:45:23 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/13 16:24:50 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,8 @@ void	exec_command_node(t_cmdtree *cmd, char ***env, int *status)
 		path_env = get_path(*env);
 		full_path = find_full_path(cmd->cmd[0], path_env);
 	}
-	if (!full_path)
-	{
-		perror("Command not found");
-		exit(127);
-	}
-	execve(full_path, cmd->cmd, *env);
-	perror("execve failed");
+	if (full_path)
+		execve(full_path, cmd->cmd, *env);
+	printf("Command not found\n");
+	exit(127);
 }
