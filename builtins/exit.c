@@ -6,31 +6,29 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:22:03 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/11 18:49:38 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/13 18:40:03 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	onlyexit(char **args, char **env, int g_exit_status, int startflag)
+void	onlyexit(char **args, char **env, int startflag, int oldstatus)
 {
 	rl_clear_history();
 	freeenv(env);
 	if (startflag)
 		free_args(args);
-	exit(g_exit_status);
+	exit(WEXITSTATUS(oldstatus));
 }
 
-int	exit_builtin(char **args, char **env, int startflag)
+int	exit_builtin(char **args, char **env, int startflag, int oldstatus)
 {
 	long long	status;
-	int			g_exit_status;
 
-	g_exit_status = 0;
 	if (startflag)
 		write(1, "exit\n", 5);
 	if (!args[1])
-		onlyexit(args, env, g_exit_status, startflag);
+		onlyexit(args, env, startflag, oldstatus);
 	if (!is_numeric(args[1]))
 	{
 		printf("minishell: exit: %s: numeric argument required\n", args[1]);

@@ -6,13 +6,13 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/13 16:24:50 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/13 18:34:58 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	runcmd(char **args, char ***env)
+int	runcmd(char **args, char ***env, int status)
 {
 	if (args[0] && ft_strcmp(args[0], "cd") == 0)
 		return (change_directory(args, *env));
@@ -23,7 +23,7 @@ int	runcmd(char **args, char ***env)
 	else if (args[0] && ft_strcmp(args[0], "echo") == 0)
 		return (echo(args));
 	else if (args[0] && ft_strcmp(args[0], "exit") == 0)
-		return (exit_builtin(args, *env, 0));
+		return (exit_builtin(args, *env, 0, status));
 	else if (args[0] && ft_strcmp(args[0], "export") == 0)
 		return (export_builtin(args, env));
 	else if (args[0] && ft_strcmp(args[0], "unset") == 0)
@@ -45,11 +45,11 @@ ft_strcmp(cmd, "export") == 0)
 		return (0);
 }
 
-void	ifisbuiltin(t_cmdtree *cmd, char ***env)
+void	ifisbuiltin(t_cmdtree *cmd, char ***env, int status)
 {
 	int	exitruncmd;
 
-	exitruncmd = runcmd(cmd->cmd, env);
+	exitruncmd = runcmd(cmd->cmd, env, status);
 	exit(exitruncmd);
 }
 
@@ -62,7 +62,7 @@ void	exec_command_node(t_cmdtree *cmd, char ***env, int *status)
 	if (!*(cmd -> cmd))
 		exit(0);
 	if (isbuiltin((cmd->cmd)[0]))
-		ifisbuiltin(cmd, env);
+		ifisbuiltin(cmd, env, *status);
 	if ((cmd->cmd)[0][0] == '/' || (cmd->cmd)[0][0] == '.')
 		full_path = cmd->cmd[0];
 	else
