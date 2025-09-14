@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 18:13:58 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/12 11:32:10 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/14 20:49:30 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char	*search_in_path(char **path_splitted, char *cmd)
 	int		i;
 	char	*full_path;
 
+	if (!path_splitted)
+		return (0);
 	i = 0;
 	while (path_splitted[i])
 	{
@@ -72,6 +74,8 @@ char	*find_full_path(char *command, char *path)
 	char	*cwd;
 	char	*temp;
 
+	if (!path)
+		return (0);
 	path_splitted = ft_split(path, ':');
 	full_path = search_in_path(path_splitted, command);
 	free_split(path_splitted, 0);
