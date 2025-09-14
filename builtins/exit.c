@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:22:03 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/13 18:40:03 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/14 21:01:43 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	exit_builtin(char **args, char **env, int startflag, int oldstatus)
 	if (!is_numeric(args[1]))
 	{
 		printf("minishell: exit: %s: numeric argument required\n", args[1]);
-		return (2);
+		exit(2);
 	}
 	if (args[2])
 	{
 		printf("minishell: exit: too many arguments\n");
-		return (1);
+		exit(1);
 	}
 	rl_clear_history();
 	status = ft_atoll(args[1]);
