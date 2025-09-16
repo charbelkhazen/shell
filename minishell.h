@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/13 18:29:36 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/16 16:41:41 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void			replaceinenv(char *arg, char **foundenv);
 int				validatearg(char *arg);
 void			handle_exportcmd(char **envp);
 void			basicsetup(int *status, char ***envp);
-void			launchprgm(char **input, char **tempinput, char ***envp, int status);
+void			launchprgm(char **input, char **tempinput, char ***envp, int *status);
 char			*ft_getenv(char *var, char **env);
 void			addinenv(char *arg, char ***env);
 #endif
