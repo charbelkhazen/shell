@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:43:40 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/09 11:58:58 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/16 14:29:21 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	exec_pipe(t_pipetree *tree, char ***envp, int *status)
 		close(pipefd[1]);
 		trav_tree(tree->left, envp, status);
 	}
-	waitpid(pid1, status, 0);
 	pid2 = fork();
 	if (pid2 == 0)
 	{
@@ -38,5 +37,6 @@ void	exec_pipe(t_pipetree *tree, char ***envp, int *status)
 	}
 	close(pipefd[0]);
 	close(pipefd[1]);
+	waitpid(pid1, status, 0);
 	waitpid(pid2, status, 0);
 }

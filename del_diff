@@ -1,0 +1,23 @@
+diff --git a/a.out b/a.out
+index 69e6678..fcbd943 100755
+Binary files a/a.out and b/a.out differ
+diff --git a/execution.c b/execution.c
+index 06355d5..a583577 100644
+--- a/execution.c
++++ b/execution.c
+@@ -81,6 +81,7 @@ void	exec_pipe(t_pipetree *tree, char **envp, int *status)
+ 		trav_tree(tree->left, envp, status);
+ 		exit(127); //ASAS
+ 	}
++	waitpid(pid1, status, 0);
+ 	pid2 = fork();
+ 	if (pid2 == 0)
+ 	{
+@@ -92,7 +93,6 @@ void	exec_pipe(t_pipetree *tree, char **envp, int *status)
+ 	}
+ 	close(pipefd[0]);
+ 	close(pipefd[1]);
+-	waitpid(pid1, status, 0);
+ 	waitpid(pid2, status, 0);
+ }
+ 
