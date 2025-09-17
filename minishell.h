@@ -6,10 +6,9 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/17 16:13:02 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/17 16:45:20 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -96,7 +95,8 @@ void			exec_pipe(t_pipetree *tree, char ***envp, int *status);
 void			exec_command_node(t_cmdtree *cmd, char ***env, int *status);
 int				unset_builtin(char **args, char ***env);
 int				export_builtin(char **args, char ***envp);
-int				exit_builtin(char **args, char **envp, int startflag, int oldstatus);
+int				exit_builtin(char **args, char **envp, \
+int startflag, int oldstatus);
 int				echo(char **args);
 int				only_n_flags(char *input);
 int				environment(char **args, char **env);
@@ -141,7 +141,12 @@ void			replaceinenv(char *arg, char **foundenv);
 int				validatearg(char *arg);
 void			handle_exportcmd(char **envp);
 void			basicsetup(int *status, char ***envp);
-void			launchprgm(char **input, char **tempinput, char ***envp, int *status);
+void			launchprgm(char **input, char **tempinput, \
+char ***envp, int *status);
 char			*ft_getenv(char *var, char **env);
 void			addinenv(char *arg, char ***env);
+void			sort_envp(char **envp);
+void			add_quotes(char **envp);
+int				check_quotes(char **envp);
+
 #endif

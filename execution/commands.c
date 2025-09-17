@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/16 17:10:00 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/17 16:20:07 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	exec_command_node(t_cmdtree *cmd, char ***env, int *status)
 	}
 	if (full_path)
 		execve(full_path, cmd->cmd, *env);
-	write(2,"Command not found\n", 19);
+	write(2, "Command not found\n", 19);
 	exit(127);
 }
