@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:44:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/16 14:39:26 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:10:00 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	runcmd(char **args, char ***env, int status)
 {
 	if (args[0] && ft_strcmp(args[0], "cd") == 0)
-		return (change_directory(args, *env));
+		return (change_directory(args, env));
 	else if (args[0] && ft_strcmp(args[0], "pwd") == 0)
 		return (pwd(args, *env));
 	else if (args[0] && ft_strcmp(args[0], "env") == 0)

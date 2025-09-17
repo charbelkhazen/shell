@@ -6,32 +6,46 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:20:12 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/11 12:18:06 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:18:34 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	update_pwd(char **my_env, char *str, int size)
+void	addifnotfound(char *str, char *path, char ***env)
+{
+	char	*arg;
+
+	arg = ft_strjoin(str, path);
+	addinenv(arg, env);
+	free(arg);
+}
+
+void	update_pwd(char ***my_env, char *str, int size)
 {
 	char	path[1024];
 	int		i;
+	int		found;
 	char	*temp;
 
 	i = 0;
+	found = 0;
 	if (getcwd(path, sizeof(path)) == NULL)
 		return ;
-	while (my_env[i])
+	while (*(*my_env + i))
 	{
-		if (ft_strncmp(my_env[i], str, size) == 0)
+		if (ft_strncmp(*(*my_env + i), str, size) == 0)
 		{
-			temp = my_env[i];
-			my_env[i] = ft_strjoin(str, path);
+			temp = *(*my_env + i);
+			*(*my_env + i) = ft_strjoin(str, path);
+			found = 1;
 			free(temp);
 			return ;
 		}
 		i++;
 	}
+	if (!found)
+		addifnotfound(str, path, my_env);
 }
 
 char	*check_home(char **args, char **env)
@@ -70,18 +84,18 @@ char	*check_absolute_home(char **args, char *path, size_t size, char **env)
 	return (NULL);
 }
 
-int	change_directory(char **args, char **env)
+int	change_directory(char **args, char ***env)
 {
 	char	path[1024];
 	char	*target;
 
 	update_pwd(env, "OLDPWD=", 7);
-	target = check_home(args, env);
+	target = check_home(args, *env);
 	if (target == NULL && (!args[1] || ft_strcmp(args[1], "~") == 0))
 		return (1);
 	if (!target)
 	{
-		target = check_absolute_home(args, path, sizeof(path), env);
+		target = check_absolute_home(args, path, sizeof(path), *env);
 		if (target == NULL && args[1] && args[1][0] == '~' && args[1][1] == '/')
 			return (1);
 	}

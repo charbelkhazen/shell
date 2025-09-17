@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/13 18:38:25 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:10:21 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 	if (isexit(input))
 		status = (exit_builtin(args, *envp, 1, oldstatus));
 	else if (iscd(input))
-		status = (change_directory(args, *envp));
+		status = (change_directory(args, envp));
 	else if (isexport(input))
 		status = (export_builtin(args, envp));
 	else if (isunset(input))

@@ -6,9 +6,10 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/16 16:41:41 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:13:02 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -100,7 +101,7 @@ int				echo(char **args);
 int				only_n_flags(char *input);
 int				environment(char **args, char **env);
 int				pwd(char **args, char **envp);
-int				change_directory(char **args, char **env);
+int				change_directory(char **args, char ***env);
 void			freetree(t_tree *tree);
 t_tree			*parseredir(char **buf, t_tree *tree, int status);
 t_tree			*parsecmd(char **buf, int status, char ***env);
