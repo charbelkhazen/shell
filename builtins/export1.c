@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 16:44:55 by chkhazen          #+#    #+#             */
-/*   Updated: 2025/09/17 16:44:52 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/18 15:59:35 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	handle_exportcmd(char **envp)
 {
-	int	i;
-	int	found;
+	int		i;
+	char	**env_cpy;
 
+	env_cpy = dupenv(envp);
 	i = 0;
-	sort_envp(envp);
-	found = check_quotes(envp);
-	if (!found)
-		add_quotes(envp);
-	while (envp[i])
+	sort_envp(env_cpy);
+	add_quotes(env_cpy);
+	while (env_cpy[i])
 	{
-		printf("declare -x %s\n", envp[i]);
+		printf("declare -x %s\n", env_cpy[i]);
 		i++;
 	}
+	freeenv(env_cpy);
 }
 
 int	validatearg(char *arg)

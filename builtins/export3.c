@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 16:21:16 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/17 16:45:03 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/18 15:58:59 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,4 @@ void	add_quotes(char **envp)
 		}
 		i++;
 	}
-}
-
-int	check_quotes(char **envp)
-{
-	int		i;
-	char	*value;
-
-	i = 0;
-	value = ft_strchr(envp[i], '=');
-	if (*(value + 1) == '"' && envp[i][ft_strlen(envp[i]) - 1] == '"')
-		return (1);
-	else
-		return (0);
 }
