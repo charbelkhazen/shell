@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:36:48 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/18 16:17:36 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:17:17 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	basicsetup(int *status, char ***envp)
 	update_shlvl_on_start(envp);
 }
 
-void	unclosedquotes(char *input, char ***envp)
+int	unclosedquotes(char *input)
 {
 	int	countquotes;
 	int	countdquotes;
@@ -74,10 +74,10 @@ void	unclosedquotes(char *input, char ***envp)
 	}
 	if ((countdquotes % 2) || (countquotes % 2))
 	{
-		freeenv(*envp);
 		printf("Error, quotes should be closed\n");
-		exit(1);
+		return (1);
 	}
+	return (0);
 }
 
 void	launchprgm(char **input, char **tempinput, char ***envp, int *status)
@@ -96,6 +96,5 @@ void	launchprgm(char **input, char **tempinput, char ***envp, int *status)
 		write(1, "exit\n", 5);
 		exit(WEXITSTATUS(*status));
 	}
-	unclosedquotes(*input, envp);
 	add_history(*input);
 }

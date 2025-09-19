@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:35:06 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/16 16:40:59 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:18:43 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ int	main(int argc, char *argv[], char **envp)
 	while (1)
 	{
 		launchprgm(&input, &tempinput, &env, &status);
+		if (unclosedquotes(input))
+		{
+			free(input); 
+			continue;
+		}
 		if (startbuiltin(input))
 		{
 			handlestartbuiltin(input, &env, &status);
