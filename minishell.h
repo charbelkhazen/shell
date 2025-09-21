@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/19 11:14:33 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:39:15 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,4 +149,7 @@ void			sort_envp(char **envp);
 void			add_quotes(char **envp);
 int				check_quotes(char **envp);
 int				unclosedquotes(char *input);
+int				handle_input(char *input, char ***env, int *status);
+void			handlestartbuiltin(char *input, char ***envp, int *status);
+
 #endif

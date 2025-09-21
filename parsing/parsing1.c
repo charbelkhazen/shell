@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:59:46 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/19 14:16:42 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:26:41 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,16 @@ int	getword(char **buf, char **word, char ***env, int status)
 	return (1);
 }
 
+int	add_word(t_cmdtree *cmdtree, char *word, int *i)
+{
+	if (word)
+	{
+		cmdtree->cmd[(*i)++] = word;
+		cmdtree->cmd[*i] = 0;
+	}
+	return (1);
+}
+
 t_tree	*parsecmd(char **buf, int status, char ***env)
 {
 	t_tree		*tree;
@@ -90,11 +100,7 @@ t_tree	*parsecmd(char **buf, int status, char ***env)
 	{
 		if (!getword(buf, &word, env, status))
 			break ;
-		else if (word)
-		{
-			cmdtree->cmd[i++] = word;
-			cmdtree->cmd[i] = 0;
-		}
+		add_word(cmdtree, word, &i);
 		tree = parseredir(buf, tree, status);
 		if (!tree)
 			return (0);
