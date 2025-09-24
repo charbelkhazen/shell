@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:59:46 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/24 15:37:42 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:49:50 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ t_tree	*parsepipeline(char **buf, int status, char ***env)
 		consume(buf, NULL, NULL);
 		pipetree = parsepipeline(buf, status, env);
 		if (!pipetree)
+		{
+			freetree(tree);
 			return (0);
+		}
 		tree = con_pipetree(tree, pipetree);
 	}
 	return (tree);
