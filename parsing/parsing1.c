@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:59:46 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/21 18:26:41 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/24 15:37:42 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_tree	*parseprogram(char **buf, int status, char ***env)
 	match(*buf, "");
 	if (**buf)
 	{
-		printf("Invalid Command");
+		printf("Invalid Command\n");
 		return (NULL);
 	}
 	return (tree);
@@ -35,6 +35,7 @@ t_tree	*parseprogram(char **buf, int status, char ***env)
 t_tree	*parsepipeline(char **buf, int status, char ***env)
 {
 	t_tree	*tree;
+	t_tree	*pipetree;
 
 	tree = parsecmd(buf, status, env);
 	if (!tree)
@@ -48,7 +49,10 @@ t_tree	*parsepipeline(char **buf, int status, char ***env)
 			return (0);
 		}
 		consume(buf, NULL, NULL);
-		tree = con_pipetree(tree, parsepipeline(buf, status, env));
+		pipetree = parsepipeline(buf, status, env);
+		if (!pipetree)
+			return (0);
+		tree = con_pipetree(tree, pipetree);
 	}
 	return (tree);
 }
