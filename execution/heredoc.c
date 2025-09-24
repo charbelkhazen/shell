@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:41:34 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/11 10:22:13 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/24 12:23:07 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	processinput(char *delim, int *pipefd, char ***env)
 		cmpdelim = removequotes(delim);
 	else
 		cmpdelim = delim;
-	while (!(*input) || (ft_strcmp(input, cmpdelim) != 0))
+	while (input && (!(*input) || (ft_strcmp(input, cmpdelim) != 0)))
 	{
 		if (isexpand)
 			writeexpinput(input, pipefd, env);
