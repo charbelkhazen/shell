@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:35:06 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/21 18:36:49 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/25 09:53:34 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@ void	executeprgm(t_tree *result, char ***envp, int *status)
 	pid = fork();
 	if (!pid)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		setupinchild(result);
 		trav_tree(result, envp, status);
 	}
 	wait(status);
+	if (!(WIFEXITED(*status)) && (WTERMSIG(*status) == SIGQUIT))
+		write(1, "Quit (core dumped)\n", 19);
 }
 
 void	cleanexitexec(int status, t_tree *result, char *tempinput)
