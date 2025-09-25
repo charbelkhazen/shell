@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:43:40 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/24 11:16:07 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/25 15:45:59 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,29 @@
 int	ishdinleft(t_tree *tree)
 {
 	while (tree ->type == '<' || tree -> type == '>' \
-		 || tree ->type == 'h' || tree ->type == 'a')
+|| tree ->type == 'h' || tree ->type == 'a')
 	{
 		if (tree -> type == 'h')
 			return (1);
-		tree = ((t_redirtree *)tree) -> cmd;
+		tree = ((t_redirtree *)tree)->cmd;
 	}
 	return (0);
+}
+
+void	first_child(int *pipefd, t_pipetree *tree, char ***envp, int *status)
+{
+	dup2(pipefd[1], 1);
+	close(pipefd[0]);
+	close(pipefd[1]);
+	trav_tree(tree->left, envp, status);
+}
+
+void	second_child(int *pipefd, t_pipetree *tree, char ***envp, int *status)
+{
+	dup2(pipefd[0], 0);
+	close(pipefd[0]);
+	close(pipefd[1]);
+	trav_tree(tree->right, envp, status);
 }
 
 void	exec_pipe(t_pipetree *tree, char ***envp, int *status)
@@ -35,22 +51,12 @@ void	exec_pipe(t_pipetree *tree, char ***envp, int *status)
 	pipe(pipefd);
 	pid1 = fork();
 	if (pid1 == 0)
-	{
-		dup2(pipefd[1], 1);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		trav_tree(tree->left, envp, status);
-	}
+		first_child(pipefd, tree, envp, status);
 	if (heredocflag)
 		waitpid(pid1, status, 0);
 	pid2 = fork();
 	if (pid2 == 0)
-	{
-		dup2(pipefd[0], 0);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		trav_tree(tree->right, envp, status);
-	}
+		second_child(pipefd, tree, envp, status);
 	close(pipefd[0]);
 	close(pipefd[1]);
 	waitpid(pid1, status, 0);
