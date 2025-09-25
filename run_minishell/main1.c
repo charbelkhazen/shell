@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:35:06 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/25 09:53:34 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:06:08 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	executeprgm(t_tree *result, char ***envp, int *status)
 	}
 	wait(status);
 	if (!(WIFEXITED(*status)) && (WTERMSIG(*status) == SIGQUIT))
+	{
 		write(1, "Quit (core dumped)\n", 19);
+		*status = (*status & 0xFF) << 8;
+	}
 }
 
 void	cleanexitexec(int status, t_tree *result, char *tempinput)
