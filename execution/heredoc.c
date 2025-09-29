@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:41:34 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/24 12:23:07 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/29 10:17:07 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void	processinput(char *delim, int *pipefd, char ***env)
 	char	*input;
 	char	isexpand;
 	char	*cmpdelim;
+	int		flag = 0;
 
 	isexpand = utilprocessinput(delim);
 	input = readline("heredoc> ");
-	if (removequotes(delim))
-		cmpdelim = removequotes(delim);
+	if (isquote(delim))
+		cmpdelim = removequotes(delim, &flag);
 	else
 		cmpdelim = delim;
 	while (input && (!(*input) || (ft_strcmp(input, cmpdelim) != 0)))
@@ -45,7 +46,7 @@ void	processinput(char *delim, int *pipefd, char ***env)
 		free(input);
 		input = readline("heredoc> ");
 	}
-	if (removequotes(delim))
+	if (flag)
 		free(cmpdelim);
 	free(input);
 }

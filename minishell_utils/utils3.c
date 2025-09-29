@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/16 17:10:21 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/29 11:21:02 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,28 @@ char	isquote(char *str)
 	char	*s;
 
 	s = str;
-	if (*s == '"')
+	while (*s && *(s + 1))
 	{
-		s++;
-		while (*s && *(s + 1))
-			s++;
 		if (*s == '"')
-			return (1);
-	}
-	if (*s == '\'')
-	{
+		{
+			while (*s && *s != '"')
+				s++;
+			if (*s == '"')
+				return (1);
+		}
 		s++;
-		while (*(s + 1) != 0)
-			s++;
+	}
+	s = str;
+	while (*s && *(s + 1))
+	{
 		if (*s == '\'')
-			return (1);
+		{
+			while (*s && *s != '\'')
+				s++;
+			if (*s == '\'')
+				return (1);
+		}
+		s++;
 	}
 	return (0);
 }
@@ -91,32 +98,61 @@ void	writeexpinput(char *buf, int *pipefd, char ***env)
 	}
 }
 
-char	*removequotes(char *str)
-{
-	char	*s;
+// char	*removequotes(char *str)
+// {
+// 	char	*s;
 
-	s = str;
-	if (*s == '"')
+// 	s = str;
+// 	while (*s && *(s + 1))
+// 	{
+// 		if (*s == '"')
+// 		{
+// 			s++;
+// 			if (*s == '"')
+// 				return (ft_strdup(""));
+// 			while (*s && (*s != '"'))
+// 				s++;
+// 			if (*s == '"')
+// 				return (getstr(str + 1, s));
+// 		}
+// 		s++;
+// 	}
+// 	// else if (*s == '\'')
+// 	// {
+// 	// 	s++;
+// 	// 	if (*s == '\'')
+// 	// 		return (ft_strdup(""));
+// 	// 	while (*s && (*s != '\''))
+// 	// 		s++;
+// 	// 	if (*s == '\'')
+// 	// 		return (getstr(str + 1, s));
+// 	// }
+// 	return (0);
+// }
+
+char	*removequotes(char *str, int *flag)
+{
+	int		i;
+	int		j;
+	char	*unquoted_str;
+
+	unquoted_str = malloc(ft_strlen(str) + 1);
+	if (!unquoted_str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		s++;
-		if (*s == '"')
-			return (ft_strdup(""));
-		while (*s && (*s != '"'))
-			s++;
-		if (*s == '"')
-			return (getstr(str + 1, s));
+		if (str[i] != '\'' && str[i] != '"')
+		{
+			unquoted_str[j] = str[i];
+			j++;
+		}
+		i++;
 	}
-	else if (*s == '\'')
-	{
-		s++;
-		if (*s == '\'')
-			return (ft_strdup(""));
-		while (*s && (*s != '\''))
-			s++;
-		if (*s == '\'')
-			return (getstr(str + 1, s));
-	}
-	return (0);
+	unquoted_str[j] = 0;
+	*flag = 1;
+	return (unquoted_str);
 }
 
 void	freeshlvl(char **my_env)
