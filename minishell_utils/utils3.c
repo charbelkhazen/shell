@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/29 12:43:51 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/29 12:54:33 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 	int		status;
 
 	status = 0;
-	args = get_args(input, oldstatus, envp); 
+	args = get_args(input, oldstatus, envp);
 	if (isexit(input))
 		status = (exit_builtin(args, *envp, 1, oldstatus));
 	else if (iscd(input))
