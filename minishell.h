@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:37:54 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/29 12:36:56 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:07:21 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int				applybuiltin(char *input, char ***envp, int oldstatus);
 void			setsig(int sig);
 int				startbuiltin(char *s);
 int				chariswhitespace(char s);
-char			isquote(char *s);
+char			isquote(char *str);
 void			writeexpinput(char *buf, int *pipefd, char ***env);
 char			*removequotes(char *str, int *flag);
 int				is_numeric(const char *str);
@@ -152,6 +152,7 @@ int				unclosedquotes(char *input);
 int				handle_input(char *input, char ***env, int *status);
 void			handlestartbuiltin(char *input, char ***envp, int *status);
 char			**get_args(char *input, int status, char ***env);
-void			util_get_args(char *input, char **args, int status, char ***env);
+void			util_get_args(char *input, char **args, \
+int status, char ***env);
 
 #endif

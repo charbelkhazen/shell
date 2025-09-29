@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/29 12:54:33 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:03:50 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,37 +29,6 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 		status = (unset_builtin(args, envp));
 	free_args(args);
 	return (status);
-}
-
-char	isquote(char *str)
-{
-	char	*s;
-
-	s = str;
-	while (*s && *(s + 1))
-	{
-		if (*s == '"')
-		{
-			while (*s && *s != '"')
-				s++;
-			if (*s == '"')
-				return (1);
-		}
-		s++;
-	}
-	s = str;
-	while (*s && *(s + 1))
-	{
-		if (*s == '\'')
-		{
-			while (*s && *s != '\'')
-				s++;
-			if (*s == '\'')
-				return (1);
-		}
-		s++;
-	}
-	return (0);
 }
 
 void	writeexpinput(char *buf, int *pipefd, char ***env)
@@ -87,38 +56,6 @@ void	writeexpinput(char *buf, int *pipefd, char ***env)
 		}
 	}
 }
-
-// char	*removequotes(char *str)
-// {
-// 	char	*s;
-
-// 	s = str;
-// 	while (*s && *(s + 1))
-// 	{
-// 		if (*s == '"')
-// 		{
-// 			s++;
-// 			if (*s == '"')
-// 				return (ft_strdup(""));
-// 			while (*s && (*s != '"'))
-// 				s++;
-// 			if (*s == '"')
-// 				return (getstr(str + 1, s));
-// 		}
-// 		s++;
-// 	}
-// 	// else if (*s == '\'')
-// 	// {
-// 	// 	s++;
-// 	// 	if (*s == '\'')
-// 	// 		return (ft_strdup(""));
-// 	// 	while (*s && (*s != '\''))
-// 	// 		s++;
-// 	// 	if (*s == '\'')
-// 	// 		return (getstr(str + 1, s));
-// 	// }
-// 	return (0);
-// }
 
 char	*removequotes(char *str, int *flag)
 {

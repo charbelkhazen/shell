@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 10:41:34 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/29 10:17:07 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/29 13:07:47 by jissa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	processinput(char *delim, int *pipefd, char ***env)
 	char	*input;
 	char	isexpand;
 	char	*cmpdelim;
-	int		flag = 0;
+	int		flag;
 
+	flag = 0;
 	isexpand = utilprocessinput(delim);
 	input = readline("heredoc> ");
 	if (isquote(delim))
