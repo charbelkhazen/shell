@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chkhazen <chkhazen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:37:33 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/12 15:41:42 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/29 12:40:37 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,42 @@ char	*ft_getenv(char *var, char **env)
 		i++;
 	}
 	return (0);
+}
+
+void	util_get_args(char *input, char **args, int status, char ***env)
+{
+	char	*sarg;
+        char	*earg;
+	char	*word;
+	int	i;
+	char *tempword;
+
+	i = 0;
+	while(consume(&input, &sarg, &earg))
+	{
+		tempword = getstr(sarg, earg);
+		word = handleword(tempword, status, env);
+		printf(">%s\n", word);
+		args[i] = word;
+                if (tempword)
+                        free(tempword);
+                if (word && !(*word))
+                {
+                        free(word);
+                        word = 0;
+                }
+                i ++;
+		printf("1\n");
+        }
+}
+
+char    **get_args(char *input, int status, char ***env)
+{
+	char	**args;
+
+	if (!input)
+		return (0);
+	args = ft_calloc(sizeof(char *) * 100, 1);
+	util_get_args(input, args, status, env);
+        return (args);
 }

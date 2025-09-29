@@ -6,7 +6,7 @@
 /*   By: jissa <jissa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:13:26 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/29 11:21:02 by jissa            ###   ########.fr       */
+/*   Updated: 2025/09/29 12:43:51 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,9 @@ int	applybuiltin(char *input, char ***envp, int oldstatus)
 {
 	char	**args;
 	int		status;
-	int		i;
-	char	*temp;
 
 	status = 0;
-	args = ft_split(input, ' ');
-	i = 0;
-	while (args[i])
-	{
-		temp = args[i];
-		args[i] = handleword(args[i], WEXITSTATUS(oldstatus), envp);
-		free(temp);
-		i++;
-	}
+	args = get_args(input, oldstatus, envp); 
 	if (isexit(input))
 		status = (exit_builtin(args, *envp, 1, oldstatus));
 	else if (iscd(input))
