@@ -6,7 +6,7 @@
 /*   By: chkhazen <chkhazen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:37:33 by jissa             #+#    #+#             */
-/*   Updated: 2025/09/29 12:54:07 by chkhazen         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:16:39 by chkhazen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	util_get_args(char *input, char **args, int status, char ***env)
 	{
 		tempword = getstr(sarg, earg);
 		word = handleword(tempword, status, env);
-		printf(">%s\n", word);
 		args[i] = word;
 		if (tempword)
 			free(tempword);
@@ -96,7 +95,6 @@ void	util_get_args(char *input, char **args, int status, char ***env)
 			word = 0;
 		}
 		i ++;
-		printf("1\n");
 	}
 }
 
